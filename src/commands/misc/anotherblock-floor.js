@@ -1,6 +1,4 @@
-const {
-    EmbedBuilder
-} = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 const readJsonFile = require('../../utils/readJsonFile');
 
@@ -9,17 +7,17 @@ const reservoirFetchCollection = require('../../utils/apis/reservoirFetchCollect
 const reservoirFetchCollectionAttribute = require('../../utils/apis/reservoirFetchCollectionAttribute');
 
 module.exports = {
-    name: 'floor',
+    name: 'anotherblock-floor',
     description: 'Shows floor values for anotherblock collections',
     // devOnly: Boolean,
     // testOnly: Boolean,
     // options: Object[],
-    // deleted: Boolean,
+     deleted: true,
 
     callback: async (client, interaction) => {
 
         //Get data from drops.json file
-        let dataDrops = readJsonFile('src/files/drops.json')
+        let dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
 
         //Build embed
         const embed = new EmbedBuilder()
@@ -38,6 +36,11 @@ module.exports = {
                 iconURL: client.user.displayAvatarURL(),
                 text: client.user.tag
             })
+
+        //DeferReply
+        interaction.deferReply({
+            ephemereal: true
+        });
 
         let collectionId = null
         let collectionName = null
@@ -91,8 +94,15 @@ module.exports = {
 
         }
 
+        /*
         //Sending embed response
         return interaction.reply({
+            embeds: [embed]
+        });
+        */
+
+        //Sending embed response
+        return interaction.editReply({
             embeds: [embed]
         });
     },

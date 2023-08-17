@@ -1,6 +1,4 @@
-const {
-    EmbedBuilder
-} = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 const readJsonFile = require('../../utils/readJsonFile');
 
@@ -10,7 +8,7 @@ const reservoirFetchCollectionAttribute = require('../../utils/apis/reservoirFet
 const coingeckoFetchPrice = require('../../utils/apis/coingeckoFetchPrice');
 
 module.exports = {
-    name: 'yield',
+    name: 'anotherblock-yield',
     description: 'Shows calculated ADY for current floor values for anotherblock collections',
     // devOnly: Boolean,
     // testOnly: Boolean,
@@ -19,8 +17,13 @@ module.exports = {
 
     callback: async (client, interaction) => {
 
+        //DeferReply
+        interaction.deferReply({
+            ephemereal: true
+        });
+
         //Get data from drops.json file
-        let dataDrops = readJsonFile('src/files/drops.json')
+        let dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
 
         //Build embed
         const embed = new EmbedBuilder()
@@ -47,8 +50,12 @@ module.exports = {
         let collectionInitialPrize = null
         let collectionSong = null
         let floorPrice = null
+        let floorPriceInDollar = null
         let expectedYield = 0
         let tokenID = 'weth'
+
+        let yieldResults = []
+        let yieldResult = null
         
         //Get price of tokenID
         let fetchedCoingecko = await coingeckoFetchPrice(tokenID);
@@ -71,24 +78,44 @@ module.exports = {
                 const y = fetchedReservoir.attributes.length;
                 for (let j = 0; j < y; ++j) {
 
-                    collectionRoyalties = dataDrops.drops[i].tittles[j].royalties
-                    collectionInitialPrize = dataDrops.drops[i].tittles[j].initial_price
+                    collectionSong = fetchedReservoir.attributes[j].value;
+
+                    //Loop through the json file to find the specific song
+                    const z = dataDrops.drops[i].tittles.length;
+                    for (let k = 0; k < z; ++k) {
+                        
+                        if (dataDrops.drops[i].tittles[k].song == collectionSong) {
+
+                            collectionRoyalties = dataDrops.drops[i].tittles[k].royalties
+                            collectionInitialPrize = dataDrops.drops[i].tittles[k].initial_price
+                            break;
+
+                        }
+
+                    }
+
+                    //collectionRoyalties = dataDrops.drops[i].tittles[j].royalties
+                    //collectionInitialPrize = dataDrops.drops[i].tittles[j].initial_price
 
                     floorPrice = fetchedReservoir.attributes[j].floorAskPrices;
-
-                    collectionSong = fetchedReservoir.attributes[j].value;
+                    floorPriceInDollar = floorPrice * ETHPrice
+                    
+                    /*
+                    console.log(
+                        collectionSong, '\n',
+                        'Floor Price: ' + floorPrice, '\n',
+                        'Royalties: ' + collectionRoyalties, '\n',
+                        'Initial Price: ' + collectionInitialPrize                        
+                    )
+                    */
 
                     //If collectionRoyalties is defined and not null, then calculate the expectedYield
                     if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
 
-                        expectedYield = Math.round((collectionRoyalties * collectionInitialPrize) / (floorPrice * ETHPrice) * 10000) / 100
+                        expectedYield = Math.round((collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 10000) / 100
 
-                        //Add fields to the embed with each song
-                        embed.addFields({
-                            name: collectionSong,
-                            value: expectedYield + '%',
-                            inline: false,
-                        });
+                        yieldResult = {name: collectionName, song: collectionSong, yield: expectedYield, floor: Math.floor(floorPriceInDollar * 100) / 100}
+                        yieldResults.push(yieldResult);
 
                     }
                 }
@@ -102,26 +129,46 @@ module.exports = {
                 let fetchedReservoir = await reservoirFetchCollection(collectionId);
 
                 floorPrice = fetchedReservoir.collections[0].floorAsk.price.amount.decimal;
+                floorPriceInDollar = floorPrice * ETHPrice
 
                 //If collectionRoyalties is defined and not null, then calculate the expectedYield
                 if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
 
-                    expectedYield = Math.round((collectionRoyalties * collectionInitialPrize) / (floorPrice * ETHPrice) * 10000) / 100
+                    expectedYield = Math.round((collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 10000) / 100
+
+                    yieldResult = {name: collectionName, song: null, yield: expectedYield, floor: Math.floor(floorPriceInDollar * 100) / 100}
+                    yieldResults.push(yieldResult);
                     
-                    //Add fields to the embed with each collection
-                    embed.addFields({
-                        name: collectionName,
-                        value: expectedYield + '%',
-                        inline: false,
-                    });
+                } else {
+                    //If collectionRoyalties is null, it must be the PFP
+                    yieldResult = {name: collectionName, song: null, yield: 0, floor: Math.floor(floorPriceInDollar * 100) / 100}
+                    yieldResults.push(yieldResult);
                 }
 
             }
 
         }
 
+        //Order the array on yield descending order
+        yieldResults.sort(function(a, b){return b.yield - a.yield});
+
+        //console.log(yieldResults)
+
+        //Build the embed
+        const z = yieldResults.length;
+        for (let k = 0; k <z; ++k) {
+
+            //console.log(yieldResults[k].name)
+
+            embed.addFields({
+                name: yieldResults[k].song ?? yieldResults[k].name,
+                value: yieldResults[k].yield + '% - $' + yieldResults[k].floor,
+                inline: false,
+            });
+        }
+
         //Sending embed response
-        return interaction.reply({
+        return interaction.editReply({
             embeds: [embed]
         });
 

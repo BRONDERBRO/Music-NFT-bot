@@ -1,0 +1,245 @@
+{
+    "drops": [
+        {
+            "id": "skye-holland-steve-kroeger-fade-away",
+            "name": "Fade Away",
+            "royalties": 0.14
+        },
+        {
+            "id": "aaronchilds-myway",
+            "name": "My Way",
+            "royalties": 42.75
+        },
+        {
+            "id": "allem-iversom-the-ridge",
+            "name": "The Ridge",
+            "royalties": 16.07
+        },
+        {
+            "id": "elle-vee-into-dust",
+            "name": "Into Dust",
+            "royalties": 2.92
+        },
+        {
+            "id": "thechainsmokers-sofarsogood",
+            "name": "So Far So Good",
+            "royalties": 1.22
+        },
+        {
+            "id": "jake-zimma-oh-san-francisco",
+            "name": "Oh, San Francisco",
+            "royalties": 0.78
+        },
+        {
+            "id": "the-wanderers-guardian-marked",
+            "name": "Guardian Marked",
+            "royalties": 0.01
+        },
+        {
+            "id": "disco-fries-family-affair",
+            "name": "Family Affair",
+            "royalties": 6.99
+        },
+        {
+            "id": "thechainsmokers-lofiremixes",
+            "name": "So Far So Good (lofi remixes)",
+            "royalties": 0.06
+        },
+        {
+            "id": "culture-code-after-all",
+            "name": "After All",
+            "royalties": 6.59
+        },
+        {
+            "id": "matt-cooper-something-beautiful",
+            "name": "Something Beautiful",
+            "royalties": 1.89
+        },
+        {
+            "id": "timmy-trumpet-lifelikethis",
+            "name": "Life Like This",
+            "royalties": 2.57
+        },
+        {
+            "id": "maddix-heutenacht",
+            "name": "Heute Nacht",
+            "royalties": 40.32
+        },
+        {
+            "id": "bingo-players-bathroom-line",
+            "name": "Bathroom Line",
+            "royalties": 2.93
+        },
+        {
+            "id": "wyattcoleman-carfullofsmoke",
+            "name": "Car Full Of Smoke",
+            "royalties": 4.55
+        },
+        {
+            "id": "zenaware-isaiah-brown-need-a-friend",
+            "name": "Need A Friend",
+            "royalties": 4.69
+        },
+        {
+            "id": "kaaze-ishouldhavewalkedaway",
+            "name": "I Should Have Walked Away",
+            "royalties": 11.45
+        },
+        {
+            "id": "madison-ryann-ward-ill-wait",
+            "name": "I'll Wait",
+            "royalties": 11.95
+        },
+        {
+            "id": "vanmurten-canyoufeelit",
+            "name": "Can You Feel It",
+            "royalties": 2.76
+        },
+        {
+            "id": "offrami-anthony-kleyrouz-tell-me-how",
+            "name": "Tell Me How",
+            "royalties": 22.94
+        },
+        {
+            "id": "big-boi-kill-jill",
+            "name": "Kill Jill",
+            "royalties": 24.71
+        },
+        {
+            "id": "glass-of-water",
+            "name": "Glass of Water",
+            "royalties": 1.70
+        },
+        {
+            "id": "jacob-lee-break-my-heart-again",
+            "name": "Break My Heart Again",
+            "royalties": 1.48
+        },
+        {
+            "id": "yemi-alade-gimme-some-more",
+            "name": "Gimme Some More",
+            "royalties": 0.31
+        },
+        {
+            "id": "secretnumber-likeitlikeit",
+            "name": "LIKE IT LIKE IT",
+            "royalties": 5.96
+        },
+        {
+            "id": "halfanorange-champagneandcocaine",
+            "name": "champagne and cocaine",
+            "royalties": 1.04
+        },
+        {
+            "id": "royceda59-caterpillar",
+            "name": "Caterpillar",
+            "royalties": 4.59
+        },
+        {
+            "id": "insomnia",
+            "name": "Insomnia",
+            "royalties": 8.82
+        },
+        {
+            "id": "jon-waltz-safe",
+            "name": "Safe",
+            "royalties": 6.45
+        },
+        {
+            "id": "punx-concentrate",
+            "name": "Concentrate",
+            "royalties": 0
+        },
+        {
+            "id": "worst-case",
+            "name": "Worst Case",
+            "royalties": 32.89
+        },
+        {
+            "id": "27delly-gimme-that",
+            "name": "Gimme That",
+            "royalties": 4.85
+        },
+        {
+            "id": "nas-ultrablack",
+            "name": "Ultra Black",
+            "royalties": 2.62
+        },
+        {
+            "id": "gianni-blu-forever",
+            "name": "Forever",
+            "royalties": 5.89
+        },
+        {
+            "id": "angelomota-14grams",
+            "name": "14GRAMS",
+            "royalties": 4.45
+        },
+        {
+            "id": "anderton-missed-calls",
+            "name": "Missed Calls",
+            "royalties": 4.09
+        },
+        {
+            "id": "angelo-mota-madonna",
+            "name": "Madonna",
+            "royalties": 1.66
+        },
+        {
+            "id": "cartoon-no-halo",
+            "name": "No Halo",
+            "royalties": 5.47
+        },
+        {
+            "id": "anthony-keyrouz-apologize",
+            "name": "Apologize",
+            "royalties": 5.17
+        },
+        {
+            "id": "verite-hes-not-you",
+            "name": "He's Not You",
+            "royalties": 0.88
+        },
+        {
+            "id": "3lau-too-late-for-love",
+            "name": "Too Late For Love",
+            "royalties": 6.94
+        },
+        {
+            "id": "before-we-go",
+            "name": "Before We Go",
+            "royalties": 6.26
+        },
+        {
+            "id": "prettymuch-thisthingcalledlove",
+            "name": "THIS THING CALLED LOVE",
+            "royalties": 3.40
+        },
+        {
+            "id": "madisonryannward-seasons",
+            "name": "Seasons",
+            "royalties": 20.52
+        },
+        {
+            "id": "diplo-dontforgetmylove",
+            "name": "Don't Forget My Love",
+            "royalties": 6.93
+        },
+        {
+            "id": "levianth--lies",
+            "name": "Lies",
+            "royalties": 1.94
+        },
+        {
+            "id": "elephante-catching-on",
+            "name": "Catchin On",
+            "royalties": 4.66
+        },
+        {
+            "id": "3lau-falling-fast-remix",
+            "name": "Falling Fast",
+            "royalties": 0.30
+        }
+    ],
+    "contractAddress": "0x7c885c4bFd179fb59f1056FBea319D579A278075" 
+}

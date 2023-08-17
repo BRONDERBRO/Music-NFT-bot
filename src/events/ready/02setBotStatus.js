@@ -5,14 +5,14 @@ const {
 module.exports = async (client) => {
   //Define different possible bot status
   let status = [{
-          name: 'anotherblock music',
+          name: 'NFT music',
       },
       {
           name: 'the NFT markets',
           type: ActivityType.Watching,
       },
       {
-          name: 'to anotherblock drops',
+          name: 'to music NFT drops',
           type: ActivityType.Listening,
       },
   ];

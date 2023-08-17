@@ -1,7 +1,4 @@
-const {
-    EmbedBuilder,
-    ApplicationCommandOptionType
-} = require('discord.js');
+const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 
 const createBarChart = require('../../utils/createBarChart');
 
@@ -32,22 +29,30 @@ module.exports = {
 
     callback: async (client, interaction) => {
 
+        //DeferReply
+        interaction.deferReply({
+            ephemereal: true
+        });
+
         //Get the collectionId introduced in the command by the user
         const collectionId = interaction.options.get('collection').value
 
+        //console.log(collectionId)
+
         //Get data from drops.json file
-        let dataDrops = readJsonFile('src/files/drops.json')
+        let dataDrops = readJsonFile('src/files/nft-distribution options.json')
 
         let collectionIdDrop = null
 
         //Loop drops.json file to find the collectionName
-        const x = dataDrops.drops.length;
+        const x = dataDrops.length;
         for (let i = 0; i < x; ++i) {
 
-            collectionIdDrop = dataDrops.drops[i].value
+            collectionIdDrop = dataDrops[i].value
             if (collectionIdDrop === collectionId) {
 
-                collectionName = dataDrops.drops[i].name
+                collectionName = dataDrops[i].name
+                collectionBlockchain = dataDrops[i].blockchain
                 break;
 
             }
@@ -55,13 +60,13 @@ module.exports = {
 
         //Build embed
         const chartEmbed = new EmbedBuilder()
-            .setTitle('anotherblock collection distribution')
-            .setDescription('Distribution of anotherblock collection: ' + collectionName)
+            .setTitle('NFT collection distribution')
+            .setDescription('Distribution of NFT collection: ' + collectionName)
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
             .setTimestamp(Date.now())
-            .setURL('https://market.anotherblock.io/')
+            //.setURL('https://market.anotherblock.io/')
             .setAuthor({
                 iconURL: client.user.displayAvatarURL(),
                 name: client.user.tag
@@ -71,7 +76,7 @@ module.exports = {
                 text: client.user.tag
             })
 
-        let fetchedReservoir = await reservoirFetchCollectionDistribution(collectionId);
+        let fetchedReservoir = await reservoirFetchCollectionDistribution(collectionId,collectionBlockchain);
 
         const dataOwnersDistribution = fetchedReservoir.ownersDistribution;
 
@@ -80,8 +85,8 @@ module.exports = {
         //Add image to embed
         chartEmbed.setImage(chartUrl);
 
-        //Sending embed response
-        return interaction.reply({
+        //Return Edit Reply
+        return interaction.editReply({
             embeds: [chartEmbed]
         });
     },

@@ -1,6 +1,12 @@
 {
     "drops": [
         {
+            "name": "This Is Why I'm Hot (Mims)",
+            "value": "0xbeff0289168f9589337838c826162da9dc29993d",
+            "royalties": 0.066,
+            "initial_price": 150
+        },
+        {
             "name": "So Far Away (David Guetta & Martin Garrix)",
             "value": "0x65beEC116a625e2F68B6C04313105fE10F510135",
             "royalties": 0.104,
