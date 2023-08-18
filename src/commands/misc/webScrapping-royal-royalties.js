@@ -2,7 +2,7 @@ const fs = require('fs/promises'); // Import the fs/promises module
 
 const readJsonFile = require('../../utils/readJsonFile');
 
-const scrapRoyalPrice = require('../../utils/scrapRoyalPrice');
+const scrapeRoyalPrice = require('../../utils/scrapeRoyalPrice');
 
 module.exports = {
     name: 'webscrapping-royal-royalties',
@@ -36,7 +36,7 @@ module.exports = {
             collectionName = dataDrops.drops[i].name
             collectionRoyalties = dataDrops.drops[i].royalties
 
-            let scrappedPrice = await scrapRoyalPrice("https://royal.io/editions/" + collectionId);
+            let scrappedPrice = await scrapeRoyalPrice("https://royal.io/editions/" + collectionId);
 
             // Check if the scrappedPrice is valid before updating royalties
             if (scrappedPrice !== undefined && !isNaN(scrappedPrice) && scrappedPrice !== null) {

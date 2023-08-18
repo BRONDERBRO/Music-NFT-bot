@@ -114,7 +114,13 @@ module.exports = {
 
                         expectedYield = Math.round((collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 10000) / 100
 
-                        yieldResult = {name: collectionName, song: collectionSong, yield: expectedYield, floor: Math.floor(floorPriceInDollar * 100) / 100}
+                        yieldResult = {
+                            name: collectionName,
+                            song: collectionSong,
+                            yield: expectedYield,
+                            floor: Math.floor(floorPriceInDollar * 100) / 100,
+                            floorETH: Math.floor(floorPrice * 100) / 100
+                        }
                         yieldResults.push(yieldResult);
 
                     }
@@ -136,12 +142,22 @@ module.exports = {
 
                     expectedYield = Math.round((collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 10000) / 100
 
-                    yieldResult = {name: collectionName, song: null, yield: expectedYield, floor: Math.floor(floorPriceInDollar * 100) / 100}
+                    yieldResult = {
+                        name: collectionName,
+                        song: null,
+                        yield: expectedYield,
+                        floor: Math.floor(floorPriceInDollar * 100) / 100,
+                        floorETH: Math.floor(floorPrice * 100) / 100
+                    }
                     yieldResults.push(yieldResult);
                     
                 } else {
                     //If collectionRoyalties is null, it must be the PFP
-                    yieldResult = {name: collectionName, song: null, yield: 0, floor: Math.floor(floorPriceInDollar * 100) / 100}
+                    yieldResult = {
+                        name: collectionName, song: null, yield: 0,
+                        floor: Math.floor(floorPriceInDollar * 100) / 100,
+                        floorETH: Math.floor(floorPrice * 100) / 100
+                    }
                     yieldResults.push(yieldResult);
                 }
 
@@ -162,7 +178,7 @@ module.exports = {
 
             embed.addFields({
                 name: yieldResults[k].song ?? yieldResults[k].name,
-                value: yieldResults[k].yield + '% - $' + yieldResults[k].floor,
+                value: yieldResults[k].yield + '% - $' + yieldResults[k].floor + ' - ETH ' + yieldResults[k].floorETH,
                 inline: false,
             });
         }

@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require('discord.js');
 
-const scrapDavidGuetta = require('../../utils/scrapDavidGuetta');
+const scrapDavidGuetta = require('../../utils/scrapeDavidGuetta');
 
 module.exports = {
     name: 'webscrapping-davidguetta-tickets',
@@ -18,9 +18,21 @@ module.exports = {
         });
 
         let scrappedResult = []
-
-        scrappedResult = await scrapDavidGuetta("https://www.stubhub.es/entradas-david-guetta-cangas-20-8-2023/event/106043002/");
-
+        
+        
+        scrappedResult = await scrapDavidGuetta([
+            {
+                url: "https://www.stubhub.es/entradas-david-guetta-cangas-20-8-2023/event/106043002/",
+                priceSelector: ".AdvisoryPriceDisplay__content",
+                numTicketsSelector: ".RoyalTicketListPanel__SecondaryInfo"
+            },
+            {
+                url: "https://sell.viagogo.com/ar/Entradas-Conciertos/Musica-Electronica/David-Guetta-Entradas/E-152027339?qty=2",
+                priceSelector: ".t-b.fs16",
+                numTicketsSelector: ".f-list__cell-main-ticketstyle--width .cnRed1 .t-b span" //".f-list__cell-main-ticketstyle--width .cnRed1 "
+            }
+        ])
+        
         //Build embed
         const embed = new EmbedBuilder()
             .setTitle('David Guetta Tickets')
@@ -43,7 +55,7 @@ module.exports = {
         for (let i = 0; i <x; ++i) {
             embed.addFields({
                 name: "Tickets " + (i + 1),
-                value: scrappedResult[i].quantity + " tickets at " + scrappedResult[i].price + ' €',
+                value: `[${scrappedResult[i].quantity} tickets at ${scrappedResult[i].price} €](${scrappedResult[i].url})`,
                 inline: false,
             });
 

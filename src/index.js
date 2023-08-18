@@ -56,14 +56,16 @@ cron.schedule('*/15 * * * *', async function() { //Run every 15 minutes (https:/
 
 });
 
-cron.schedule('*/60 * * * *', async function() { //Run every 5 minutes (https://crontab.guru/)
+cron.schedule('*/5 * * * *', async function() { //Run every 5 minutes (https://crontab.guru/)
   try{
 
-    let ticketFloor = 65 //If ticket price is equal or below threshold, a DM will be sent to me
+    //If total price of X tickets is equal or below ticketFloor * numTickets, a DM will be sent to me
+    let ticketFloor = 70
+    let numTickets = 2
 
     //console.log("Before calculateDavidGuettaTickets")
 
-    await calculateDavidGuettaTickets(client, ticketFloor);
+    await calculateDavidGuettaTickets(client, ticketFloor, numTickets);
 
     //console.log("After calculateDavidGuettaTickets")
 
@@ -71,5 +73,5 @@ cron.schedule('*/60 * * * *', async function() { //Run every 5 minutes (https://
     console.log(error);
   }
 
-});
+})
 

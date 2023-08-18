@@ -95,7 +95,13 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                     if (expectedYield >= yieldThreshold) {
                         yieldOverThreshold = true
 
-                        yieldResult = {name: collectionName, song: collectionSong, yield: expectedYield, floor: Math.floor(floorPriceInDollar * 100) / 100}
+                        yieldResult = {
+                            name: collectionName,
+                            song: collectionSong,
+                            yield: expectedYield,
+                            floor: Math.floor(floorPriceInDollar * 100) / 100,
+                            floorETH: Math.floor(floorPrice * 100) / 100
+                        }
                         yieldResults.push(yieldResult);
                     }
                 }
@@ -129,7 +135,13 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                 if (expectedYield >= yieldThreshold) {
                     yieldOverThreshold = true
 
-                    yieldResult = {name: collectionName, song: null, yield: expectedYield, floor: Math.floor(floorPriceInDollar * 100) / 100}
+                    yieldResult = {
+                        name: collectionName,
+                        song: null,
+                        yield: expectedYield,
+                        floor: Math.floor(floorPriceInDollar * 100) / 100,
+                        floorETH: Math.floor(floorPrice * 100) / 100
+                    }
                     yieldResults.push(yieldResult);
                 }
                 
@@ -139,7 +151,11 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                 if (floorPrice <= pfpFloor) {
                     floorBelowThreshold = true
 
-                    yieldResult = {name: collectionName, song: null, yield: 0, floor: Math.floor(floorPriceInDollar * 100) / 100}
+                    yieldResult = {
+                        name: collectionName, song: null, yield: 0,
+                        floor: Math.floor(floorPriceInDollar * 100) / 100,
+                        floorETH: Math.floor(floorPrice * 100) / 100
+                    }
                     yieldResults.push(yieldResult);
                 }
             }
@@ -178,7 +194,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
         embed.addFields({
             //Add the song unless it is null, in which case add the name.
             name: yieldResults[k].song ?? yieldResults[k].name,
-            value: yieldResults[k].yield + '% - $' + yieldResults[k].floor,
+            value: yieldResults[k].yield + '% - $' + yieldResults[k].floor + ' - ETH ' + yieldResults[k].floorETH,
             inline: false,
         });
     }

@@ -294,7 +294,7 @@ module.exports = {
             
         }
 
-        if (z < songsPerEmbed) {
+        if (z <= songsPerEmbed) {
 
             //Return Edit Reply
             return interaction.editReply({
@@ -303,7 +303,7 @@ module.exports = {
 
         }
 
-        else if (z < songsPerEmbed * 2) {
+        else if (z <= songsPerEmbed * 2) {
 
             //Edit Initial Repply
             interaction.editReply({
@@ -319,7 +319,7 @@ module.exports = {
 
         }
 
-        else if (z < songsPerEmbed * 3) {
+        else if (z <= songsPerEmbed * 3) {
 
             //Edit Initial Repply
             interaction.editReply({
@@ -342,7 +342,7 @@ module.exports = {
 
         }
 
-        else if (z < songsPerEmbed * 4) {
+        else if (z <= songsPerEmbed * 4) {
 
             //Edit Initial Repply
             interaction.editReply({
@@ -372,7 +372,7 @@ module.exports = {
 
         }
 
-        else if (z < songsPerEmbed * 5) {
+        else if (z <= songsPerEmbed * 5) {
 
             //Edit Initial Repply
             interaction.editReply({
