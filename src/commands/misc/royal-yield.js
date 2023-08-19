@@ -19,7 +19,7 @@ module.exports = {
 
         //DeferReply
         interaction.deferReply({
-            ephemereal: true
+            ephemeral: true
         });
 
         //Get data from drops.json file

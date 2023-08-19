@@ -31,7 +31,7 @@ module.exports = {
         try {
             //DeferReply
             interaction.deferReply({
-                ephemereal: true
+                ephemeral: true
             });
 
             //Get the collectionId introduced in the command by the user
@@ -89,7 +89,7 @@ module.exports = {
             return interaction.editReply({
                 embeds: [chartEmbed]
             });
-            
+
         } catch (error) {
             console.error(error);
             // Handle any errors gracefully and respond to the interaction

@@ -14,7 +14,7 @@ module.exports = {
 
         //DeferReply
         interaction.deferReply({
-            ephemereal: true
+            ephemeral: true
         });
 
         let scrappedResult = []

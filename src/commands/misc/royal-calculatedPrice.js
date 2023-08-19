@@ -26,7 +26,7 @@ module.exports = {
 
         //DeferReply
         interaction.deferReply({
-            ephemereal: true
+            ephemeral: true
         });
 
         //Get the desiredYield introduced in the command by the user
