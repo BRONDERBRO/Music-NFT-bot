@@ -1,4 +1,4 @@
-const fetch = require("cross-fetch");
+const fetch = require('cross-fetch');
 require('dotenv').config();
 
 //Define function to call Reservoir API for given CollectionID and get collection floor price

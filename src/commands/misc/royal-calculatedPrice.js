@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require('discord.js');
 
-const wait = require("node:timers/promises").setTimeout;
+const wait = require('node:timers/promises').setTimeout;
 
 const readJsonFile = require('../../utils/readJsonFile');
 

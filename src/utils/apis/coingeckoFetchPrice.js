@@ -1,4 +1,4 @@
-const fetch = require("cross-fetch");
+const fetch = require('cross-fetch');
 
 //Define function to call Coingecko API to get token price in USD
 module.exports = async (tokenID) => {

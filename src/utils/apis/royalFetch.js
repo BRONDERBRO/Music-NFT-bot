@@ -1,4 +1,4 @@
-const fetch = require("cross-fetch");
+const fetch = require('cross-fetch');
 require('dotenv').config();
 
 //Define function to call Royal API for given SongID and get song floor price

@@ -36,7 +36,7 @@ module.exports = {
             collectionName = dataDrops.drops[i].name
             collectionRoyalties = dataDrops.drops[i].royalties
 
-            let scrappedPrice = await scrapeRoyalPrice("https://royal.io/editions/" + collectionId);
+            let scrappedPrice = await scrapeRoyalPrice('https://royal.io/editions/' + collectionId);
 
             // Check if the scrappedPrice is valid before updating royalties
             if (scrappedPrice !== undefined && !isNaN(scrappedPrice) && scrappedPrice !== null) {
@@ -61,7 +61,7 @@ module.exports = {
 
         //Return Edit Reply
         return interaction.followUp({
-            content: "Web scrapping completed with " + numErrors + " errors."
+            content: 'Web scrapping completed with ' + numErrors + ' errors.'
         });
 
     },

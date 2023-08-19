@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require('discord.js');
 
-const scrapDavidGuetta = require('../../utils/webScrapping/scrapeDavidGuetta');
+const scrapTicketConcert = require('../../utils/webScrapping/scrapeTicketConcert');
 
 module.exports = {
     name: 'webscrapping-davidguetta-tickets',
@@ -20,7 +20,7 @@ module.exports = {
         let scrappedResult = []
         
         
-        scrappedResult = await scrapDavidGuetta([
+        scrappedResult = await scrapTicketConcert([
             {
                 url: "https://www.stubhub.es/entradas-david-guetta-cangas-20-8-2023/event/106043002/",
                 priceSelector: ".AdvisoryPriceDisplay__content",
@@ -41,7 +41,7 @@ module.exports = {
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
             .setTimestamp(Date.now())
-            .setURL('https://www.stubhub.es/entradas-david-guetta-cangas-20-8-2023/event/106043002//discover')
+            //.setURL('https://www.stubhub.es/entradas-david-guetta-cangas-20-8-2023/event/106043002//discover')
             .setAuthor({
                 iconURL: client.user.displayAvatarURL(),
                 name: client.user.tag

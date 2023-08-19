@@ -1,4 +1,4 @@
-const fetch = require("cross-fetch");
+const fetch = require('cross-fetch');
 require('dotenv').config();
 
 
@@ -12,7 +12,7 @@ module.exports = async (collectionID, blockchain) => {
         
         const options = {method: 'GET', headers: {accept: '*/*', 'x-api-key': process.env.RESERVOIR_KEY}};
 
-        if (blockchain === "Polygon") {
+        if (blockchain === 'Polygon') {
 
             fetchReservoir = await fetch(
                 'https://api-polygon.reservoir.tools/collections/' + collectionID + '/owners-distribution/v1', options)
