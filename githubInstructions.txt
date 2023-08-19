@@ -1,0 +1,10 @@
+EXECUTE THE FOLLOWING COMMANDS TO PUSH TO GITHUB
+
+git add .               # Stage all changes
+git reset src/index.js  # Unstage the specific file (src/index.js is not pushed)
+git commit -m "Your commit message here"
+git push origin main
+
+
+EXECUTE THE FOLLOWING COMMANDS TO PULL FROM GITHUB
+git pull origin main
