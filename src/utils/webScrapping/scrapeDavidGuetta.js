@@ -8,8 +8,13 @@ module.exports = async (urlSelectorPairs) => {
     const combinedResult = [];
 
     for (const pair of urlSelectorPairs) {
-      const result = await scrapePageData(page, pair.url, pair.priceSelector, pair.numTicketsSelector);
-      combinedResult.push(...result);
+      try{
+        const result = await scrapePageData(page, pair.url, pair.priceSelector, pair.numTicketsSelector);
+        combinedResult.push(...result);
+
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     combinedResult.sort((a, b) => a.price - b.price);
@@ -24,7 +29,7 @@ module.exports = async (urlSelectorPairs) => {
   } catch (error) {
     console.log(error);
 
-    return combinedResult;
+    return [combinedResult];
   }
 };
 
