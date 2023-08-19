@@ -3,9 +3,9 @@ const { Client, IntentsBitField } = require('discord.js');
 const eventHandler = require('./handlers/eventHandler');
 
 const cron = require('node-cron');
-const calculateAnotherblockYield = require('./utils/calculateAnotherblockYield');
-const calculateRoyalYield = require('./utils/calculateRoyalYield');
-const calculateDavidGuettaTickets = require('./utils/calculateDavidGuettaTickets');
+const calculateAnotherblockYield = require('./utils/cronJobs/calculateAnotherblockYield');
+const calculateRoyalYield = require('./utils/cronJobs/calculateRoyalYield');
+const calculateDavidGuettaTickets = require('./utils/cronJobs/calculateDavidGuettaTickets');
 
 const client = new Client({
   intents: [
@@ -55,23 +55,3 @@ cron.schedule('*/15 * * * *', async function() { //Run every 15 minutes (https:/
   }
 
 });
-
-cron.schedule('*/5 * * * *', async function() { //Run every 5 minutes (https://crontab.guru/)
-  try{
-
-    //If total price of X tickets is equal or below ticketFloor * numTickets, a DM will be sent to me
-    let ticketFloor = 70
-    let numTickets = 2
-
-    //console.log("Before calculateDavidGuettaTickets")
-
-    await calculateDavidGuettaTickets(client, ticketFloor, numTickets);
-
-    //console.log("After calculateDavidGuettaTickets")
-
-  } catch (error) {
-    console.log(error);
-  }
-
-})
-

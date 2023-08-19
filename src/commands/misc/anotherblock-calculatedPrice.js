@@ -8,11 +8,18 @@ const reservoirFetchCollectionAttribute = require('../../utils/apis/reservoirFet
 const coingeckoFetchPrice = require('../../utils/apis/coingeckoFetchPrice');
 
 module.exports = {
-    name: 'anotherblock-yield',
-    description: 'Shows calculated ADY for current floor values for anotherblock collections',
+    name: 'anotherblock-calculated-price',
+    description: 'Calculates the price of each anotherblock collection to achieve a defined yield %',
     // devOnly: Boolean,
     // testOnly: Boolean,
-    // options: Object[],
+    options: [
+        {
+          name: 'yield_percentage',
+          description: 'The desired yield percentage',
+          type: 4, // Use INTEGER type for numbers
+          required: true,
+        },
+    ],
     // deleted: Boolean,
 
     callback: async (client, interaction) => {
@@ -22,13 +29,16 @@ module.exports = {
             ephemereal: true
         });
 
+        //Get the desiredYield introduced in the command by the user
+        const desiredYield = interaction.options.get('yield_percentage').value
+
         //Get data from drops.json file
         let dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
 
         //Build embed
         const embed = new EmbedBuilder()
-            .setTitle('anotherblock Yield')
-            .setDescription('Calculated yield of anotherblock collections: (yield % - $ floor - ETH floor)')
+            .setTitle('anotherblock Calculated Price')
+            .setDescription('Calculated price of anotherblock songs for **' + desiredYield + '% yield**: ($ price - ETH price)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -49,13 +59,12 @@ module.exports = {
         let collectionRoyalties = null
         let collectionInitialPrize = null
         let collectionSong = null
-        let floorPrice = null
-        let floorPriceInDollar = null
-        let expectedYield = 0
+        let targetPrice = null
+        let targetPriceETH = null
         let tokenID = 'weth'
 
-        let yieldResults = []
-        let yieldResult = null
+        let priceResults = []
+        let priceResult = null
         
         //Get price of tokenID
         let fetchedCoingecko = await coingeckoFetchPrice(tokenID);
@@ -94,13 +103,9 @@ module.exports = {
 
                     }
 
-                    floorPrice = fetchedReservoir.attributes[j].floorAskPrices;
-                    floorPriceInDollar = floorPrice * ETHPrice
-                    
                     /*
                     console.log(
                         collectionSong, '\n',
-                        'Floor Price: ' + floorPrice, '\n',
                         'Royalties: ' + collectionRoyalties, '\n',
                         'Initial Price: ' + collectionInitialPrize, '\n'                        
                     )
@@ -109,16 +114,17 @@ module.exports = {
                     //If collectionRoyalties is defined and not null, then calculate the expectedYield
                     if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
 
-                        expectedYield = (collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 100
+                        targetPrice = (collectionRoyalties * collectionInitialPrize) / (desiredYield) * 100
+                        targetPriceETH = targetPrice / ETHPrice
 
-                        yieldResult = {
+                        priceResult = {
                             name: collectionName,
                             song: collectionSong,
-                            yield: Math.floor(expectedYield * 100) / 100,
-                            floor: Math.floor(floorPriceInDollar * 100) / 100,
-                            floorETH: Math.floor(floorPrice * 10000) / 10000
+                            yield: desiredYield,
+                            price: Math.floor(targetPrice * 100) / 100,
+                            priceETH: Math.floor(targetPriceETH * 10000) / 10000
                         }
-                        yieldResults.push(yieldResult);
+                        priceResults.push(priceResult);
 
                     }
                 }
@@ -131,53 +137,40 @@ module.exports = {
 
                 let fetchedReservoir = await reservoirFetchCollection(collectionId);
 
-                floorPrice = fetchedReservoir.collections[0].floorAsk.price.amount.decimal;
-                floorPriceInDollar = floorPrice * ETHPrice
-
-                //If collectionRoyalties is defined and not null, then calculate the expectedYield
+                //If collectionRoyalties is defined and not null, then calculate the expectedYield. Else it is the pfp
                 if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
 
-                    expectedYield = (collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 100
+                    targetPrice = (collectionRoyalties * collectionInitialPrize) / (desiredYield) * 100
+                    targetPriceETH = targetPrice / ETHPrice
 
-                    yieldResult = {
+                    priceResult = {
                         name: collectionName,
                         song: null,
-                        yield: Math.floor(expectedYield * 100) / 100,
-                        floor: Math.floor(floorPriceInDollar * 100) / 100,
-                        floorETH: Math.floor(floorPrice * 10000) / 10000
+                        yield: desiredYield,
+                        price: Math.floor(targetPrice * 100) / 100,
+                        priceETH: Math.floor(targetPriceETH * 10000) / 10000
                     }
-                    yieldResults.push(yieldResult);
+                    priceResults.push(priceResult);
                     
-                } else {
-                    //If collectionRoyalties is null, it must be the PFP
-                    yieldResult = {
-                        name: collectionName, song: null, yield: 0,
-                        song: null,
-                        yield: 0,
-                        floor: Math.floor(floorPriceInDollar * 100) / 100,
-                        floorETH: Math.floor(floorPrice * 10000) / 10000
-                    }
-                    yieldResults.push(yieldResult);
                 }
-
             }
 
         }
 
-        //Order the array on yield descending order
-        yieldResults.sort(function(a, b){return b.yield - a.yield});
+        //Order the array on price descending order
+        priceResults.sort(function(a, b){return b.price - a.price});
 
-        //console.log(yieldResults)
+        //console.log(priceResults)
 
         //Build the embed
-        const z = yieldResults.length;
+        const z = priceResults.length;
         for (let k = 0; k <z; ++k) {
 
-            //console.log(yieldResults[k].name)
+            //console.log(priceResults[k].name)
 
             embed.addFields({
-                name: yieldResults[k].song ?? yieldResults[k].name,
-                value: yieldResults[k].yield + '% - $' + yieldResults[k].floor + ' - ETH ' + yieldResults[k].floorETH,
+                name: priceResults[k].song ?? priceResults[k].name,
+                value: '$' + priceResults[k].price + ' - ETH ' + priceResults[k].priceETH,
                 inline: false,
             });
         }

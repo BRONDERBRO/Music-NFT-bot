@@ -14,7 +14,7 @@ module.exports = async (urlSelectorPairs) => {
 
     combinedResult.sort((a, b) => a.price - b.price);
 
-    console.log(combinedResult);
+    console.log(combinedResult, '\n');
 
     // Close the browser
     await browser.close();
@@ -34,7 +34,7 @@ async function scrapePageData(page, url, priceSelector, numTicketsSelector) {
   console.log (
     "url: " + url, '\n',
     "priceSelector: " + priceSelector, '\n',
-    "numTicketsSelector: " + numTicketsSelector
+    "numTicketsSelector: " + numTicketsSelector, '\n'
   )
   */
 
@@ -67,6 +67,7 @@ async function scrapePageData(page, url, priceSelector, numTicketsSelector) {
       const scrollAmount = 350;
       const scrollTimes = 3;
 
+      //scroll the page down 3 times, 350 pixels each time
       for (let i = 0; i < scrollTimes; i++) {
         await page.evaluate((scrollAmount) => {
           window.scrollBy(0, scrollAmount);

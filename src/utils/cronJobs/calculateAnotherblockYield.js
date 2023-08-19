@@ -2,13 +2,13 @@ require('dotenv').config();
 
 const { EmbedBuilder } = require('discord.js');
 
-const readJsonFile = require('./readJsonFile');
-const sendEmbedDM = require('./sendEmbedDM');
+const readJsonFile = require('../readJsonFile');
+const sendEmbedDM = require('../sendEmbedDM');
 
 //Require APIs
-const reservoirFetchCollection = require('./apis/reservoirFetchCollection');
-const reservoirFetchCollectionAttribute = require('./apis/reservoirFetchCollectionAttribute');
-const coingeckoFetchPrice = require('./apis/coingeckoFetchPrice');
+const reservoirFetchCollection = require('../apis/reservoirFetchCollection');
+const reservoirFetchCollectionAttribute = require('../apis/reservoirFetchCollectionAttribute');
+const coingeckoFetchPrice = require('../apis/coingeckoFetchPrice');
 
 module.exports = async (client, yieldThreshold, pfpFloor) => {
 
@@ -46,7 +46,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
         console.log(
             collectionName, '\n',
             'Collection Tittle: ' + collectionTittle, '\n',
-            'Collection ID: ' + collectionId
+            'Collection ID: ' + collectionId. '\n'
         )
         */
 
@@ -83,14 +83,14 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                     collectionSong, '\n',
                     'Floor Price: ' + floorPrice, '\n',
                     'Royalties: ' + collectionRoyalties, '\n',
-                    'Initial Price: ' + collectionInitialPrize                        
+                    'Initial Price: ' + collectionInitialPrize, '\n'                        
                 )
                 */
 
                 //If collectionRoyalties is defined and not null, then calculate the expectedYield
                 if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
 
-                    expectedYield = Math.round((collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 10000) / 100
+                    expectedYield = (collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 100
 
                     if (expectedYield >= yieldThreshold) {
                         yieldOverThreshold = true
@@ -98,9 +98,9 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                         yieldResult = {
                             name: collectionName,
                             song: collectionSong,
-                            yield: expectedYield,
+                            yield: Math.floor(expectedYield * 100) / 100,
                             floor: Math.floor(floorPriceInDollar * 100) / 100,
-                            floorETH: Math.floor(floorPrice * 100) / 100
+                            floorETH: Math.floor(floorPrice * 10000) / 10000
                         }
                         yieldResults.push(yieldResult);
                     }
@@ -123,14 +123,14 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                 collectionName, '\n',
                 'Floor Price: ' + floorPrice, '\n',
                 'Royalties: ' + collectionRoyalties, '\n',
-                'Initial Price: ' + collectionInitialPrize                        
+                'Initial Price: ' + collectionInitialPrize, '\n'                      
             )
             */
 
             //If collectionRoyalties is defined and not null, then calculate the expectedYield
             if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
 
-                expectedYield = Math.round((collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 10000) / 100   
+                expectedYield = (collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 100
 
                 if (expectedYield >= yieldThreshold) {
                     yieldOverThreshold = true
@@ -138,9 +138,9 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                     yieldResult = {
                         name: collectionName,
                         song: null,
-                        yield: expectedYield,
+                        yield: Math.floor(expectedYield * 100) / 100,
                         floor: Math.floor(floorPriceInDollar * 100) / 100,
-                        floorETH: Math.floor(floorPrice * 100) / 100
+                        floorETH: Math.floor(floorPrice * 10000) / 10000
                     }
                     yieldResults.push(yieldResult);
                 }
@@ -153,8 +153,10 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
 
                     yieldResult = {
                         name: collectionName, song: null, yield: 0,
+                        song: null,
+                        yield: 0,
                         floor: Math.floor(floorPriceInDollar * 100) / 100,
-                        floorETH: Math.floor(floorPrice * 100) / 100
+                        floorETH: Math.floor(floorPrice * 10000) / 10000
                     }
                     yieldResults.push(yieldResult);
                 }
@@ -170,7 +172,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
     //Build embed
     const embed = new EmbedBuilder()
         .setTitle('anotherblock Yield')
-        .setDescription('Calculated yield of anotherblock collections')
+        .setDescription('Calculated yield of anotherblock collections: (yield % - $ floor - ETH floor)')
         .setColor('White')
         //.setImage(client.user.displayAvatarURL())
         //.setThumbnail(client.user.displayAvatarURL())

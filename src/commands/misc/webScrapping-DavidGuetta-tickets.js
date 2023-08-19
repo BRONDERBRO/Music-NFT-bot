@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require('discord.js');
 
-const scrapDavidGuetta = require('../../utils/scrapeDavidGuetta');
+const scrapDavidGuetta = require('../../utils/webScrapping/scrapeDavidGuetta');
 
 module.exports = {
     name: 'webscrapping-davidguetta-tickets',
@@ -51,8 +51,10 @@ module.exports = {
                 text: client.user.tag
             })
 
-        const x = scrappedResult.length;
-        for (let i = 0; i <x; ++i) {
+        const maxTickets = 10 //Limit the number of tickets to make sure the embed does not overflow
+
+        const numberOfTicketsToShow = Math.min(maxTickets, scrappedResult.length);
+        for (let i = 0; i < numberOfTicketsToShow; ++i) {
             embed.addFields({
                 name: "Tickets " + (i + 1),
                 value: `[${scrappedResult[i].quantity} tickets at ${scrappedResult[i].price} €](${scrappedResult[i].url})`,

@@ -2,9 +2,9 @@ require('dotenv').config();
 
 const { EmbedBuilder } = require('discord.js');
 
-const scrapDavidGuetta = require('./scrapeDavidGuetta');
+const scrapDavidGuetta = require('../webScrapping/scrapeDavidGuetta');
 
-const sendEmbedDM = require('./sendEmbedDM');
+const sendEmbedDM = require('../sendEmbedDM');
 
 module.exports = async (client, ticketFloor, numTickets) => {
 
@@ -30,7 +30,7 @@ module.exports = async (client, ticketFloor, numTickets) => {
     console.log("Total price of the " + numTickets + " cheapest tickets: " + cheapestTicketsTotal)
 
     // Check if the total of the cheapest X tickets is lower the floor multiplied by the number of tickets
-    const isCheaperThanFloor = cheapestTicketsTotal < ticketFloor * numTickets;
+    const isCheaperThanFloor = cheapestTicketsTotal <= ticketFloor * numTickets;
 
     
 
@@ -55,8 +55,10 @@ module.exports = async (client, ticketFloor, numTickets) => {
             text: client.user.tag
         })
 
-        const x = scrappedResult.length;
-        for (let i = 0; i <x; ++i) {
+        const maxTickets = 10 //Limit the number of tickets to make sure the embed does not overflow
+
+        const numberOfTicketsToShow = Math.min(maxTickets, scrappedResult.length);
+        for (let i = 0; i < numberOfTicketsToShow; ++i) {
             embed.addFields({
                 name: "Tickets " + (i + 1),
                 value: `[${scrappedResult[i].quantity} tickets at ${scrappedResult[i].price} €](${scrappedResult[i].url})`,

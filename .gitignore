@@ -131,4 +131,5 @@ dist
 
 # Custom added
 .env Music NFT bot
-
+.pushGithubInstructions.txt
+dropsRoyal\ copy*

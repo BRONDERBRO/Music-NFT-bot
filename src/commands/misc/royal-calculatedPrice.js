@@ -8,11 +8,18 @@ const readJsonFile = require('../../utils/readJsonFile');
 const royalFetch = require('../../utils/apis/royalFetch');
 
 module.exports = {
-    name: 'royal-yield',
-    description: 'Shows calculated APR and floor for current "Buy Now" values for Royal Songs',
+    name: 'royal-calculated-price',
+    description: 'Calculates the price of each Royal song to achieve a defined yield %',
     // devOnly: Boolean,
     // testOnly: Boolean,
-    // options: Object[],
+    options: [
+        {
+          name: 'yield_percentage',
+          description: 'The desired yield percentage',
+          type: 4, // Use INTEGER type for numbers
+          required: true,
+        },
+    ],
     // deleted: Boolean,
 
     callback: async (client, interaction) => {
@@ -22,6 +29,9 @@ module.exports = {
             ephemereal: true
         });
 
+        //Get the desiredYield introduced in the command by the user
+        const desiredYield = interaction.options.get('yield_percentage').value
+
         //Get data from drops.json file
         let dataDrops = readJsonFile('src/files/dropsRoyal.json')  
 
@@ -29,17 +39,16 @@ module.exports = {
         let collectionName = null
         let collectionRoyalties = null
         let collectionTier = null
-        let floorPrice = null
+        let targetPrice = 0
         let baseRoyalty = 0
         let royaltyUnit = 0
         let royalty = 0
-        let expectedYield = 0
 
         let yieldResults = []
         let yieldResult = null
 
-        //Only Songs over this yield Threshold will be shown in the answer
-        let yieldThreshold = 0
+        //Only Songs over or equal to this price Threshold will be shown in the answer
+        let priceThreshold = 0
 
         //Number of Songs shown in each Embed message
         let songsPerEmbed = 15
@@ -68,6 +77,7 @@ module.exports = {
                 'Collection ID: ' + collectionId, '\n',
                 'Base Royalty: ' + baseRoyalty, '\n',
                 'Royalty Unit: ' + royaltyUnit, '\n'
+            )
             */
 
             //Loop through the different tiers
@@ -75,32 +85,30 @@ module.exports = {
             for (let j = 0; j < y; ++j) {
 
                 collectionTier = fetchedRoyal.data.edition.tiers[j].type;
-                floorPrice = fetchedRoyal.data.edition.tiers[j].market.lowestAskPrice.amount;
                 royalty = fetchedRoyal.data.edition.tiers[j].royaltyClaimMillionths;
                 
                 /*
                 console.log(
                     collectionName + ' - ' + collectionTier, '\n',
-                    'Floor Price: ' + floorPrice, '\n',
-                    'Royalty: ' + royalty, '\n'                     
+                    'Royalty: ' + royalty, '\n'           
                 )
                 */
                 
-                //If collectionRoyalties is defined and not null, and floorPrice > 0, then calculate the expectedYield
-                if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties && floorPrice > 0) {
+                //If collectionRoyalties is defined and not null, then calculate the targetPrice
+                if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
 
-                    expectedYield = royaltyUnit * royalty / floorPrice * 100
+                    targetPrice = royaltyUnit * royalty / desiredYield * 100
 
                     /*
                     console.log(
                         collectionName + ' - ' + collectionTier, '\n',
-                        'Expected Yield %: ' + expectedYield, '\n'                     
+                        'targetPrice: ' + targetPrice, '\n'                     
                     )
                     */
 
-                    if (expectedYield > yieldThreshold){
+                    if (targetPrice >= priceThreshold){
 
-                        yieldResult = {name: collectionName, tier: collectionTier, yield: Math.floor(expectedYield * 100) / 100, floor: floorPrice}
+                        yieldResult = {name: collectionName, tier: collectionTier, price: Math.floor(targetPrice * 100) / 100}
 
                         yieldResults.push(yieldResult);
 
@@ -111,14 +119,14 @@ module.exports = {
 
         }
 
-        yieldResults.sort(function(a, b){return b.yield - a.yield});
+        yieldResults.sort(function(a, b){return b.price - a.price});
 
         //console.log(yieldResults)
 
         //Build embed1
         const embed1 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
+            .setDescription('Calculated price of Royal songs for **' + desiredYield + '% yield**: ($ price)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -136,7 +144,7 @@ module.exports = {
         //Build embed2
         const embed2 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
+            .setDescription('Calculated price of Royal songs for **' + desiredYield + '% yield**: ($ price)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -154,7 +162,7 @@ module.exports = {
         //Build embed3
         const embed3 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
+            .setDescription('Calculated price of Royal songs for **' + desiredYield + '% yield**: ($ price)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -172,7 +180,7 @@ module.exports = {
         //Build embed4
         const embed4 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
+            .setDescription('Calculated price of Royal songs for **' + desiredYield + '% yield**: ($ price)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -190,7 +198,7 @@ module.exports = {
         //Build embed5
         const embed5 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
+            .setDescription('Calculated price of Royal songs for **' + desiredYield + '% yield**: ($ price)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -208,7 +216,7 @@ module.exports = {
         //Build embed6
         const embed6 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
+            .setDescription('Calculated price of Royal songs for **' + desiredYield + '% yield**: ($ price)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -238,7 +246,7 @@ module.exports = {
 
                 embed1.addFields({
                     name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: yieldResults[k].yield + '% - $' + yieldResults[k].floor,
+                    value: '$' + yieldResults[k].price,
                     inline: false,
                 });
             }
@@ -247,7 +255,7 @@ module.exports = {
 
                 embed2.addFields({
                     name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: yieldResults[k].yield + '% - $' + yieldResults[k].floor,
+                    value: '$' + yieldResults[k].price,
                     inline: false,
                 });
 
@@ -257,7 +265,7 @@ module.exports = {
 
                 embed3.addFields({
                     name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: yieldResults[k].yield + '% - $' + yieldResults[k].floor,
+                    value: '$' + yieldResults[k].price,
                     inline: false,
                 });
 
@@ -267,7 +275,7 @@ module.exports = {
 
                 embed4.addFields({
                     name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: yieldResults[k].yield + '% - $' + yieldResults[k].floor,
+                    value: '$' + yieldResults[k].price,
                     inline: false,
                 });
 
@@ -277,7 +285,7 @@ module.exports = {
 
                 embed5.addFields({
                     name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: yieldResults[k].yield + '% - $' + yieldResults[k].floor,
+                    value: '$' + yieldResults[k].price,
                     inline: false,
                 });
 
@@ -287,7 +295,7 @@ module.exports = {
 
                 embed6.addFields({
                     name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: yieldResults[k].yield + '% - $' + yieldResults[k].floor,
+                    value: '$' + yieldResults[k].price,
                     inline: false,
                 });
 

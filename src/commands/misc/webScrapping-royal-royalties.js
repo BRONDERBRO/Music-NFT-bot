@@ -2,7 +2,7 @@ const fs = require('fs/promises'); // Import the fs/promises module
 
 const readJsonFile = require('../../utils/readJsonFile');
 
-const scrapeRoyalPrice = require('../../utils/scrapeRoyalPrice');
+const scrapeRoyalPrice = require('../../utils/webScrapping/scrapeRoyalPrice');
 
 module.exports = {
     name: 'webscrapping-royal-royalties',
@@ -45,14 +45,14 @@ module.exports = {
                 numErrors = numErrors + 1
             }
            
-            /*
+            
             console.log(
                 collectionName, '\n',
                 'Old Royalties: ' + collectionRoyalties, '\n',
                 'Collection ID: ' + collectionId, '\n',
-                'Scrapped Royalties: ' + scrappedPrice                  
+                'Scrapped Royalties: ' + scrappedPrice, '\n'                 
             )
-            */
+            
         }
 
         // Write the updated data back to the CSV file

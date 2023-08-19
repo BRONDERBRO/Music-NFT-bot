@@ -4,11 +4,11 @@ const { EmbedBuilder } = require('discord.js');
 
 const wait = require("node:timers/promises").setTimeout;
 
-const readJsonFile = require('./readJsonFile');
-const sendEmbedDM = require('./sendEmbedDM');
+const readJsonFile = require('../readJsonFile');
+const sendEmbedDM = require('../sendEmbedDM');
 
 //Require APIs
-const royalFetch = require('./apis/royalFetch');
+const royalFetch = require('../apis/royalFetch');
 
 module.exports = async (client, yieldThreshold) => {
 
@@ -46,6 +46,7 @@ module.exports = async (client, yieldThreshold) => {
 
         let fetchedRoyal = await royalFetch(collectionId);
 
+        //calculate the royalties obtained for each millionth of the song owned
         baseRoyalty = fetchedRoyal.data.edition.tiers[0].royaltyClaimMillionths;
         royaltyUnit = collectionRoyalties / baseRoyalty
         
@@ -109,7 +110,7 @@ module.exports = async (client, yieldThreshold) => {
         //Build embed1
         const embed1 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs')
+            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -127,7 +128,7 @@ module.exports = async (client, yieldThreshold) => {
         //Build embed2
         const embed2 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs')
+            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -145,7 +146,7 @@ module.exports = async (client, yieldThreshold) => {
         //Build embed3
         const embed3 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs')
+            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -163,7 +164,7 @@ module.exports = async (client, yieldThreshold) => {
         //Build embed4
         const embed4 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs')
+            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -181,7 +182,7 @@ module.exports = async (client, yieldThreshold) => {
         //Build embed5
         const embed5 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs')
+            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -199,7 +200,7 @@ module.exports = async (client, yieldThreshold) => {
         //Build embed6
         const embed6 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs')
+            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
