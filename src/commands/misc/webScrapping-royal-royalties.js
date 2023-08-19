@@ -16,7 +16,7 @@ module.exports = {
 
         //DeferReply
         interaction.deferReply({
-            ephemeral: true
+            //ephemeral: true
         });
 
         //Get data from drops.json file
@@ -60,7 +60,7 @@ module.exports = {
 
 
         //Return Edit Reply
-        return interaction.editReply({
+        return interaction.followUp({
             content: "Web scrapping completed with " + numErrors + " errors."
         });
 

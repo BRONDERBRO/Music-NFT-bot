@@ -31,7 +31,7 @@ module.exports = {
         try {
             //DeferReply
             interaction.deferReply({
-                ephemeral: true
+                //ephemeral: true
             });
 
             //Get the collectionId introduced in the command by the user
@@ -93,7 +93,7 @@ module.exports = {
         } catch (error) {
             console.error(error);
             // Handle any errors gracefully and respond to the interaction
-            await interaction.editReply({
+            await interaction.followUp({
                 content: 'An error occurred while processing the command.',
                 ephemeral: true
             });

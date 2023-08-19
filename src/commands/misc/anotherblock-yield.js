@@ -19,7 +19,7 @@ module.exports = {
 
         //DeferReply
         interaction.deferReply({
-            ephemeral: true
+            //ephemeral: true
         });
 
         //Get data from drops.json file
@@ -183,7 +183,7 @@ module.exports = {
         }
 
         //Sending embed response
-        return interaction.editReply({
+        return interaction.followUp({
             embeds: [embed]
         });
 

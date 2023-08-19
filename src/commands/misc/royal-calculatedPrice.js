@@ -26,7 +26,7 @@ module.exports = {
 
         //DeferReply
         interaction.deferReply({
-            ephemeral: true
+            //ephemeral: true
         });
 
         //Get the desiredYield introduced in the command by the user
@@ -306,7 +306,7 @@ module.exports = {
         if (z <= songsPerEmbed) {
 
             //Return Edit Reply
-            return interaction.editReply({
+            return interaction.followUp({
                 embeds: [embed1]
             });
 
@@ -315,7 +315,7 @@ module.exports = {
         else if (z <= songsPerEmbed * 2) {
 
             //Edit Initial Repply
-            interaction.editReply({
+            interaction.followUp({
                 embeds: [embed1]
             });
 
@@ -331,7 +331,7 @@ module.exports = {
         else if (z <= songsPerEmbed * 3) {
 
             //Edit Initial Repply
-            interaction.editReply({
+            interaction.followUp({
                 embeds: [embed1]
             });
 
@@ -354,7 +354,7 @@ module.exports = {
         else if (z <= songsPerEmbed * 4) {
 
             //Edit Initial Repply
-            interaction.editReply({
+            interaction.followUp({
                 embeds: [embed1]
             });
 
@@ -384,7 +384,7 @@ module.exports = {
         else if (z <= songsPerEmbed * 5) {
 
             //Edit Initial Repply
-            interaction.editReply({
+            interaction.followUp({
                 embeds: [embed1]
             });
 
@@ -421,7 +421,7 @@ module.exports = {
         else {
 
             //Edit Initial Repply
-            interaction.editReply({
+            interaction.followUp({
                 embeds: [embed1]
             });
 

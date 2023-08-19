@@ -14,7 +14,7 @@ module.exports = {
 
         //DeferReply
         interaction.deferReply({
-            ephemeral: true
+            //ephemeral: true
         });
 
         let scrappedResult = []
@@ -64,7 +64,7 @@ module.exports = {
         }
 
         //Return Edit Reply
-        return interaction.editReply({
+        return interaction.followUp({
             embeds: [embed]
         });
 

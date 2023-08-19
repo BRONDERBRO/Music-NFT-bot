@@ -26,7 +26,7 @@ module.exports = {
 
         //DeferReply
         interaction.deferReply({
-            ephemeral: true
+            //ephemeral: true
         });
 
         //Get the desiredYield introduced in the command by the user
@@ -176,7 +176,7 @@ module.exports = {
         }
 
         //Sending embed response
-        return interaction.editReply({
+        return interaction.followUp({
             embeds: [embed]
         });
 
