@@ -19,6 +19,8 @@ module.exports = async (collectionID) => {
         //.then(response => console.log(response))
         .catch(err => console.error(err));
 
+        console.log(fetchReservoir)
+
         return fetchReservoir
 
     } catch (error) {
