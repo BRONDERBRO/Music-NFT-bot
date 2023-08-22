@@ -3,8 +3,6 @@ const { EmbedBuilder } = require('discord.js');
 const readJsonFile = require('../../utils/readJsonFile');
 
 //Require APIs
-const reservoirFetchCollection = require('../../utils/apis/reservoirFetchCollection');
-const reservoirFetchCollectionAttribute = require('../../utils/apis/reservoirFetchCollectionAttribute');
 const coingeckoFetchPrice = require('../../utils/apis/coingeckoFetchPrice');
 
 module.exports = {
@@ -25,7 +23,7 @@ module.exports = {
     callback: async (client, interaction) => {
 
         //DeferReply
-        interaction.deferReply({
+        await interaction.deferReply({
             //ephemeral: true
         });
 
@@ -81,61 +79,45 @@ module.exports = {
             //If collectionTittle is defined and not null, then the collection has different songs
             if (typeof collectionTittle !== 'undefined' && collectionTittle) {
 
-                let fetchedReservoir = await reservoirFetchCollectionAttribute(collectionId);
-
-                //Loop through the different songs
-                const y = fetchedReservoir.attributes.length;
+                // Loop through the different songs
+                const y = dataDrops.drops[i].tittles.length;
                 for (let j = 0; j < y; ++j) {
 
-                    collectionSong = fetchedReservoir.attributes[j].value;
+                collectionSong = dataDrops.drops[i].tittles[j].song;
+                collectionRoyalties = dataDrops.drops[i].tittles[j].royalties
+                collectionInitialPrize = dataDrops.drops[i].tittles[j].initial_price
 
-                    //Loop through the json file to find the specific song
-                    const z = dataDrops.drops[i].tittles.length;
-                    for (let k = 0; k < z; ++k) {
-                        
-                        if (dataDrops.drops[i].tittles[k].song == collectionSong) {
+                /*
+                console.log(
+                    collectionSong, '\n',
+                    'Royalties: ' + collectionRoyalties, '\n',
+                    'Initial Price: ' + collectionInitialPrize, '\n'                        
+                )
+                */
 
-                            collectionRoyalties = dataDrops.drops[i].tittles[k].royalties
-                            collectionInitialPrize = dataDrops.drops[i].tittles[k].initial_price
-                            break;
+                //If collectionRoyalties is defined and not null, then calculate the expectedYield
+                if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
 
-                        }
+                    targetPrice = (collectionRoyalties * collectionInitialPrize) / (desiredYield) * 100
+                    targetPriceETH = targetPrice / ETHPrice
 
+                    priceResult = {
+                        name: collectionName,
+                        song: collectionSong,
+                        yield: desiredYield,
+                        price: Math.floor(targetPrice * 100) / 100,
+                        priceETH: Math.floor(targetPriceETH * 10000) / 10000
                     }
+                    priceResults.push(priceResult);
 
-                    /*
-                    console.log(
-                        collectionSong, '\n',
-                        'Royalties: ' + collectionRoyalties, '\n',
-                        'Initial Price: ' + collectionInitialPrize, '\n'                        
-                    )
-                    */
-
-                    //If collectionRoyalties is defined and not null, then calculate the expectedYield
-                    if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
-
-                        targetPrice = (collectionRoyalties * collectionInitialPrize) / (desiredYield) * 100
-                        targetPriceETH = targetPrice / ETHPrice
-
-                        priceResult = {
-                            name: collectionName,
-                            song: collectionSong,
-                            yield: desiredYield,
-                            price: Math.floor(targetPrice * 100) / 100,
-                            priceETH: Math.floor(targetPriceETH * 10000) / 10000
-                        }
-                        priceResults.push(priceResult);
-
-                    }
                 }
+            }
 
             //If collectionTittle is not defined or null, then the collection does not have different songs
             } else {
 
                 collectionRoyalties = dataDrops.drops[i].royalties
                 collectionInitialPrize = dataDrops.drops[i].initial_price
-
-                let fetchedReservoir = await reservoirFetchCollection(collectionId);
 
                 //If collectionRoyalties is defined and not null, then calculate the expectedYield. Else it is the pfp
                 if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {

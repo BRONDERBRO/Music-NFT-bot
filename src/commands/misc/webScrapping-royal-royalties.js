@@ -15,7 +15,7 @@ module.exports = {
     callback: async (client, interaction) => {
 
         //DeferReply
-        interaction.deferReply({
+        await interaction.deferReply({
             //ephemeral: true
         });
 

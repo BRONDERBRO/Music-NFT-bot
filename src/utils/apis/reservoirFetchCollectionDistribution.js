@@ -11,19 +11,22 @@ module.exports = async (collectionID, blockchain) => {
         //);
         
         const options = {method: 'GET', headers: {accept: '*/*', 'x-api-key': process.env.RESERVOIR_KEY}};
+        let url = null
 
         if (blockchain === 'Polygon') {
 
-            fetchReservoir = await fetch(
-                'https://api-polygon.reservoir.tools/collections/' + collectionID + '/owners-distribution/v1', options)
+            url = 'https://api-polygon.reservoir.tools/collections/' + collectionID + '/owners-distribution/v1'
+
+            fetchReservoir = await fetch(url, options)
             .then(response => response.json())
             //.then(response => console.log(response))
             .catch(err => console.error(err));
 
         } else {
+
+            url = 'https://api.reservoir.tools/collections/' + collectionID + '/owners-distribution/v1'
         
-            fetchReservoir = await fetch(
-                'https://api.reservoir.tools/collections/' + collectionID + '/owners-distribution/v1', options)
+            fetchReservoir = await fetch(url, options)
             .then(response => response.json())
             //.then(response => console.log(response))
             .catch(err => console.error(err));

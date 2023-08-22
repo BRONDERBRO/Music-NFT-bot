@@ -30,7 +30,7 @@ module.exports = {
     callback: async (client, interaction) => {
         try {
             //DeferReply
-            interaction.deferReply({
+            await interaction.deferReply({
                 //ephemeral: true
             });
 

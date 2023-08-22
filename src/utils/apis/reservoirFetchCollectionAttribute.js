@@ -12,9 +12,9 @@ module.exports = async (collectionID) => {
         //);
 
         const options = {method: 'GET', headers: {accept: '*/*', 'x-api-key': process.env.RESERVOIR_KEY}};
+        const url = 'https://api.reservoir.tools/collections/' + collectionID + '/attributes/explore/v5?attributeKey=Song'
         
-        let fetchReservoir = await fetch(
-            'https://api.reservoir.tools/collections/' + collectionID + '/attributes/explore/v5?attributeKey=Song', options)
+        let fetchReservoir = await fetch(url, options)
         .then(response => response.json())
         //.then(response => console.log(response))
         .catch(err => console.error(err));

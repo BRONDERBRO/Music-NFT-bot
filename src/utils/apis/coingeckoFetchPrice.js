@@ -4,9 +4,10 @@ const fetch = require('cross-fetch');
 module.exports = async (tokenID) => {
 
     try {
-        let fetchCoingecko = await fetch(
-            'https://api.coingecko.com/api/v3/simple/price?ids=' + tokenID + '&vs_currencies=USD'
-        );
+
+        const url = 'https://api.coingecko.com/api/v3/simple/price?ids=' + tokenID + '&vs_currencies=USD'
+
+        let fetchCoingecko = await fetch(url);
         let fetchedCoingecko = await fetchCoingecko.json();
 
         return fetchedCoingecko
