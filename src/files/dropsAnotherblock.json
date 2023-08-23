@@ -9,19 +9,19 @@
         {
             "name": "So Far Away (David Guetta & Martin Garrix)",
             "value": "0x65beEC116a625e2F68B6C04313105fE10F510135",
-            "royalties": 0.104,
+            "royalties": 0.122,
             "initial_price": 144
         },
         {
             "name": "Bitch Better Have My Money (Rihanna)",
             "value": "0xCB8399D84e17fD5B4e955C716647c7BB2C35Ab63",
-            "royalties": 0.065,
+            "royalties": 0.161,
             "initial_price": 210
         },
         {
             "name": "Ric Flair Drip (Offset & Metro Boomin)",
             "value": "0xFE5209ac341835670fA731383D5d28c8A093dda3",
-            "royalties": 0.098,
+            "royalties": 0.115,
             "initial_price": 99
         },
         {
@@ -30,18 +30,18 @@
             "tittles": [
                 {
                    "song": "Alone pt. II",
-                   "royalties": 0.068,
+                   "royalties": 0.075,
                    "initial_price": 88
                 },
                 {
                    "song": "Acquainted",
-                   "royalties": 0.115,
-                   "initial_price": 108
+                   "royalties": 0.114,
+                   "initial_price": 107.76
                 },
                 {
                    "song": "Weekend On A Tuesday",
-                   "royalties": 0.078,
-                   "initial_price": 87
+                   "royalties": 0.069,
+                   "initial_price": 87.31
                 }
             ]
         },

@@ -159,10 +159,12 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
 
     //console.log(topBidResults)
 
+    const blurDeployerAddress = '0x0000000000A39bb272e79075ade125fd351887Ac'
+
     // Build the embed
     const z = topBidResults.length;
     for (let k = 0; k < z; ++k) {
-        if (topBidResults[k].bidder !== targetAddress && topBidResults[k].bidPrice < topBidResults[k].targetPrice) {
+        if (topBidResults[k].bidder !== targetAddress && topBidResults[k].bidder !== blurDeployerAddress && topBidResults[k].bidPrice < topBidResults[k].targetPrice) {
             embed.addFields({
                 name: topBidResults[k].song ?? topBidResults[k].name,
                 value: topBidResults[k].bidder + ': $' + topBidResults[k].bidPrice + ' - ETH ' + topBidResults[k].bidPriceETH,
