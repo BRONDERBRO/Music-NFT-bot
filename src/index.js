@@ -7,7 +7,6 @@ const calculateAnotherblockYield = require('./utils/cronJobs/calculateAnotherblo
 const calculateAnotherblockTopBid = require('./utils/cronJobs/calculateAnotherblockTopBid');
 const calculateRoyalYield = require('./utils/cronJobs/calculateRoyalYield');
 const calculateRoyalTopBid = require('./utils/cronJobs/calculateRoyalTopBid');
-const calculateTaylorSwiftTickets = require('./utils/cronJobs/calculateTaylorSwiftTickets');
 
 const client = new Client({
   intents: [
@@ -95,25 +94,3 @@ cron.schedule('*/30 * * * *', async function() { //Run every 30 minutes (https:/
   }
 
 });
-
-
-//This cron cannot be executed unless with VPS due to webscrapping (launch a headless chromium session required)
-//cron.schedule('*/5 * * * *', async function() { //Run every 5 minutes (https://crontab.guru/)
-/*  try{
-
-    //If total price of X tickets is equal or below ticketFloor * numTickets, a DM will be sent to me
-    let ticketFloor = 250
-    let numTickets = 1
-
-    //console.log('Before calculateTaylorSwiftTickets')
-
-    await calculateTaylorSwiftTickets(client, ticketFloor, numTickets);
-
-    //console.log('After calculateTaylorSwiftTickets')
-
-  } catch (error) {
-    console.log(error);
-  }
-
-});
-*/
