@@ -26,7 +26,7 @@ module.exports = {
         //Build embed
         const embed = new EmbedBuilder()
             .setTitle('anotherblock Top Bids')
-            .setDescription('Top bid of anotherblock collections: (Top Bidder: $ Bid Price - ETH Bid Price)')
+            .setDescription('Top bid of anotherblock collections: (Top Bidder: $ Bid Price - ETH Bid Price - Yield At Bid Price %)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -52,6 +52,8 @@ module.exports = {
         let topBidResults = []
         let topBidResult = null
 
+        let expectedYieldAtBidPrice = null
+
         //Loop drops.json file to check if the collection has different songs defined
         const x = dataDrops.drops.length;
         for (let i = 0; i < x; ++i) {
@@ -75,9 +77,25 @@ module.exports = {
 
                     let fetchedReservoir = await reservoirFetchOrderBid(collectionId,collectionSong);
 
+                    //Loop through the json file to find the specific song
+                    const z = dataDrops.drops[i].tittles.length;
+                    for (let k = 0; k < z; ++k) {
+                        
+                        if (dataDrops.drops[i].tittles[k].song == collectionSong) {
+
+                            collectionRoyalties = dataDrops.drops[i].tittles[k].royalties
+                            collectionInitialPrize = dataDrops.drops[i].tittles[k].initial_price
+                            break;
+
+                        }
+
+                    }
+
                     topBidder = fetchedReservoir.orders[0].maker
                     bidPriceETH = fetchedReservoir.orders[0].price.amount.decimal;
                     bidPriceInDollar = fetchedReservoir.orders[0].price.amount.usd;
+
+                    expectedYieldAtBidPrice = (collectionRoyalties * collectionInitialPrize) / (bidPriceInDollar) * 100
                     
                     /*
                     console.log(
@@ -93,7 +111,8 @@ module.exports = {
                         song: collectionSong,
                         bidder: topBidder,
                         bidPrice: Math.floor(bidPriceInDollar * 100) / 100,
-                        bidPriceETH: Math.floor(bidPriceETH * 10000) / 10000
+                        bidPriceETH: Math.floor(bidPriceETH * 10000) / 10000,
+                        yield: Math.floor(expectedYieldAtBidPrice * 100) / 100
                     }
                     topBidResults.push(topBidResult);
 
@@ -103,11 +122,16 @@ module.exports = {
             } else {
 
                 collectionSong = null
+                collectionRoyalties = dataDrops.drops[i].royalties
+                collectionInitialPrize = dataDrops.drops[i].initial_price
+
                 let fetchedReservoir = await reservoirFetchOrderBid(collectionId,collectionSong);
 
                 topBidder = fetchedReservoir.orders[0].maker
                 bidPriceETH = fetchedReservoir.orders[0].price.amount.decimal;
                 bidPriceInDollar = fetchedReservoir.orders[0].price.amount.usd;
+
+                expectedYieldAtBidPrice = (collectionRoyalties * collectionInitialPrize) / (bidPriceInDollar) * 100
                 
                 /*
                 console.log(
@@ -123,7 +147,8 @@ module.exports = {
                     song: collectionSong,
                     bidder: topBidder,
                     bidPrice: Math.floor(bidPriceInDollar * 100) / 100,
-                    bidPriceETH: Math.floor(bidPriceETH * 10000) / 10000
+                    bidPriceETH: Math.floor(bidPriceETH * 10000) / 10000,
+                    yield: Math.floor(expectedYieldAtBidPrice * 100) / 100
                 }
                 topBidResults.push(topBidResult);
 
@@ -132,7 +157,9 @@ module.exports = {
         }
 
         //Order the array on name ascending order
-        topBidResults.sort((a, b) => a.name.localeCompare(b.name));
+        //topBidResults.sort((a, b) => a.name.localeCompare(b.name));
+        //Order the array on yield descending order
+        topBidResults.sort(function(a, b){return b.yield - a.yield});
 
         //console.log(topBidResults)
 
@@ -144,7 +171,8 @@ module.exports = {
 
             embed.addFields({
                 name: topBidResults[k].song ?? topBidResults[k].name,
-                value: topBidResults[k].bidder + ': $' + topBidResults[k].bidPrice + ' - ETH ' + topBidResults[k].bidPriceETH,
+                value: topBidResults[k].bidder + ': $' + topBidResults[k].bidPrice + ' - ETH ' + topBidResults[k].bidPriceETH
+                    + ' - ' + topBidResults[k].yield + '%',
                 inline: false,
             });
         }

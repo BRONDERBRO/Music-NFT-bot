@@ -3,242 +3,434 @@
         {
             "id": "skye-holland-steve-kroeger-fade-away",
             "name": "Fade Away",
-            "royalties": 0.14
+            "royalties": 0.14,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 2.1
+                }
+            ]
         },
         {
             "id": "aaronchilds-myway",
             "name": "My Way",
-            "royalties": 42.75
+            "royalties": 42.75,
+            "tiers": [
+                {
+                    "tier": "GOLD",
+                    "bidPrice": 128.01
+                },
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 501
+                }
+            ]
         },
         {
             "id": "allem-iversom-the-ridge",
             "name": "The Ridge",
-            "royalties": 16.07
+            "royalties": 16.07,
+            "tiers": []
         },
         {
             "id": "elle-vee-into-dust",
             "name": "Into Dust",
-            "royalties": 2.92
+            "royalties": 2.92,
+            "tiers": [
+                {
+                    "tier": "GOLD",
+                    "bidPrice": 10.01
+                },
+                {
+                    "tier": "PLATINUM",
+                    "bidPrice": 30.01
+                }
+            ]
         },
         {
             "id": "thechainsmokers-sofarsogood",
             "name": "So Far So Good",
-            "royalties": 1.22
+            "royalties": 1.22,
+            "tiers": []
         },
         {
             "id": "jake-zimma-oh-san-francisco",
             "name": "Oh, San Francisco",
-            "royalties": 0.78
+            "royalties": 0.78,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 10
+                }
+            ]
         },
         {
             "id": "the-wanderers-guardian-marked",
             "name": "Guardian Marked",
-            "royalties": 0.01
+            "royalties": 0.01,
+            "tiers": [
+                {
+                    "tier": "GOLD",
+                    "bidPrice": 0.01
+                }
+            ]
         },
         {
             "id": "disco-fries-family-affair",
             "name": "Family Affair",
-            "royalties": 6.99
+            "royalties": 6.99,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 250.01
+                }
+            ]
         },
         {
             "id": "thechainsmokers-lofiremixes",
             "name": "So Far So Good (lofi remixes)",
-            "royalties": 0.06
+            "royalties": 0.06,
+            "tiers": []
         },
         {
             "id": "culture-code-after-all",
             "name": "After All",
-            "royalties": 6.59
+            "royalties": 6.59,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 255.01
+                }
+            ]
         },
         {
             "id": "matt-cooper-something-beautiful",
             "name": "Something Beautiful",
-            "royalties": 1.89
+            "royalties": 1.89,
+            "tiers": []
         },
         {
             "id": "timmy-trumpet-lifelikethis",
             "name": "Life Like This",
-            "royalties": 2.57
+            "royalties": 2.57,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 101
+                }
+            ]
         },
         {
             "id": "maddix-heutenacht",
             "name": "Heute Nacht",
-            "royalties": 40.32
+            "royalties": 40.32,
+            "tiers": [
+                {
+                    "tier": "GOLD",
+                    "bidPrice": 108
+                }
+            ]
         },
         {
             "id": "bingo-players-bathroom-line",
             "name": "Bathroom Line",
-            "royalties": 2.93
+            "royalties": 2.93,
+            "tiers": []
         },
         {
             "id": "wyattcoleman-carfullofsmoke",
             "name": "Car Full Of Smoke",
-            "royalties": 4.55
+            "royalties": 4.55,
+            "tiers": []
         },
         {
             "id": "zenaware-isaiah-brown-need-a-friend",
             "name": "Need A Friend",
-            "royalties": 4.69
+            "royalties": 4.69,
+            "tiers": []
         },
         {
             "id": "kaaze-ishouldhavewalkedaway",
             "name": "I Should Have Walked Away",
-            "royalties": 11.45
+            "royalties": 11.45,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 251
+                }
+            ]
         },
         {
             "id": "madison-ryann-ward-ill-wait",
             "name": "I'll Wait",
-            "royalties": 11.95
+            "royalties": 11.95,
+            "tiers": [
+                {
+                    "tier": "PLATINUM",
+                    "bidPrice": 151.5
+                }
+            ]
         },
         {
             "id": "vanmurten-canyoufeelit",
             "name": "Can You Feel It",
-            "royalties": 2.76
+            "royalties": 2.76,
+            "tiers": []
         },
         {
             "id": "offrami-anthony-kleyrouz-tell-me-how",
             "name": "Tell Me How",
-            "royalties": 22.94
+            "royalties": 22.94,
+            "tiers": [
+                {
+                    "tier": "GOLD",
+                    "bidPrice": 79
+                },
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 451
+                }
+            ]
         },
         {
             "id": "big-boi-kill-jill",
             "name": "Kill Jill",
-            "royalties": 24.71
+            "royalties": 24.71,
+            "tiers": []
         },
         {
             "id": "glass-of-water",
             "name": "Glass of Water",
-            "royalties": 1.70
+            "royalties": 1.70,
+            "tiers": []
         },
         {
             "id": "jacob-lee-break-my-heart-again",
             "name": "Break My Heart Again",
-            "royalties": 1.48
+            "royalties": 1.48,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 20
+                }
+            ]
         },
         {
             "id": "yemi-alade-gimme-some-more",
             "name": "Gimme Some More",
-            "royalties": 0.31
+            "royalties": 0.31,
+            "tiers": [
+                {
+                    "tier": "GOLD",
+                    "bidPrice": 2.01
+                },
+                {
+                    "tier": "PLATINUM",
+                    "bidPrice": 5.01
+                }
+            ]
         },
         {
             "id": "secretnumber-likeitlikeit",
             "name": "LIKE IT LIKE IT",
-            "royalties": 5.96
+            "royalties": 5.96,
+            "tiers": []
         },
         {
             "id": "halfanorange-champagneandcocaine",
             "name": "champagne and cocaine",
-            "royalties": 1.04
+            "royalties": 1.04,
+            "tiers": []
         },
         {
             "id": "royceda59-caterpillar",
             "name": "Caterpillar",
-            "royalties": 4.59
+            "royalties": 4.59,
+            "tiers": [
+                {
+                    "tier": "PLATINUM",
+                    "bidPrice": 30.01
+                },{
+                    "tier": "DIAMOND",
+                    "bidPrice": 130
+                }
+            ]
         },
         {
             "id": "insomnia",
             "name": "Insomnia",
-            "royalties": 8.82
+            "royalties": 8.82,
+            "tiers": []
         },
         {
             "id": "jon-waltz-safe",
             "name": "Safe",
-            "royalties": 6.45
+            "royalties": 6.45,
+            "tiers": []
         },
         {
             "id": "punx-concentrate",
             "name": "Concentrate",
-            "royalties": 0
+            "royalties": 0,
+            "tiers": []
         },
         {
             "id": "worst-case",
             "name": "Worst Case",
-            "royalties": 32.89
+            "royalties": 32.89,
+            "tiers": []
         },
         {
             "id": "27delly-gimme-that",
             "name": "Gimme That",
-            "royalties": 4.85
+            "royalties": 4.85,
+            "tiers": [
+                {
+                    "tier": "GOLD",
+                    "bidPrice": 5
+                }
+            ]
         },
         {
             "id": "nas-ultrablack",
             "name": "Ultra Black",
-            "royalties": 2.62
+            "royalties": 2.62,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 300
+                }
+            ]
         },
         {
             "id": "gianni-blu-forever",
             "name": "Forever",
-            "royalties": 5.89
+            "royalties": 5.89,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 101
+                }
+            ]
         },
         {
             "id": "angelomota-14grams",
             "name": "14GRAMS",
-            "royalties": 4.45
+            "royalties": 4.45,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 40
+                }
+            ]
         },
         {
             "id": "anderton-missed-calls",
             "name": "Missed Calls",
-            "royalties": 4.09
+            "royalties": 4.09,
+            "tiers": []
         },
         {
             "id": "angelo-mota-madonna",
             "name": "Madonna",
-            "royalties": 1.66
+            "royalties": 1.66,
+            "tiers": []
         },
         {
             "id": "cartoon-no-halo",
             "name": "No Halo",
-            "royalties": 5.47
+            "royalties": 5.47,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 120
+                }
+            ]
         },
         {
             "id": "anthony-keyrouz-apologize",
             "name": "Apologize",
-            "royalties": 5.17
+            "royalties": 5.17,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 200
+                }
+            ]
         },
         {
             "id": "verite-hes-not-you",
             "name": "He's Not You",
-            "royalties": 0.88
+            "royalties": 0.88,
+            "tiers": []
         },
         {
             "id": "3lau-too-late-for-love",
             "name": "Too Late For Love",
-            "royalties": 6.94
+            "royalties": 6.94,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 501
+                }
+            ]
         },
         {
             "id": "before-we-go",
             "name": "Before We Go",
-            "royalties": 6.26
+            "royalties": 6.26,
+            "tiers": []
         },
         {
             "id": "prettymuch-thisthingcalledlove",
             "name": "THIS THING CALLED LOVE",
-            "royalties": 3.40
+            "royalties": 3.40,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 80
+                }
+            ]
         },
         {
             "id": "madisonryannward-seasons",
             "name": "Seasons",
-            "royalties": 20.52
+            "royalties": 20.52,
+            "tiers": []
         },
         {
             "id": "diplo-dontforgetmylove",
             "name": "Don't Forget My Love",
-            "royalties": 6.93
+            "royalties": 6.93,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 600
+                }
+            ]
         },
         {
             "id": "levianth--lies",
             "name": "Lies",
-            "royalties": 1.94
+            "royalties": 1.94,
+            "tiers": []
         },
         {
             "id": "elephante-catching-on",
             "name": "Catchin On",
-            "royalties": 4.66
+            "royalties": 4.66,
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 111
+                }
+            ]
         },
         {
             "id": "3lau-falling-fast-remix",
             "name": "Falling Fast",
-            "royalties": 0.30
+            "royalties": 0.30,
+            "tiers": []
         }
     ],
     "contractAddress": "0x7c885c4bFd179fb59f1056FBea319D579A278075" 

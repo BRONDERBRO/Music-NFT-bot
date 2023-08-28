@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { EmbedBuilder } = require('discord.js');
 
 const wait = require('node:timers/promises').setTimeout;
@@ -8,8 +9,8 @@ const readJsonFile = require('../../utils/readJsonFile');
 const royalFetch = require('../../utils/apis/royalFetch');
 
 module.exports = {
-    name: 'royal-yield',
-    description: 'Shows calculated APR and floor for current "Buy Now" values for Royal Songs',
+    name: 'royal-top-bid',
+    description: 'Shows the top bid for royal songs',
     // devOnly: Boolean,
     // testOnly: Boolean,
     // options: Object[],
@@ -25,35 +26,47 @@ module.exports = {
         //Get data from drops.json file
         let dataDrops = readJsonFile('src/files/dropsRoyal.json')  
 
-        let collectionId = null
-        let collectionName = null
         let collectionRoyalties = null
         let collectionTier = null
-        let floorPrice = null
         let baseRoyalty = 0
         let royaltyUnit = 0
         let royalty = 0
         let expectedYield = 0
 
-        let yieldResults = []
-        let yieldResult = null
-
+ 
         //Only Songs over this yield Threshold will be shown in the answer
         let yieldThreshold = 0
-
+ 
         //Number of Songs shown in each Embed message
         let songsPerEmbed = 15
-
+ 
         //Maximum number of embeds in reply
         let maxEmbeds = 6
 
-        //Loop dropsRoyal.json file to check if the collection has different songs defined
+        let collectionId = null
+        let collectionName = null
+        let bidPrice = null
+        let topBidder = null
+
+        let topBidResults = []
+        let topBidResult = null
+
+        //Loop drops.json file to check if the collection has different songs defined
         const x = dataDrops.drops.length;
-        for (let i = 0; i <x; ++i) {
+        for (let i = 0; i < x; ++i) {
 
             collectionId = dataDrops.drops[i].id
             collectionName = dataDrops.drops[i].name
             collectionRoyalties = dataDrops.drops[i].royalties
+
+            /*
+            console.log(
+                collectionName, '\n',
+                'Royalties: ' + collectionRoyalties, '\n',
+                'Collection ID: ' + collectionId, '\n',
+                'My Bid Price: ' + collectionMyBidPrice, '\n'
+            )
+            */
 
             let fetchedRoyal = await royalFetch(collectionId);
 
@@ -76,21 +89,51 @@ module.exports = {
             for (let j = 0; j < y; ++j) {
 
                 collectionTier = fetchedRoyal.data.edition.tiers[j].type;
-                floorPrice = fetchedRoyal.data.edition.tiers[j].market.lowestAskPrice.amount;
                 royalty = fetchedRoyal.data.edition.tiers[j].royaltyClaimMillionths;
-                
-                /*
-                console.log(
-                    collectionName + ' - ' + collectionTier, '\n',
-                    'Floor Price: ' + floorPrice, '\n',
-                    'Royalty: ' + royalty, '\n'                     
-                )
-                */
-                
-                //If collectionRoyalties is defined and not null, and floorPrice > 0, then calculate the expectedYield
-                if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties && floorPrice > 0) {
+                bidPrice = parseFloat(fetchedRoyal.data.edition.tiers[j].market.highestBidPrice.amount);
 
-                    expectedYield = royaltyUnit * royalty / floorPrice * 100
+                if (dataDrops.drops[i].tiers.length === 0) {
+                    collectionMyBidPrice = 0;
+                } else {
+                    for (const tiers of dataDrops.drops[i].tiers) {
+                        if (tiers.tier === collectionTier) {
+                            collectionMyBidPrice = parseFloat(tiers.bidPrice);
+                                                    
+                            break;
+                        }
+                        else {
+                            collectionMyBidPrice = 0
+                        }
+                    }
+                }
+
+                /*
+                console.log(`The collectionMyBidPrice for ${collectionName}: ${collectionTier} tier is: ${collectionMyBidPrice}`, '\n',
+                    `The bidPrice for $ {collectionName}: ${collectionTier} tier is: ${bidPrice}`, '\n');
+                */
+
+                if (bidPrice === collectionMyBidPrice) {
+
+                    topBidder = "BRONDER"
+                
+                }
+
+                else if (bidPrice < collectionMyBidPrice) {
+
+                    topBidder = 'ERROR'
+                
+                }
+
+                else {
+
+                    topBidder = 'Other'
+
+                }
+
+                //If collectionRoyalties is defined and not null, then calculate the expectedYield
+                if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
+
+                    expectedYield = royaltyUnit * royalty / bidPrice * 100
 
                     /*
                     console.log(
@@ -101,30 +144,35 @@ module.exports = {
 
                     if (expectedYield > yieldThreshold){
 
-                        yieldResult = {
+                        topBidResult = {
                             name: collectionName,
                             tier: collectionTier,
                             yield: Math.floor(expectedYield * 100) / 100,
-                            floor: floorPrice
+                            bidPrice: bidPrice,
+                            topBidder: topBidder
                         }
 
-                        yieldResults.push(yieldResult);
+                        topBidResults.push(topBidResult);
 
                     }
 
                 }
-            }
+
+            }        
 
         }
 
-        yieldResults.sort(function(a, b){return b.yield - a.yield});
+        //Order the array on name ascending order
+        //topBidResults.sort((a, b) => a.name.localeCompare(b.name));
+        //Order the array on yield descending order
+        topBidResults.sort(function(a, b){return b.yield - a.yield});
 
-        //console.log(yieldResults)
+        //console.log(topBidResults)
 
         //Build embed1
         const embed1 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
+            .setDescription('Top bid of Royal songs: (Top Bidder: $ Bid Price - Yield At Bid Price %)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -142,7 +190,7 @@ module.exports = {
         //Build embed2
         const embed2 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
+            .setDescription('Top bid of Royal songs: (Top Bidder: $ Bid Price - Yield At Bid Price %)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -160,7 +208,7 @@ module.exports = {
         //Build embed3
         const embed3 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
+            .setDescription('Top bid of Royal songs: (Top Bidder: $ Bid Price - Yield At Bid Price %)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -178,7 +226,7 @@ module.exports = {
         //Build embed4
         const embed4 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
+            .setDescription('Top bid of Royal songs: (Top Bidder: $ Bid Price - Yield At Bid Price %)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -196,7 +244,7 @@ module.exports = {
         //Build embed5
         const embed5 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
+            .setDescription('Top bid of Royal songs: (Top Bidder: $ Bid Price - Yield At Bid Price %)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -214,7 +262,7 @@ module.exports = {
         //Build embed6
         const embed6 = new EmbedBuilder()
             .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
+            .setDescription('Top bid of Royal songs: (Top Bidder: $ Bid Price - Yield At Bid Price %)')
             .setColor('White')
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
@@ -229,31 +277,32 @@ module.exports = {
                 text: client.user.tag
             })
 
-        const yieldResultsLength = yieldResults.length;
+        const topBidResultsLength = topBidResults.length;
 
-        if (yieldResultsLength > songsPerEmbed * maxEmbeds) {
-            yieldResults.length = songsPerEmbed * maxEmbeds
+        //Make sure that we only send as many results as they fit in the embeds
+        if (topBidResultsLength > songsPerEmbed * maxEmbeds) {
+            topBidResults.length = songsPerEmbed * maxEmbeds
         }
 
-        const z = yieldResults.length;
-        for (let k = 0; k <z; ++k) {
+        for (let k = 0; k <topBidResultsLength; ++k) {
 
-            //console.log(yieldResults[k].name)
+            //console.log(topBidResults[k].name)
 
             if(k < songsPerEmbed) {
 
                 embed1.addFields({
-                    name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: yieldResults[k].yield + '% - $' + yieldResults[k].floor,
+                    name: topBidResults[k].name + ' - ' + topBidResults[k].tier,
+                    value: topBidResults[k].topBidder + ':- $' + topBidResults[k].bidPrice + ' - ' + topBidResults[k].yield + '%',
                     inline: false,
                 });
+
             }
 
             else if (k < songsPerEmbed * 2) {
 
                 embed2.addFields({
-                    name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: yieldResults[k].yield + '% - $' + yieldResults[k].floor,
+                    name: topBidResults[k].name + ' - ' + topBidResults[k].tier,
+                    value: topBidResults[k].topBidder + ':- $' + topBidResults[k].bidPrice + ' - ' + topBidResults[k].yield + '%',
                     inline: false,
                 });
 
@@ -262,8 +311,8 @@ module.exports = {
             else if (k < songsPerEmbed * 3) {
 
                 embed3.addFields({
-                    name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: yieldResults[k].yield + '% - $' + yieldResults[k].floor,
+                    name: topBidResults[k].name + ' - ' + topBidResults[k].tier,
+                    value: topBidResults[k].topBidder + ':- $' + topBidResults[k].bidPrice + ' - ' + topBidResults[k].yield + '%',
                     inline: false,
                 });
 
@@ -272,8 +321,8 @@ module.exports = {
             else if (k < songsPerEmbed * 4) {
 
                 embed4.addFields({
-                    name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: yieldResults[k].yield + '% - $' + yieldResults[k].floor,
+                    name: topBidResults[k].name + ' - ' + topBidResults[k].tier,
+                    value: topBidResults[k].topBidder + ':- $' + topBidResults[k].bidPrice + ' - ' + topBidResults[k].yield + '%',
                     inline: false,
                 });
 
@@ -282,8 +331,8 @@ module.exports = {
             else if (k < songsPerEmbed * 5) {
 
                 embed5.addFields({
-                    name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: yieldResults[k].yield + '% - $' + yieldResults[k].floor,
+                    name: topBidResults[k].name + ' - ' + topBidResults[k].tier,
+                    value: topBidResults[k].topBidder + ':- $' + topBidResults[k].bidPrice + ' - ' + topBidResults[k].yield + '%',
                     inline: false,
                 });
 
@@ -292,8 +341,8 @@ module.exports = {
             else {
 
                 embed6.addFields({
-                    name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: yieldResults[k].yield + '% - $' + yieldResults[k].floor,
+                    name: topBidResults[k].name + ' - ' + topBidResults[k].tier,
+                    value: topBidResults[k].topBidder + ':- $' + topBidResults[k].bidPrice + ' - ' + topBidResults[k].yield + '%',
                     inline: false,
                 });
 
@@ -301,7 +350,7 @@ module.exports = {
             
         }
 
-        if (z <= songsPerEmbed) {
+        if (topBidResultsLength <= songsPerEmbed) {
 
             //Return Edit Reply
             return interaction.followUp({
@@ -310,7 +359,7 @@ module.exports = {
 
         }
 
-        else if (z <= songsPerEmbed * 2) {
+        else if (topBidResultsLength <= songsPerEmbed * 2) {
 
             //Edit Initial Repply
             interaction.followUp({
@@ -326,7 +375,7 @@ module.exports = {
 
         }
 
-        else if (z <= songsPerEmbed * 3) {
+        else if (topBidResultsLength <= songsPerEmbed * 3) {
 
             //Edit Initial Repply
             interaction.followUp({
@@ -349,7 +398,7 @@ module.exports = {
 
         }
 
-        else if (z <= songsPerEmbed * 4) {
+        else if (topBidResultsLength <= songsPerEmbed * 4) {
 
             //Edit Initial Repply
             interaction.followUp({
@@ -379,7 +428,7 @@ module.exports = {
 
         }
 
-        else if (z <= songsPerEmbed * 5) {
+        else if (topBidResultsLength <= songsPerEmbed * 5) {
 
             //Edit Initial Repply
             interaction.followUp({
