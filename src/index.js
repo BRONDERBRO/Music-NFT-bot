@@ -81,7 +81,7 @@ cron.schedule('*/30 * * * *', async function() { //Run every 30 minutes (https:/
   try{
 
     let yieldRoyalThreshold = 30 //If yield is over threshold (in %) in any Collection, a DM will be sent to me
-    let maxPrice = 600 //If pfp floor is equal or below threshold, a DM will be sent to me
+    let maxPrice = 2000 //If pfp floor is equal or below threshold, a DM will be sent to me
 
     //console.log('Before calculateRoyalTopBid')
 

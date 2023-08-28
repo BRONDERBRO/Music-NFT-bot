@@ -30,7 +30,12 @@
             "id": "allem-iversom-the-ridge",
             "name": "The Ridge",
             "royalties": 16.07,
-            "tiers": []
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 1000.01
+                }
+            ]
         },
         {
             "id": "elle-vee-into-dust",
@@ -128,6 +133,10 @@
                 {
                     "tier": "GOLD",
                     "bidPrice": 108
+                },
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 800.01
                 }
             ]
         },
@@ -196,7 +205,12 @@
             "id": "big-boi-kill-jill",
             "name": "Kill Jill",
             "royalties": 24.71,
-            "tiers": []
+            "tiers": [
+                {
+                    "tier": "DIAMOND",
+                    "bidPrice": 775.01
+                }
+            ]
         },
         {
             "id": "glass-of-water",
