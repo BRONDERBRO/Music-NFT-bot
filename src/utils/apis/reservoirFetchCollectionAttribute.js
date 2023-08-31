@@ -1,29 +1,39 @@
 const fetch = require('cross-fetch');
 require('dotenv').config();
 
+module.exports = async (blockchain, collectionID, attributeKey) => {
 
-//Define function to call Reservoir API for given CollectionID and diveded by Song attribute and get song floor price
-module.exports = async (collectionID) => {
+    const headers = {
+        accept: '*/*',
+        'x-api-key': process.env.RESERVOIR_KEY
+    };
+
+    let url = null;
+
+    if (blockchain === 'Polygon') {
+        url = `https://api-polygon.reservoir.tools/collections/${collectionID}/attributes/explore/v5?includeTopBid=true&attributeKey=${attributeKey}&limit=5000`;
+    } else {
+        url = `https://api.reservoir.tools/collections/${collectionID}/attributes/explore/v5?includeTopBid=true&attributeKey=${attributeKey}&limit=5000`;
+    }
 
     try {
 
-        //let fetchReservoir = await fetch(
-        //    'https://api.reservoir.tools/collections/' + collectionID + '/attributes/explore/v4?attributeKey=Song'
-        //);
+        const options = {
+            method: 'GET',
+            headers: headers
+        };
 
-        const options = {method: 'GET', headers: {accept: '*/*', 'x-api-key': process.env.RESERVOIR_KEY}};
-        const url = 'https://api.reservoir.tools/collections/' + collectionID + '/attributes/explore/v5?attributeKey=Song'
-        
-        let fetchReservoir = await fetch(url, options)
-        .then(response => response.json())
-        //.then(response => console.log(response))
-        .catch(err => console.error(err));
+        const response = await fetch(url, options);
 
-        //console.log(fetchReservoir)
+        if (!response.ok) {
+            throw new Error(`Failed to fetch data from ${url}. Status: ${response.status}`);
+        }
 
-        return fetchReservoir
+        const data = await response.json();
+        return data;
 
     } catch (error) {
-        console.log(error);
+        console.error(`Error fetching data from ${url}:`, error);
+        throw error;        
     }
-}
+};

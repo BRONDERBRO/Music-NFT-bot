@@ -1,6 +1,9 @@
 const { EmbedBuilder } = require('discord.js');
 
+//Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
+const roundNumber = require('../../utils/roundNumber');
+const dropHasDifferentSongs = require('../../utils/dropHasDifferentSongs');
 
 //Require APIs
 const reservoirFetchCollection = require('../../utils/apis/reservoirFetchCollection');
@@ -22,18 +25,20 @@ module.exports = {
             //ephemeral: true
         });
 
-        //Get data from drops.json file
-        let dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
+        const embedTitle = 'Anotherblock Yield'
+        const embedDescription = 'Calculated yield of anotherblock collections: (yield % - $ floor - floor ETH)'
+        const embedColor = 'White'
+        const embedUrl = 'https://market.anotherblock.io/'
 
         //Build embed
         const embed = new EmbedBuilder()
-            .setTitle('anotherblock Yield')
-            .setDescription('Calculated yield of anotherblock collections: (yield % - $ floor - ETH floor)')
-            .setColor('White')
+            .setTitle(embedTitle)
+            .setDescription(embedDescription)
+            .setColor(embedColor)
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
             .setTimestamp(Date.now())
-            .setURL('https://market.anotherblock.io/')
+            .setURL(embedUrl)
             .setAuthor({
                 iconURL: client.user.displayAvatarURL(),
                 name: client.user.tag
@@ -43,6 +48,19 @@ module.exports = {
                 text: client.user.tag
             })
 
+        //Get data from drops json file
+        let dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
+
+        const collectionBlockchain = dataDrops.blockchain
+
+        const tokenIdETH = 'weth'
+
+        //Get price of tokens
+        let fetchedCoingecko = await coingeckoFetchPrice(tokenIdETH);
+        const ETHPrice = fetchedCoingecko[tokenIdETH]['usd'];
+
+        const attributeKey = 'Song'
+
         let collectionId = null
         let collectionName = null
         let collectionTittle = null
@@ -51,48 +69,35 @@ module.exports = {
         let collectionSong = null
         let floorPrice = null
         let floorPriceInDollar = null
-        let expectedYield = 0
-        let tokenID = 'weth'
+        let expectedYield = null
 
         let yieldResults = []
         let yieldResult = null
         
-        //Get price of tokenID
-        let fetchedCoingecko = await coingeckoFetchPrice(tokenID);
-        let ETHPrice = fetchedCoingecko.weth.usd
+        //Loop drops json file
+        for (const drop of dataDrops.drops) {
 
-        //Loop drops.json file to check if the collection has different songs defined
-        const x = dataDrops.drops.length;
-        for (let i = 0; i < x; ++i) {
-
-            collectionId = dataDrops.drops[i].value
-            collectionName = dataDrops.drops[i].name
-            collectionTittle = dataDrops.drops[i].tittles
+            let {
+                name: collectionName,
+                value: collectionId,
+                royalties: collectionRoyalties,
+                initialPrice: collectionInitialPrize,
+                tittles: dropTittles
+            } = drop;
 
             //If collectionTittle is defined and not null, then the collection has different songs
-            if (typeof collectionTittle !== 'undefined' && collectionTittle) {
+            if (dropHasDifferentSongs(drop)) {
 
-                let fetchedReservoir = await reservoirFetchCollectionAttribute(collectionId);
+                let fetchedReservoir = await reservoirFetchCollectionAttribute(collectionBlockchain, collectionId, attributeKey);
 
                 //Loop through the different songs
-                const y = fetchedReservoir.attributes.length;
-                for (let j = 0; j < y; ++j) {
+                for (const dropTittle of dropTittles) {
 
-                    collectionSong = fetchedReservoir.attributes[j].value;
-
-                    //Loop through the json file to find the specific song
-                    const z = dataDrops.drops[i].tittles.length;
-                    for (let k = 0; k < z; ++k) {
-                        
-                        if (dataDrops.drops[i].tittles[k].song == collectionSong) {
-
-                            collectionRoyalties = dataDrops.drops[i].tittles[k].royalties
-                            collectionInitialPrize = dataDrops.drops[i].tittles[k].initial_price
-                            break;
-
-                        }
-
-                    }
+                    let {
+                        song: collectionSong,
+                        royalties: collectionRoyalties,
+                        initialPrice: collectionInitialPrize,
+                    } = dropTittle;
 
                     floorPrice = fetchedReservoir.attributes[j].floorAskPrices;
                     floorPriceInDollar = floorPrice * ETHPrice
@@ -114,9 +119,9 @@ module.exports = {
                         yieldResult = {
                             name: collectionName,
                             song: collectionSong,
-                            yield: Math.floor(expectedYield * 100) / 100,
-                            floor: Math.floor(floorPriceInDollar * 100) / 100,
-                            floorETH: Math.floor(floorPrice * 10000) / 10000
+                            yield: roundNumber(expectedYield, 2),
+                            floor: roundNumber(floorPriceInDollar, 2),
+                            floorETH: roundNumber(floorPrice, 4)
                         }
                         yieldResults.push(yieldResult);
 
@@ -125,9 +130,6 @@ module.exports = {
 
             //If collectionTittle is not defined or null, then the collection does not have different songs
             } else {
-
-                collectionRoyalties = dataDrops.drops[i].royalties
-                collectionInitialPrize = dataDrops.drops[i].initial_price
 
                 let fetchedReservoir = await reservoirFetchCollection(collectionId);
 
@@ -142,20 +144,20 @@ module.exports = {
                     yieldResult = {
                         name: collectionName,
                         song: null,
-                        yield: Math.floor(expectedYield * 100) / 100,
-                        floor: Math.floor(floorPriceInDollar * 100) / 100,
-                        floorETH: Math.floor(floorPrice * 10000) / 10000
+                        yield: roundNumber(expectedYield, 2),
+                            floor: roundNumber(floorPriceInDollar, 2),
+                            floorETH: roundNumber(floorPrice, 4)
                     }
                     yieldResults.push(yieldResult);
                     
                 } else {
                     //If collectionRoyalties is null, it must be the PFP
                     yieldResult = {
-                        name: collectionName, song: null, yield: 0,
+                        name: collectionName,
                         song: null,
                         yield: 0,
-                        floor: Math.floor(floorPriceInDollar * 100) / 100,
-                        floorETH: Math.floor(floorPrice * 10000) / 10000
+                        floor: roundNumber(floorPriceInDollar, 2),
+                        floorETH: roundNumber(floorPrice, 4)
                     }
                     yieldResults.push(yieldResult);
                 }
@@ -175,9 +177,12 @@ module.exports = {
 
             //console.log(yieldResults[k].name)
 
+            let fieldName = `${yieldResults[k].song ?? yieldResults[k].name}`;
+            let fieldValue = `${yieldResults[k].yield}% - $${yieldResults[k].floor} - ${yieldResults[k].floorETH} ETH`;
+
             embed.addFields({
-                name: yieldResults[k].song ?? yieldResults[k].name,
-                value: yieldResults[k].yield + '% - $' + yieldResults[k].floor + ' - ETH ' + yieldResults[k].floorETH,
+                name: fieldName,
+                value: fieldValue,
                 inline: false,
             });
         }

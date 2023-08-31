@@ -5,28 +5,45 @@ const wait = require('node:timers/promises').setTimeout;
 
 //Require Utils
 const readJsonFile = require('../readJsonFile');
-const roundNumber = require('../../utils/roundNumber');
+const roundNumber = require('../roundNumber');
 const sendEmbedDM = require('../sendEmbedDM');
 
 //Require APIs
-const royalFetch = require('../apis/royalFetch');
+const reservoirFetchCollectionAttribute = require('../../utils/apis/reservoirFetchCollectionAttribute');
+const coingeckoFetchPrice = require('../../utils/apis/coingeckoFetchPrice');
 
 module.exports = async (client, yieldThreshold) => {
 
     //Get data from drops json file
     let dataDrops = readJsonFile('src/files/dropsRoyal.json')
 
-    const royalUrl = 'https://royal.io/editions/'
+    const tokenIdETH = 'weth'
+    const tokenIdPolygon = 'wmatic'
+    let fetchedCoingecko = null
+        
+    //Get price of tokens
+    fetchedCoingecko = await coingeckoFetchPrice(tokenIdETH);
+    const ETHPrice = fetchedCoingecko[tokenIdETH]['usd'];
+
+    fetchedCoingecko = await coingeckoFetchPrice(tokenIdPolygon);
+    const PolygonPrice = fetchedCoingecko[tokenIdPolygon]['usd'];
+
+    const openseaUrl = 'https://opensea.io/collection/royal-lda'
+    const openseaFilterUrl = '?search[stringTraits][0][name]=Edition&search[stringTraits][0][values][0]='
+    let openseaEditionUrl = null
+    let embedResultUrl = null
+
+    let escapedCollectionName = null
+
+    const creatorRoyalty = 1.075
 
     let collectionId = null
     let collectionName = null
     let collectionRoyalties = null
     let collectionTier = null
     let floorPrice = null
-    let baseRoyalty = 0
-    let royaltyUnit = 0
-    let royalty = 0
-    let expectedYield = 0
+    let floorPriceInETH = null
+    let expectedYield = 0    
 
     let yieldResults = []
     let yieldResult = null
@@ -34,10 +51,16 @@ module.exports = async (client, yieldThreshold) => {
     let yieldOverThreshold = false
 
     //Number of Songs shown in each Embed message
-    let songsPerEmbed = 15
+    const songsPerEmbed = 15
 
     //Maximum number of embeds in reply
-    let maxEmbeds = 6
+    const maxEmbeds = 6
+
+    let collectionAddress = dataDrops.contractAddress
+    const collectionBlockchain = dataDrops.blockchain
+    const attributeKey = 'Edition'
+
+    let fetchedReservoir = await reservoirFetchCollectionAttribute(collectionBlockchain, collectionAddress, attributeKey);
 
     //Loop dropsRoyal.json file to check if the collection has different songs defined
     const x = dataDrops.drops.length;
@@ -46,68 +69,74 @@ module.exports = async (client, yieldThreshold) => {
         collectionId = dataDrops.drops[i].id
         collectionName = dataDrops.drops[i].name
         collectionRoyalties = dataDrops.drops[i].royalties
+        openseaEditionUrl = dataDrops.drops[i].openseaUrl
 
-        let fetchedRoyal = await royalFetch(collectionId);
+         // Find the item with the matching collectionName
+        const matchingItem = fetchedReservoir.attributes.find(item => item.value === collectionName);
 
-        //calculate the royalties obtained for each millionth of the song owned
-        baseRoyalty = fetchedRoyal.data.edition.tiers[0].royaltyClaimMillionths;
-        royaltyUnit = collectionRoyalties / baseRoyalty
+        /*
+        console.log(
+            "Checking matchingItem:", matchingItem.value, '\n',
+            "Checking collectionName:", collectionName
+        );
+        */
+
+        if (matchingItem) {
+            const floorAskPrices = matchingItem.floorAskPrices;
+            if (floorAskPrices.length > 0) {
+                floorPrice = floorAskPrices[0] * PolygonPrice * creatorRoyalty;
+                //console.log(`The floorAskPrice for ${collectionName} is: ${floorPrice}`);
+            } else {
+                console.log(`No floorAskPrice found for ${collectionName}`);
+            }
+        } else {
+            console.log(`No item found with collectionName: ${collectionName}`);
+        }
         
         /*
         console.log(
             collectionName, '\n',
             'Royalties: ' + collectionRoyalties, '\n',
             'Collection ID: ' + collectionId, '\n',
-            'Base Royalty: ' + baseRoyalty, '\n',
-            'Royalty Unit: ' + royaltyUnit, '\n'                 
+            'Floor Price: ' + floorPrice, '\n'               
         )
         */
-
-        //Loop through the different tiers
-        const y = fetchedRoyal.data.edition.tiers.length;
-        for (let j = 0; j < y; ++j) {
-
-            collectionTier = fetchedRoyal.data.edition.tiers[j].type;
-            floorPrice = fetchedRoyal.data.edition.tiers[j].market.lowestAskPrice.amount;
-            royalty = fetchedRoyal.data.edition.tiers[j].royaltyClaimMillionths;
-
-            tierUrl = '?tier=' + collectionTier
             
+        //If collectionRoyalties is defined and not null, and floorPrice > 0, then calculate the expectedYield
+        if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties && floorPrice > 0) {
+
+            expectedYield = roundNumber(collectionRoyalties / floorPrice * 100, 2)
+
             /*
             console.log(
-                collectionName + ' - ' + collectionTier, '\n',
-                'Floor Price: ' + floorPrice, '\n',
-                'Royalty: ' + royalty                     
+                collectionName, '\n',
+                'Expected Yield %: ' + expectedYield                     
             )
             */
-            
-            //If collectionRoyalties is defined and not null, and floorPrice > 0, then calculate the expectedYield
-            if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties && floorPrice > 0) {
 
-                expectedYield = roundNumber(royaltyUnit * royalty / floorPrice * 100, 2)
+            if (expectedYield > yieldThreshold){
+                yieldOverThreshold = true
 
-                /*
-                console.log(
-                    collectionName + ' - ' + collectionTier, '\n',
-                    'Expected Yield %: ' + expectedYield                     
-                )
-                */
+                floorPriceInETH = roundNumber(floorPrice / ETHPrice, 4);                
 
-                if (expectedYield > yieldThreshold){
-                    yieldOverThreshold = true
+                escapedCollectionName = encodeURIComponent(collectionName.replace(/[\]\[()]/g, '\\$&'));
 
-                    yieldResult = {
-                        name: collectionName,
-                        tier: collectionTier,
-                        yield: expectedYield,
-                        floor: roundNumber(floorPrice, 2),
-                        url: royalUrl + collectionId + tierUrl
-                    }
-                    yieldResults.push(yieldResult);
-                }  
+                if (typeof openseaEditionUrl !== 'undefined' && openseaEditionUrl) {
+                    embedResultUrl = openseaUrl + openseaEditionUrl
+                } else {
+                    embedResultUrl = openseaUrl + 's' + openseaFilterUrl + escapedCollectionName
+                }
 
+                yieldResult = {
+                    name: collectionName,
+                    tier: collectionTier,
+                    yield: expectedYield,
+                    floor: roundNumber(floorPrice, 2),
+                    floorInETH: floorPriceInETH,
+                    url: embedResultUrl
+                }
+                yieldResults.push(yieldResult);
             }
-
         }
     }
 
@@ -117,15 +146,20 @@ module.exports = async (client, yieldThreshold) => {
 
     if (yieldOverThreshold) {
 
+        const embedTitle = 'Royal Yield'
+        const embedDescription = 'Calculated yield of Royal songs: (yield % - $ floor - floor ETH)'
+        const embedColor = 'White'
+        const embedUrl = 'https://royal.io/discover'
+
         //Build embed1
         const embed1 = new EmbedBuilder()
-            .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
-            .setColor('White')
+            .setTitle(embedTitle)
+            .setDescription(embedDescription)
+            .setColor(embedColor)
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
             .setTimestamp(Date.now())
-            .setURL('https://royal.io/discover')
+            .setURL(embedUrl)
             .setAuthor({
                 iconURL: client.user.displayAvatarURL(),
                 name: client.user.tag
@@ -137,13 +171,13 @@ module.exports = async (client, yieldThreshold) => {
 
         //Build embed2
         const embed2 = new EmbedBuilder()
-            .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
-            .setColor('White')
+            .setTitle(embedTitle)
+            .setDescription(embedDescription)
+            .setColor(embedColor)
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
             .setTimestamp(Date.now())
-            .setURL('https://royal.io/discover')
+            .setURL(embedUrl)
             .setAuthor({
                 iconURL: client.user.displayAvatarURL(),
                 name: client.user.tag
@@ -155,13 +189,13 @@ module.exports = async (client, yieldThreshold) => {
 
         //Build embed3
         const embed3 = new EmbedBuilder()
-            .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
-            .setColor('White')
+            .setTitle(embedTitle)
+            .setDescription(embedDescription)
+            .setColor(embedColor)
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
             .setTimestamp(Date.now())
-            .setURL('https://royal.io/discover')
+            .setURL(embedUrl)
             .setAuthor({
                 iconURL: client.user.displayAvatarURL(),
                 name: client.user.tag
@@ -173,13 +207,13 @@ module.exports = async (client, yieldThreshold) => {
 
         //Build embed4
         const embed4 = new EmbedBuilder()
-            .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
-            .setColor('White')
+            .setTitle(embedTitle)
+            .setDescription(embedDescription)
+            .setColor(embedColor)
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
             .setTimestamp(Date.now())
-            .setURL('https://royal.io/discover')
+            .setURL(embedUrl)
             .setAuthor({
                 iconURL: client.user.displayAvatarURL(),
                 name: client.user.tag
@@ -191,13 +225,13 @@ module.exports = async (client, yieldThreshold) => {
 
         //Build embed5
         const embed5 = new EmbedBuilder()
-            .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
-            .setColor('White')
+            .setTitle(embedTitle)
+            .setDescription(embedDescription)
+            .setColor(embedColor)
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
             .setTimestamp(Date.now())
-            .setURL('https://royal.io/discover')
+            .setURL(embedUrl)
             .setAuthor({
                 iconURL: client.user.displayAvatarURL(),
                 name: client.user.tag
@@ -209,13 +243,13 @@ module.exports = async (client, yieldThreshold) => {
 
         //Build embed6
         const embed6 = new EmbedBuilder()
-            .setTitle('Royal Yield')
-            .setDescription('Calculated yield of Royal songs: (yield % - $ floor)')
-            .setColor('White')
+            .setTitle(embedTitle)
+            .setDescription(embedDescription)
+            .setColor(embedColor)
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
             .setTimestamp(Date.now())
-            .setURL('https://royal.io/discover')
+            .setURL(embedUrl)
             .setAuthor({
                 iconURL: client.user.displayAvatarURL(),
                 name: client.user.tag
@@ -237,8 +271,8 @@ module.exports = async (client, yieldThreshold) => {
 
             //console.log(yieldResults[k].name)
 
-            let fieldName = `[${yieldResults[k].name} - ${yieldResults[k].tier}](${yieldResults[k].url})`;
-            let fieldValue = `${yieldResults[k].yield}% - $${yieldResults[k].floor}`;
+            let fieldName = `${yieldResults[k].name}`;
+            let fieldValue = `[${yieldResults[k].yield}% - $${yieldResults[k].floor} - ${yieldResults[k].floorInETH} ETH](${yieldResults[k].url})`;
 
             if(k < songsPerEmbed) {
 

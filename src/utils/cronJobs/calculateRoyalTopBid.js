@@ -1,17 +1,19 @@
 require('dotenv').config();
-
 const { EmbedBuilder } = require('discord.js');
 
 const wait = require('node:timers/promises').setTimeout;
 
+//Require Utils
 const readJsonFile = require('../readJsonFile');
-const royalFetch = require('../../utils/apis/royalFetch');
-
+const roundNumber = require('../roundNumber');
 const sendEmbedDM = require('../sendEmbedDM');
+
+//Require APIs
+const royalFetch = require('../../utils/apis/royalFetch');
 
 module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
 
-    //Get data from drops.json file
+    //Get data from drops json file
     let dataDrops = readJsonFile('src/files/dropsRoyal.json')  
 
     let collectionRoyalties = null
@@ -35,7 +37,7 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
     let topBidResults = []
     let topBidResult = null
 
-    //Loop drops.json file to check if the collection has different songs defined
+    //Loop drops json file to check if the collection has different songs defined
     const x = dataDrops.drops.length;
     for (let i = 0; i < x; ++i) {
 
@@ -131,7 +133,7 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
                     topBidResult = {
                         name: collectionName,
                         tier: collectionTier,
-                        yield: Math.floor(expectedYield * 100) / 100,
+                        yield: roundNumber(expectedYield, 2),
                         bidPrice: bidPrice,
                         topBidder: topBidder
                     }
@@ -269,10 +271,11 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
 
     if (topBidResultsLength > songsPerEmbed * maxEmbeds) {
         topBidResults.length = songsPerEmbed * maxEmbeds
+                    
+        topBidResultsLength = topBidResults.length;
     }
 
-    const z = topBidResults.length;
-    for (let k = 0; k <z; ++k) {
+    for (let k = 0; k < topBidResultsLength; ++k) {
 
         //console.log(topBidResults[k].name)
 

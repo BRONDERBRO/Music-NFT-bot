@@ -1,18 +1,22 @@
 const fetch = require('cross-fetch');
 
-//Define function to call Coingecko API to get token price in USD
 module.exports = async (tokenID) => {
+
+    const url = `https://api.coingecko.com/api/v3/simple/price?ids=${tokenID}&vs_currencies=USD`;
 
     try {
 
-        const url = 'https://api.coingecko.com/api/v3/simple/price?ids=' + tokenID + '&vs_currencies=USD'
+        const response = await fetch(url);
 
-        let fetchCoingecko = await fetch(url);
-        let fetchedCoingecko = await fetchCoingecko.json();
+        if (!response.ok) {
+            throw new Error(`Failed to fetch data from ${url}. Status: ${response.status}`);
+        }
 
-        return fetchedCoingecko
+        const data = await response.json();
+        return data;
 
     } catch (error) {
-        console.log(error);
+        console.error(`Error fetching data from ${url}:`, error);
+        throw error; // Rethrow the error to be handled by the caller        
     }
-}
+};

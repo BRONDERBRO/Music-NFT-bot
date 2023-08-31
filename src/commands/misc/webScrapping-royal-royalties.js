@@ -1,7 +1,9 @@
 const fs = require('fs/promises'); // Import the fs/promises module
 
+//Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
 
+//Require Royal webscrapping prices
 const scrapeRoyalPrice = require('../../utils/webScrapping/scrapeRoyalPrice');
 
 module.exports = {
@@ -19,7 +21,7 @@ module.exports = {
             //ephemeral: true
         });
 
-        //Get data from drops.json file
+        //Get data from drops json file
         let dataDrops = readJsonFile('src/files/dropsRoyal.json')  
 
         let collectionId = null

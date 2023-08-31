@@ -1,41 +1,39 @@
 const fetch = require('cross-fetch');
 require('dotenv').config();
 
+module.exports = async (blockchain, collectionID) => {
 
-//Define function to call Reservoir API for given CollectionID and get collection distribution
-module.exports = async (collectionID, blockchain) => {
+    const headers = {
+        accept: '*/*',
+        'x-api-key': process.env.RESERVOIR_KEY
+    };
+
+    let url = null;
+
+    if (blockchain === 'Polygon') {
+        url = `https://api-polygon.reservoir.tools/collections/${collectionID}/owners-distribution/v1`;
+    } else {
+        url = `https://api.reservoir.tools/collections/${collectionID}/owners-distribution/v1`;
+    }
 
     try {
-        //let fetchReservoir = await fetch(
-        //    'https://api.reservoir.tools/collections/' + collectionID + '/owners-distribution/v1'
-        //);
-        
-        const options = {method: 'GET', headers: {accept: '*/*', 'x-api-key': process.env.RESERVOIR_KEY}};
-        let url = null
 
-        if (blockchain === 'Polygon') {
+        const options = {
+            method: 'GET',
+            headers: headers
+        };
 
-            url = 'https://api-polygon.reservoir.tools/collections/' + collectionID + '/owners-distribution/v1'
+        const response = await fetch(url, options);
 
-            fetchReservoir = await fetch(url, options)
-            .then(response => response.json())
-            //.then(response => console.log(response))
-            .catch(err => console.error(err));
-
-        } else {
-
-            url = 'https://api.reservoir.tools/collections/' + collectionID + '/owners-distribution/v1'
-        
-            fetchReservoir = await fetch(url, options)
-            .then(response => response.json())
-            //.then(response => console.log(response))
-            .catch(err => console.error(err));
-
+        if (!response.ok) {
+            throw new Error(`Failed to fetch data from ${url}. Status: ${response.status}`);
         }
 
-        return fetchReservoir
+        const data = await response.json();
+        return data;
 
     } catch (error) {
-        console.log(error);
+        console.error(`Error fetching data from ${url}:`, error);
+        throw error;       
     }
-}
+};

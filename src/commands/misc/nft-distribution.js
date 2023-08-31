@@ -1,7 +1,9 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 
+//Require creating charts
 const createBarChart = require('../../utils/createBarChart');
 
+//Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
 
 //Require APIs
@@ -39,12 +41,12 @@ module.exports = {
 
             //console.log(collectionId)
 
-            //Get data from drops.json file
+            //Get data from drops json file
             let dataDrops = readJsonFile('src/files/nft-distribution options.json')
 
             let collectionIdDrop = null
 
-            //Loop drops.json file to find the collectionName
+            //Loop drops json file to find the collectionName
             const x = dataDrops.length;
             for (let i = 0; i < x; ++i) {
 
@@ -76,7 +78,7 @@ module.exports = {
                     text: client.user.tag
                 })
 
-            let fetchedReservoir = await reservoirFetchCollectionDistribution(collectionId,collectionBlockchain);
+            let fetchedReservoir = await reservoirFetchCollectionDistribution(collectionBlockchain, collectionId);
 
             const dataOwnersDistribution = fetchedReservoir.ownersDistribution;
 

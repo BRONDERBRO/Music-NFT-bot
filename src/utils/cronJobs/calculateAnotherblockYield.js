@@ -1,8 +1,10 @@
 require('dotenv').config();
-
 const { EmbedBuilder } = require('discord.js');
 
+//Require Utils
 const readJsonFile = require('../readJsonFile');
+const roundNumber = require('../roundNumber');
+const dropHasDifferentSongs = require('../dropHasDifferentSongs');
 const sendEmbedDM = require('../sendEmbedDM');
 
 //Require APIs
@@ -12,8 +14,10 @@ const coingeckoFetchPrice = require('../apis/coingeckoFetchPrice');
 
 module.exports = async (client, yieldThreshold, pfpFloor) => {
 
-    //Get data from drops.json file
+    //Get data from drops json file
     let dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
+
+    const collectionBlockchain = dataDrops.blockchain
 
     let collectionId = null
     let collectionName = null
@@ -30,17 +34,22 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
     let yieldResults = []
     let yieldResult = null
 
+    const attributeKey = 'Song'
+
     //Get price of tokenID
     let fetchedCoingecko = await coingeckoFetchPrice(tokenID);
     let ETHPrice = fetchedCoingecko.weth.usd
 
-    //Loop drops.json file to check if the collection has different songs defined
-    const x = dataDrops.drops.length;
-    for (let i = 0; i < x; ++i) {
+    //Loop drops json file
+    for (const drop of dataDrops.drops) {
 
-        collectionId = dataDrops.drops[i].value
-        collectionName = dataDrops.drops[i].name
-        collectionTittle = dataDrops.drops[i].tittles
+        let {
+            name: collectionName,
+            value: collectionId,
+            royalties: collectionRoyalties,
+            initialPrice: collectionInitialPrize,
+            tittles: dropTittles
+        } = drop;
 
         /*
         console.log(
@@ -51,9 +60,9 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
         */
 
         //If collectionTittle is defined and not null, then the collection has different songs
-        if (typeof collectionTittle !== 'undefined' && collectionTittle) {
+        if (dropHasDifferentSongs(drop)) {
 
-            let fetchedReservoir = await reservoirFetchCollectionAttribute(collectionId);
+            let fetchedReservoir = await reservoirFetchCollectionAttribute(collectionBlockchain, collectionId, attributeKey);
 
             //Loop through the different songs
             const y = fetchedReservoir.attributes.length;
@@ -61,17 +70,14 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
 
                 collectionSong = fetchedReservoir.attributes[j].value;
 
-                //Loop through the json file to find the specific song
-                const z = dataDrops.drops[i].tittles.length;
-                for (let k = 0; k < z; ++k) {
-                    
-                    if (dataDrops.drops[i].tittles[k].song == collectionSong) {
+                //Loop through the different songs
+                for (const dropTittle of dropTittles) {
 
-                        collectionRoyalties = dataDrops.drops[i].tittles[k].royalties
-                        collectionInitialPrize = dataDrops.drops[i].tittles[k].initial_price
-                        break;
-
-                    }
+                    let {
+                        song: collectionSong,
+                        royalties: collectionRoyalties,
+                        initialPrice: collectionInitialPrize,
+                    } = dropTittle;
 
                 }
 
@@ -98,9 +104,9 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                         yieldResult = {
                             name: collectionName,
                             song: collectionSong,
-                            yield: Math.floor(expectedYield * 100) / 100,
-                            floor: Math.floor(floorPriceInDollar * 100) / 100,
-                            floorETH: Math.floor(floorPrice * 10000) / 10000
+                            yield: roundNumber(expectedYield, 2),
+                            floor: roundNumber(floorPriceInDollar, 2),
+                            floorETH: roundNumber(floorPrice, 4)
                         }
                         yieldResults.push(yieldResult);
                     }
@@ -109,9 +115,6 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
 
         //If collectionTittle is not defined or null, then the collection does not have different songs
         } else {
-
-            collectionRoyalties = dataDrops.drops[i].royalties
-            collectionInitialPrize = dataDrops.drops[i].initial_price
 
             let fetchedReservoir = await reservoirFetchCollection(collectionId);
 
@@ -138,9 +141,9 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                     yieldResult = {
                         name: collectionName,
                         song: null,
-                        yield: Math.floor(expectedYield * 100) / 100,
-                        floor: Math.floor(floorPriceInDollar * 100) / 100,
-                        floorETH: Math.floor(floorPrice * 10000) / 10000
+                        yield: roundNumber(expectedYield, 2),
+                        floor: roundNumber(floorPriceInDollar, 2),
+                        floorETH: roundNumber(floorPrice, 4)
                     }
                     yieldResults.push(yieldResult);
                 }
@@ -152,11 +155,11 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                     floorBelowThreshold = true
 
                     yieldResult = {
-                        name: collectionName, song: null, yield: 0,
+                        name: collectionName,
                         song: null,
                         yield: 0,
-                        floor: Math.floor(floorPriceInDollar * 100) / 100,
-                        floorETH: Math.floor(floorPrice * 10000) / 10000
+                        floor: roundNumber(floorPriceInDollar, 2),
+                        floorETH: roundNumber(floorPrice, 4)
                     }
                     yieldResults.push(yieldResult);
                 }

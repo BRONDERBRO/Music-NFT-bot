@@ -1,5 +1,7 @@
 const puppeteer = require('puppeteer');
 
+const wait = require('node:timers/promises').setTimeout;
+
 module.exports = async (url) => {
   try {
     const browser = await puppeteer.launch({ headless: 'new' }); // Use new headless mode
@@ -12,7 +14,10 @@ module.exports = async (url) => {
     await page.goto(url);
 
     const sliderHandleSelector = '.absolute.top-0.bottom-0.rounded.bg-accent-1.opacity-20';
+    const priceSelector = '.inline-block.text-interactive-1'
 
+    //AFTER WEBPAGE UPDATE, SCROLLING IS NO LONGER NEEDED FOR THE PRICE TO UPDATE
+    /*
     // Wait for the element containing the slider to load
     await page.waitForSelector(sliderHandleSelector, { timeout: 10000 });
     
@@ -31,6 +36,7 @@ module.exports = async (url) => {
       window.scrollBy(scrollX, scrollY);
     }, scrollX, scrollY);
 
+    // Get new position for the slider
     sliderHandle = await page.$(sliderHandleSelector);
     handleBoundingBox = await sliderHandle.boundingBox();
 
@@ -48,18 +54,20 @@ module.exports = async (url) => {
 
     await page.mouse.move(centerX, centerY);
     await page.mouse.up();
+    */
 
     // Wait for the element containing the price to load
-    await page.waitForSelector('.inline-block.text-interactive-1', { timeout: 5000 });
+    await page.waitForSelector(priceSelector, { timeout: 5000 });
 
     // Wait for the dynamic content to load
-    await page.waitForFunction(() => {
-      const priceElement = document.querySelector('.inline-block.text-interactive-1');
+    await page.waitForFunction((priceSelector) => {
+      const priceElement = document.querySelector(priceSelector);
       return priceElement && priceElement.textContent.trim() !== '';
-    }, { timeout: 10000 }); // Adjust the timeout as needed
+    }, { timeout: 10000 }, priceSelector); // Pass the selector as an argument
 
     // Extract the price value
-    const priceNumber = await page.$eval('.inline-block.text-interactive-1', element => {
+    await wait(2000) //Wait 2 seconds to be sure that the page correctly updates the priceNumber
+    const priceNumber = await page.$eval(priceSelector, element => {
       return parseFloat(element.textContent.replace('$', ''));
     });
 
@@ -71,6 +79,7 @@ module.exports = async (url) => {
     return priceNumber;
 
   } catch (error) {
-    console.log(error);
+    console.error("An error occurred:", error);
+    return null;
   }
 };

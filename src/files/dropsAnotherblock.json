@@ -4,50 +4,126 @@
             "name": "This Is Why I'm Hot (Mims)",
             "value": "0xbeff0289168f9589337838c826162da9dc29993d",
             "royalties": 0.066,
-            "initial_price": 150
+            "initialPrice": 150,
+            "sources": [
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "this-is-why-im-hot"
+                },
+                {
+                    "source": "market.anotherblock.io",
+                    "marketplaceUrl": "0xbeff0289168f9589337838c826162da9dc29993d"
+                }
+            ]
         },
         {
             "name": "So Far Away (David Guetta & Martin Garrix)",
             "value": "0x65beEC116a625e2F68B6C04313105fE10F510135",
             "royalties": 0.122,
-            "initial_price": 144
+            "initialPrice": 144,
+            "sources": [
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "so-far-away-anotherblock"
+                },
+                {
+                    "source": "market.anotherblock.io",
+                    "marketplaceUrl": "0x65beEC116a625e2F68B6C04313105fE10F510135"
+                }
+            ]
         },
         {
             "name": "Bitch Better Have My Money (Rihanna)",
             "value": "0xCB8399D84e17fD5B4e955C716647c7BB2C35Ab63",
             "royalties": 0.161,
-            "initial_price": 210
+            "initialPrice": 210,
+            "sources": [
+                {
+                    "source": "blur.io",
+                    "marketplaceUrl": "rihanna-bitch-better-have-my-money"
+                },
+                {
+                    "source": "market.anotherblock.io",
+                    "marketplaceUrl": "0xCB8399D84e17fD5B4e955C716647c7BB2C35Ab63"
+                }
+            ]
         },
         {
             "name": "Ric Flair Drip (Offset & Metro Boomin)",
             "value": "0xFE5209ac341835670fA731383D5d28c8A093dda3",
             "royalties": 0.115,
-            "initial_price": 99
+            "initialPrice": 99,
+            "sources": [
+                {
+                    "source": "blur.io",
+                    "marketplaceUrl": "ric-flair-drip"
+                },
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "ric-flair-drip"
+                },
+                {
+                    "source": "market.anotherblock.io",
+                    "marketplaceUrl": "0xFE5209ac341835670fA731383D5d28c8A093dda3"
+                }
+            ]
         },
         {
             "name": "Anotherblock Season 1",
             "value": "0x9ef75b412D8466B9b35F3A1Bf7a809a5C6d0Aa7C",
+            "sources": [
+                {
+                    "source": "blur.io",
+                    "marketplaceUrl": "anotherblock"
+                },
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "anotherblock-season-1"
+                },
+                {
+                    "source": "market.anotherblock.io",
+                    "marketplaceUrl": "0x9ef75b412D8466B9b35F3A1Bf7a809a5C6d0Aa7C"
+                }
+            ],
             "tittles": [
                 {
                    "song": "Alone pt. II",
                    "royalties": 0.075,
-                   "initial_price": 88
+                   "initialPrice": 88,
+                   "anotherblockUrlId": "3"
                 },
                 {
                    "song": "Acquainted",
                    "royalties": 0.114,
-                   "initial_price": 107.76
+                   "initialPrice": 107.76,
+                   "anotherblockUrlId": "2"
                 },
                 {
                    "song": "Weekend On A Tuesday",
                    "royalties": 0.069,
-                   "initial_price": 87.31
+                   "initialPrice": 87.31,
+                   "anotherblockUrlId": "1"
                 }
             ]
         },
         {
             "name": "pfp",
-            "value": "0x9ffb419404a5b1b8551d0127Ed3562D9E622292E"
+            "value": "0x9ffb419404a5b1b8551d0127Ed3562D9E622292E",
+            "sources": [
+                {
+                    "source": "blur.io",
+                    "marketplaceUrl": "anotherpfp"
+                },
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "anotherpfp"
+                },
+                {
+                    "source": "market.anotherblock.io",
+                    "marketplaceUrl": "0x9ffb419404a5b1b8551d0127Ed3562D9E622292E"
+                }
+            ]
         }
-    ]
+    ],
+    "blockchain": "Ethereum"
 }

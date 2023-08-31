@@ -3,7 +3,9 @@ const { EmbedBuilder } = require('discord.js');
 
 const wait = require('node:timers/promises').setTimeout;
 
+//Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
+const roundNumber = require('../../utils/roundNumber');
 
 //Require APIs
 const royalFetch = require('../../utils/apis/royalFetch');
@@ -23,7 +25,7 @@ module.exports = {
             //ephemeral: true
         });
 
-        //Get data from drops.json file
+        //Get data from drops json file
         let dataDrops = readJsonFile('src/files/dropsRoyal.json')  
 
         let collectionRoyalties = null
@@ -51,7 +53,7 @@ module.exports = {
         let topBidResults = []
         let topBidResult = null
 
-        //Loop drops.json file to check if the collection has different songs defined
+        //Loop drops json file to check if the collection has different songs defined
         const x = dataDrops.drops.length;
         for (let i = 0; i < x; ++i) {
 
@@ -91,6 +93,7 @@ module.exports = {
                 collectionTier = fetchedRoyal.data.edition.tiers[j].type;
                 royalty = fetchedRoyal.data.edition.tiers[j].royaltyClaimMillionths;
                 bidPrice = parseFloat(fetchedRoyal.data.edition.tiers[j].market.highestBidPrice.amount);
+                console.log(bidPrice)
 
                 if (dataDrops.drops[i].tiers.length === 0) {
                     collectionMyBidPrice = 0;
@@ -112,19 +115,19 @@ module.exports = {
                     `The bidPrice for $ {collectionName}: ${collectionTier} tier is: ${bidPrice}`, '\n');
                 */
 
-                if (bidPrice === collectionMyBidPrice) {
+                if (bidPrice === 0) {
+
+                    topBidder = "None"
+                
+                } else if (bidPrice === collectionMyBidPrice) {
 
                     topBidder = "BRONDER"
                 
-                }
-
-                else if (bidPrice < collectionMyBidPrice) {
+                } else if (bidPrice < collectionMyBidPrice) {
 
                     topBidder = 'ERROR'
                 
-                }
-
-                else {
+                } else {
 
                     topBidder = 'Other'
 
@@ -147,7 +150,7 @@ module.exports = {
                         topBidResult = {
                             name: collectionName,
                             tier: collectionTier,
-                            yield: Math.floor(expectedYield * 100) / 100,
+                            yield: roundNumber(expectedYield, 2),
                             bidPrice: bidPrice,
                             topBidder: topBidder
                         }
@@ -277,11 +280,13 @@ module.exports = {
                 text: client.user.tag
             })
 
-        const topBidResultsLength = topBidResults.length;
+        let topBidResultsLength = topBidResults.length;
 
         //Make sure that we only send as many results as they fit in the embeds
         if (topBidResultsLength > songsPerEmbed * maxEmbeds) {
             topBidResults.length = songsPerEmbed * maxEmbeds
+
+            topBidResultsLength = topBidResults.length;
         }
 
         for (let k = 0; k <topBidResultsLength; ++k) {

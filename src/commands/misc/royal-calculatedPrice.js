@@ -2,7 +2,9 @@ const { EmbedBuilder } = require('discord.js');
 
 const wait = require('node:timers/promises').setTimeout;
 
+//Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
+const roundNumber = require('../../utils/roundNumber');
 
 //Require APIs
 const royalFetch = require('../../utils/apis/royalFetch');
@@ -32,7 +34,7 @@ module.exports = {
         //Get the desiredYield introduced in the command by the user
         const desiredYield = interaction.options.get('yield_percentage').value
 
-        //Get data from drops.json file
+        //Get data from drops json file
         let dataDrops = readJsonFile('src/files/dropsRoyal.json')  
 
         let collectionId = null
@@ -108,7 +110,11 @@ module.exports = {
 
                     if (targetPrice >= priceThreshold){
 
-                        yieldResult = {name: collectionName, tier: collectionTier, price: Math.floor(targetPrice * 100) / 100}
+                        yieldResult = {
+                            name: collectionName,
+                            tier: collectionTier,
+                            price: roundNumber(targetPrice, 2)
+                        }
 
                         yieldResults.push(yieldResult);
 
@@ -231,14 +237,15 @@ module.exports = {
                 text: client.user.tag
             })
 
-        const yieldResultsLength = yieldResults.length;
+        let yieldResultsLength = yieldResults.length;
 
         if (yieldResultsLength > songsPerEmbed * maxEmbeds) {
             yieldResults.length = songsPerEmbed * maxEmbeds
+
+            yieldResultsLength = yieldResults.length;
         }
 
-        const z = yieldResults.length;
-        for (let k = 0; k <z; ++k) {
+        for (let k = 0; k < yieldResultsLength; ++k) {
 
             //console.log(yieldResults[k].name)
 
@@ -303,7 +310,7 @@ module.exports = {
             
         }
 
-        if (z <= songsPerEmbed) {
+        if (yieldResultsLength <= songsPerEmbed) {
 
             //Return Edit Reply
             return interaction.followUp({
@@ -312,7 +319,7 @@ module.exports = {
 
         }
 
-        else if (z <= songsPerEmbed * 2) {
+        else if (yieldResultsLength <= songsPerEmbed * 2) {
 
             //Edit Initial Repply
             interaction.followUp({
@@ -328,7 +335,7 @@ module.exports = {
 
         }
 
-        else if (z <= songsPerEmbed * 3) {
+        else if (yieldResultsLength <= songsPerEmbed * 3) {
 
             //Edit Initial Repply
             interaction.followUp({
@@ -351,7 +358,7 @@ module.exports = {
 
         }
 
-        else if (z <= songsPerEmbed * 4) {
+        else if (yieldResultsLength <= songsPerEmbed * 4) {
 
             //Edit Initial Repply
             interaction.followUp({
@@ -381,7 +388,7 @@ module.exports = {
 
         }
 
-        else if (z <= songsPerEmbed * 5) {
+        else if (yieldResultsLength <= songsPerEmbed * 5) {
 
             //Edit Initial Repply
             interaction.followUp({

@@ -1,6 +1,9 @@
 const { EmbedBuilder } = require('discord.js');
 
+//Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
+const roundNumber = require('../../utils/roundNumber');
+const dropHasDifferentSongs = require('../../utils/dropHasDifferentSongs');
 
 //Require APIs
 const reservoirFetchOrderBid = require('../../utils/apis/reservoirFetchOrderBid');
@@ -20,18 +23,20 @@ module.exports = {
             //ephemeral: true
         });
 
-        //Get data from drops.json file
-        let dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
+        const embedTitle = 'Anotherblock Top Bids'
+        const embedDescription = 'Top bid of anotherblock collections: (Top Bidder: $ Bid Price - Bid Price ETH - Yield At Bid Price %)'
+        const embedColor = 'White'
+        const embedUrl = 'https://market.anotherblock.io/'
 
         //Build embed
         const embed = new EmbedBuilder()
-            .setTitle('anotherblock Top Bids')
-            .setDescription('Top bid of anotherblock collections: (Top Bidder: $ Bid Price - ETH Bid Price - Yield At Bid Price %)')
-            .setColor('White')
+            .setTitle(embedTitle)
+            .setDescription(embedDescription)
+            .setColor(embedColor)
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
             .setTimestamp(Date.now())
-            .setURL('https://market.anotherblock.io/')
+            .setURL(embedUrl)
             .setAuthor({
                 iconURL: client.user.displayAvatarURL(),
                 name: client.user.tag
@@ -41,6 +46,9 @@ module.exports = {
                 text: client.user.tag
             })
 
+        //Get data from drops json file
+        let dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
+
         let collectionId = null
         let collectionName = null
         let collectionTittle = null
@@ -48,52 +56,66 @@ module.exports = {
         let bidPriceETH = null
         let bidPriceInDollar = null
         let topBidder = null
-
+        
+        let source = []
         let topBidResults = []
         let topBidResult = null
 
         let expectedYieldAtBidPrice = null
 
-        //Loop drops.json file to check if the collection has different songs defined
-        const x = dataDrops.drops.length;
-        for (let i = 0; i < x; ++i) {
+        //Loop drops json file
+        for (const drop of dataDrops.drops) {
 
-            collectionId = dataDrops.drops[i].value
-            collectionName = dataDrops.drops[i].name
-            collectionTittle = dataDrops.drops[i].tittles
+            let {
+                name: collectionName,
+                value: collectionId,
+                royalties: collectionRoyalties,
+                initialPrice: collectionInitialPrize,
+                tittles: dropTittles
+            } = drop;
 
             //console.log(collectionName, '\n')
 
+            collectionSong = null
+
+            let fetchedReservoir = await reservoirFetchOrderBid(collectionId, collectionSong, source, null);
+
             //If collectionTittle is defined and not null, then the collection has different songs
-            if (typeof collectionTittle !== 'undefined' && collectionTittle) {
+            if (dropHasDifferentSongs(drop)) {
 
                 //Loop through the different songs
-                const y = dataDrops.drops[i].tittles.length;
-                for (let j = 0; j < y; ++j) {
+                for (const dropTittle of dropTittles) {
 
-                    collectionSong = dataDrops.drops[i].tittles[j].song;
+                    let {
+                        song: collectionSong,
+                        royalties: collectionRoyalties,
+                        initialPrice: collectionInitialPrize,
+                    } = dropTittle;
 
                     //console.log(collectionSong)
 
-                    let fetchedReservoir = await reservoirFetchOrderBid(collectionId,collectionSong);
+                    let fetchedReservoirSong = await reservoirFetchOrderBid(collectionId, collectionSong, source);
 
-                    //Loop through the json file to find the specific song
-                    const z = dataDrops.drops[i].tittles.length;
-                    for (let k = 0; k < z; ++k) {
-                        
-                        if (dataDrops.drops[i].tittles[k].song == collectionSong) {
+                    //define JSONs without "orders" to combine them
+                    const orders1 = fetchedReservoir.orders || [];
+                    const orders2 = fetchedReservoirSong.orders || [];
 
-                            collectionRoyalties = dataDrops.drops[i].tittles[k].royalties
-                            collectionInitialPrize = dataDrops.drops[i].tittles[k].initial_price
-                            break;
+                    // Combine the "orders" arrays
+                    const combinedOrders = [...orders1, ...orders2];
 
-                        }
+                    // Sort the combined orders array by the "decimal" value
+                    const sortedCombinedOrders = combinedOrders.sort((a, b) => {
+                    const decimalA = a.price.amount.decimal;
+                    const decimalB = b.price.amount.decimal;
+                    return decimalB - decimalA;
+                    });
 
-                    }
+                    // Create a new object with the sorted combined "orders" array
+                    fetchedReservoirSong = { orders: sortedCombinedOrders };
 
-                    topBidder = fetchedReservoir.orders[0].maker
-                    bidPriceETH = fetchedReservoir.orders[0].price.amount.decimal;
-                    bidPriceInDollar = fetchedReservoir.orders[0].price.amount.usd;
+                    topBidder = fetchedReservoirSong.orders[0].maker
+                    bidPriceETH = fetchedReservoirSong.orders[0].price.amount.decimal;
+                    bidPriceInDollar = fetchedReservoirSong.orders[0].price.amount.usd;
 
                     expectedYieldAtBidPrice = (collectionRoyalties * collectionInitialPrize) / (bidPriceInDollar) * 100
                     
@@ -110,9 +132,9 @@ module.exports = {
                         name: collectionName,
                         song: collectionSong,
                         bidder: topBidder,
-                        bidPrice: Math.floor(bidPriceInDollar * 100) / 100,
-                        bidPriceETH: Math.floor(bidPriceETH * 10000) / 10000,
-                        yield: Math.floor(expectedYieldAtBidPrice * 100) / 100
+                        bidPrice: roundNumber(bidPriceInDollar, 2),
+                        bidPriceETH: roundNumber(bidPriceETH, 4),
+                        yield: roundNumber(expectedYieldAtBidPrice, 2)
                     }
                     topBidResults.push(topBidResult);
 
@@ -120,12 +142,6 @@ module.exports = {
 
             //If collectionTittle is not defined or null, then the collection does not have different songs
             } else {
-
-                collectionSong = null
-                collectionRoyalties = dataDrops.drops[i].royalties
-                collectionInitialPrize = dataDrops.drops[i].initial_price
-
-                let fetchedReservoir = await reservoirFetchOrderBid(collectionId,collectionSong);
 
                 topBidder = fetchedReservoir.orders[0].maker
                 bidPriceETH = fetchedReservoir.orders[0].price.amount.decimal;
@@ -146,9 +162,9 @@ module.exports = {
                     name: collectionName,
                     song: collectionSong,
                     bidder: topBidder,
-                    bidPrice: Math.floor(bidPriceInDollar * 100) / 100,
-                    bidPriceETH: Math.floor(bidPriceETH * 10000) / 10000,
-                    yield: Math.floor(expectedYieldAtBidPrice * 100) / 100
+                    bidPrice: roundNumber(bidPriceInDollar, 2),
+                    bidPriceETH: roundNumber(bidPriceETH, 4),
+                    yield: roundNumber(expectedYieldAtBidPrice, 2)
                 }
                 topBidResults.push(topBidResult);
 
@@ -168,11 +184,13 @@ module.exports = {
         for (let k = 0; k <z; ++k) {
 
             //console.log(topBidResults[k].name)
+            
+            let fieldName = `${topBidResults[k].song ?? topBidResults[k].name}`;
+            let fieldValue = `${topBidResults[k].bidder}: $${topBidResults[k].bidPrice} - ${topBidResults[k].bidPriceETH} ETH - ${topBidResults[k].yield}%`;
 
             embed.addFields({
-                name: topBidResults[k].song ?? topBidResults[k].name,
-                value: topBidResults[k].bidder + ': $' + topBidResults[k].bidPrice + ' - ETH ' + topBidResults[k].bidPriceETH
-                    + ' - ' + topBidResults[k].yield + '%',
+                name: fieldName,
+                value: fieldValue,
                 inline: false,
             });
         }

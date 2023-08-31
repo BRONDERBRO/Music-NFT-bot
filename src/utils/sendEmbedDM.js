@@ -1,10 +1,11 @@
-module.exports = (client, user, embed) => {
-    try {
-      client.users.fetch(user, false).then((user) => {
-      user.send({embeds: [embed]}).catch(err => console.log(err));
-          //console.log('sendembedDM (',user.id,' ',message)
-      });
-    } catch (error) {
-      console.log('could not alert user: ', error);
-    }
-}
+module.exports = async (client, user, embed) => {
+  try {
+    
+      const fetchedUser = await client.users.fetch(user, false);
+      await fetchedUser.send({ embeds: [embed] });
+      // console.log('sendembedDM (', user.id, ' ', message);
+
+  } catch (error) {
+      console.error('Error sending embed DM:', error);
+  }
+};

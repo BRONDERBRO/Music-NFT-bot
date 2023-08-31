@@ -1,6 +1,9 @@
 const { EmbedBuilder } = require('discord.js');
 
+//Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
+const roundNumber = require('../../utils/roundNumber');
+const dropHasDifferentSongs = require('../../utils/dropHasDifferentSongs');
 
 //Require APIs
 const coingeckoFetchPrice = require('../../utils/apis/coingeckoFetchPrice');
@@ -30,18 +33,20 @@ module.exports = {
         //Get the desiredYield introduced in the command by the user
         const desiredYield = interaction.options.get('yield_percentage').value
 
-        //Get data from drops.json file
-        let dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
+        const embedTitle = 'Anotherblock Calculated Price'
+        const embedDescription = 'Calculated price of anotherblock songs for **' + desiredYield + '% yield**: ($ price - price ETH)'
+        const embedColor = 'White'
+        const embedUrl = 'https://market.anotherblock.io/'
 
         //Build embed
         const embed = new EmbedBuilder()
-            .setTitle('anotherblock Calculated Price')
-            .setDescription('Calculated price of anotherblock songs for **' + desiredYield + '% yield**: ($ price - ETH price)')
-            .setColor('White')
+            .setTitle(embedTitle)
+            .setDescription(embedDescription)
+            .setColor(embedColor)
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
             .setTimestamp(Date.now())
-            .setURL('https://market.anotherblock.io/')
+            .setURL(embedUrl)
             .setAuthor({
                 iconURL: client.user.displayAvatarURL(),
                 name: client.user.tag
@@ -51,49 +56,51 @@ module.exports = {
                 text: client.user.tag
             })
 
-        let collectionId = null
-        let collectionName = null
-        let collectionTittle = null
-        let collectionRoyalties = null
-        let collectionInitialPrize = null
-        let collectionSong = null
+        //Get data from drops json file
+        let dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
+
+        const tokenIdETH = 'weth'
+
+        //Get price of tokens
+        let fetchedCoingecko = await coingeckoFetchPrice(tokenIdETH);
+        const ETHPrice = fetchedCoingecko[tokenIdETH]['usd'];
+
         let targetPrice = null
         let targetPriceETH = null
-        let tokenID = 'weth'
 
         let priceResults = []
         let priceResult = null
-        
-        //Get price of tokenID
-        let fetchedCoingecko = await coingeckoFetchPrice(tokenID);
-        let ETHPrice = fetchedCoingecko.weth.usd
 
-        //Loop drops.json file to check if the collection has different songs defined
-        const x = dataDrops.drops.length;
-        for (let i = 0; i < x; ++i) {
+        //Loop drops json file
+        for (const drop of dataDrops.drops) {
 
-            collectionId = dataDrops.drops[i].value
-            collectionName = dataDrops.drops[i].name
-            collectionTittle = dataDrops.drops[i].tittles
+            let {
+                name: collectionName,
+                value: collectionId,
+                royalties: collectionRoyalties,
+                initialPrice: collectionInitialPrize,
+                tittles: dropTittles
+            } = drop;
 
             //If collectionTittle is defined and not null, then the collection has different songs
-            if (typeof collectionTittle !== 'undefined' && collectionTittle) {
+            if (dropHasDifferentSongs(drop)) {
 
-                // Loop through the different songs
-                const y = dataDrops.drops[i].tittles.length;
-                for (let j = 0; j < y; ++j) {
+                //Loop through the different songs
+                for (const dropTittle of dropTittles) {
 
-                collectionSong = dataDrops.drops[i].tittles[j].song;
-                collectionRoyalties = dataDrops.drops[i].tittles[j].royalties
-                collectionInitialPrize = dataDrops.drops[i].tittles[j].initial_price
+                    let {
+                        song: collectionSong,
+                        royalties: collectionRoyalties,
+                        initialPrice: collectionInitialPrize,
+                    } = dropTittle;
 
                 /*
-                console.log(
-                    collectionSong, '\n',
-                    'Royalties: ' + collectionRoyalties, '\n',
-                    'Initial Price: ' + collectionInitialPrize, '\n'                        
-                )
-                */
+                console.log(`
+                    Collection Song: ${collectionSong}
+                    Royalties: ${collectionRoyalties}
+                    Initial Price: ${collectionInitialPrize}
+                `);
+                */  
 
                 //If collectionRoyalties is defined and not null, then calculate the expectedYield
                 if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
@@ -105,8 +112,8 @@ module.exports = {
                         name: collectionName,
                         song: collectionSong,
                         yield: desiredYield,
-                        price: Math.floor(targetPrice * 100) / 100,
-                        priceETH: Math.floor(targetPriceETH * 10000) / 10000
+                        price: roundNumber(targetPrice, 2),
+                        priceETH: roundNumber(targetPriceETH, 4)
                     }
                     priceResults.push(priceResult);
 
@@ -115,9 +122,6 @@ module.exports = {
 
             //If collectionTittle is not defined or null, then the collection does not have different songs
             } else {
-
-                collectionRoyalties = dataDrops.drops[i].royalties
-                collectionInitialPrize = dataDrops.drops[i].initial_price
 
                 //If collectionRoyalties is defined and not null, then calculate the expectedYield. Else it is the pfp
                 if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
@@ -129,8 +133,8 @@ module.exports = {
                         name: collectionName,
                         song: null,
                         yield: desiredYield,
-                        price: Math.floor(targetPrice * 100) / 100,
-                        priceETH: Math.floor(targetPriceETH * 10000) / 10000
+                        price: roundNumber(targetPrice, 2),
+                        priceETH: roundNumber(targetPriceETH, 4)
                     }
                     priceResults.push(priceResult);
                     
@@ -150,9 +154,12 @@ module.exports = {
 
             //console.log(priceResults[k].name)
 
+            let fieldName = `${priceResults[k].song ?? priceResults[k].name}`;
+            let fieldValue = `$${priceResults[k].price} - ${priceResults[k].priceETH} ETH`;
+
             embed.addFields({
-                name: priceResults[k].song ?? priceResults[k].name,
-                value: '$' + priceResults[k].price + ' - ETH ' + priceResults[k].priceETH,
+                name: fieldName,
+                value: fieldValue,
                 inline: false,
             });
         }

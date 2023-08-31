@@ -1,56 +1,54 @@
 const fetch = require('cross-fetch');
 require('dotenv').config();
 
+module.exports = async (collectionID, collectionSong, sources, maker) => {
 
-//Define function to call Reservoir API for given CollectionID and diveded by Song attribute and get song floor price
-module.exports = async (collectionID,collectionSong) => {
+    const headers = {
+        accept: '*/*',
+        'x-api-key': process.env.RESERVOIR_KEY
+    };
+
+    let url = `https://api.reservoir.tools/orders/bids/v6?collection=${collectionID}`;
 
     try {
+        if (typeof maker !== 'undefined' && maker && sources.length === 1 && sources[0] === 'blur.io') {
 
-        //let fetchReservoir = await fetch(
-        //    'https://api.reservoir.tools/collections/' + collectionID + '/attributes/explore/v4?attributeKey=Song'
-        //);
-
-        const options = {method: 'GET', headers: {accept: '*/*', 'x-api-key': process.env.RESERVOIR_KEY}};
-        let url = null
-
-        //If collectionSong is defined and not null, then pass the attribute to the call
-        if (typeof collectionSong !== 'undefined' && collectionSong) {
-
-            //For "Alone pt. II" the call is not working, so I request the floor for the whole collection
-            if (collectionSong == 'Alone pt. II')
-            {
-                url = 'https://api.reservoir.tools/orders/bids/v6?collection=' + collectionID + '&attributes[Song]=' + collectionSong + '&sortBy=price'
-            } else {
-                url = 'https://api.reservoir.tools/orders/bids/v6?collection=' + collectionID + '&attribute[Song]=' + collectionSong + '&sortBy=price'
-            }
-
-            fetchReservoir = await fetch(url, options)
-            .then(response => response.json())
-            //.then(response => console.log(response))
-            .catch(err => console.error(err));
+            url = `https://api.reservoir.tools/orders/bids/v6?maker=${maker}&sources=${sources[0]}`;
 
         } else {
 
-            url = 'https://api.reservoir.tools/orders/bids/v6?collection=' + collectionID + '&sortBy=price'
+            if (typeof collectionSong !== 'undefined' && collectionSong) {
+                url += `&attribute[Song]=${encodeURIComponent(collectionSong)}`;
+            }
 
-            fetchReservoir = await fetch(url, options)
-            .then(response => response.json())
-            //.then(response => console.log(response))
-            .catch(err => console.error(err));
+            if (sources && Array.isArray(sources) && sources.length > 0) {
+                const sourcesQueryParam = sources.map(source => `&sources=${source}`).join('');
+                url += sourcesQueryParam;
+            }
 
+            url += '&sortBy=price';
         }
 
-        /*
-        console.log (
-            url, '\n',
-            fetchReservoir, '\n'
-        )
-        */
+        const options = {
+            method: 'GET',
+            headers: headers
+        };
 
-        return fetchReservoir
+        const response = await fetch(url, options);
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch data from ${url}. Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        //console.log(url, '\n');
+        //console.log(data, '\n');
+        
+        return data;
 
     } catch (error) {
-        console.log(error);
+        console.error(`Error fetching data from ${url}:`, error);
+        throw error;       
     }
-}
+};
