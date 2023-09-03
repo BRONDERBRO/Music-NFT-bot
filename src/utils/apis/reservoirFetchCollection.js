@@ -24,6 +24,7 @@ module.exports = async (collectionID) => {
         }
 
         const data = await response.json();
+        //console.log(url, '\n');
         return data;
 
     } catch (error) {

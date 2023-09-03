@@ -6,7 +6,7 @@ const wait = require('node:timers/promises').setTimeout;
 //Require Utils
 const readJsonFile = require('../readJsonFile');
 const roundNumber = require('../roundNumber');
-const dropHasDifferentSongs = require('../dropHasDifferentSongs');
+const dropHasDifferentSongs = require('../anotherblockDropHasDifferentSongs');
 const sendEmbedDM = require('../sendEmbedDM');
 
 //Require APIs
@@ -61,7 +61,6 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
     let hasMatchingSource = false;
 
     let topBidResults = [];
-    let topBidResult = null;
 
     let maker = process.env.WALLET_ADDRESS
 
@@ -181,7 +180,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                     // Check if the response has no orders
                     if (fetchedReservoirSong.orders.length === 0){
 
-                        topBidResult = {
+                        topBidResults.push({
                             name: collectionName,
                             song: collectionSong,
                             bidder: null,
@@ -190,8 +189,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                             targetPrice: 0,
                             yield: Infinity,
                             url: embedResultUrl
-                        }
-                        topBidResults.push(topBidResult);
+                        });
 
                     } else {
 
@@ -217,7 +215,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                         */
                         
 
-                        topBidResult = {
+                        topBidResults.push({
                             name: collectionName,
                             song: collectionSong,
                             bidder: topBidder,
@@ -226,8 +224,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                             targetPrice: roundNumber(targetPrice, 2),
                             yield: roundNumber(expectedYieldAtBidPrice, 2),
                             url: embedResultUrl
-                        }
-                        topBidResults.push(topBidResult);
+                        });
                     }
                 }
 
@@ -275,7 +272,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                 // Check if the response has no orders
                 if (fetchedReservoir.orders.length === 0){
 
-                    topBidResult = {
+                    topBidResults.push({
                         name: collectionName,
                         song: collectionSong,
                         bidder: null,
@@ -284,8 +281,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                         targetPrice: 0,
                         yield: Infinity,
                         url: embedResultUrl
-                    }
-                    topBidResults.push(topBidResult);
+                    });
 
                 } else {
 
@@ -345,7 +341,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                     `);
                     */
 
-                    topBidResult = {
+                    topBidResults.push({
                         name: collectionName,
                         song: collectionSong,
                         bidder: topBidder,
@@ -354,8 +350,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                         targetPrice: roundNumber(targetPrice, 2),
                         yield: roundNumber(expectedYieldAtBidPrice, 2),
                         url: embedResultUrl
-                    }
-                    topBidResults.push(topBidResult);
+                    });
                 }
             }
         }

@@ -22,7 +22,7 @@ module.exports = {
         });
 
         //Get data from drops json file
-        let dataDrops = readJsonFile('src/files/dropsRoyal.json')  
+        const dataDrops = readJsonFile('src/files/dropsRoyal.json')  
 
         let collectionId = null
         let collectionName = null

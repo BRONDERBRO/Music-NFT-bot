@@ -30,6 +30,7 @@ module.exports = async (blockchain, collectionID, attributeKey) => {
         }
 
         const data = await response.json();
+        //console.log(url, '\n');
         return data;
 
     } catch (error) {

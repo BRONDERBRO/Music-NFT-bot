@@ -18,11 +18,11 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 128.01
+          "bidPrice": 130.01
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 501
+          "bidPrice": 505.01
         }
       ]
     },
@@ -33,7 +33,7 @@
       "tiers": [
         {
           "tier": "DIAMOND",
-          "bidPrice": 1000.01
+          "bidPrice": 1001.01
         }
       ]
     },
@@ -64,6 +64,10 @@
       "name": "Oh, San Francisco",
       "royalties": 0.8,
       "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 2
+        },
         {
           "tier": "DIAMOND",
           "bidPrice": 10
@@ -125,6 +129,10 @@
           "bidPrice": 2
         },
         {
+          "tier": "PLATINUM",
+          "bidPrice": 10
+        },
+        {
           "tier": "DIAMOND",
           "bidPrice": 101
         }
@@ -138,11 +146,11 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 108
+          "bidPrice": 109.01
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 800.01
+          "bidPrice": 805.01
         }
       ]
     },
@@ -171,7 +179,7 @@
       "tiers": [
         {
           "tier": "DIAMOND",
-          "bidPrice": 251
+          "bidPrice": 255.01
         }
       ]
     },
@@ -182,7 +190,7 @@
       "tiers": [
         {
           "tier": "PLATINUM",
-          "bidPrice": 151.5
+          "bidPrice": 152.01
         }
       ]
     },
@@ -199,11 +207,11 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 79
+          "bidPrice": 80.01
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 451
+          "bidPrice": 456
         }
       ]
     },
@@ -214,7 +222,7 @@
       "tiers": [
         {
           "tier": "DIAMOND",
-          "bidPrice": 775.01
+          "bidPrice": 800.01
         }
       ],
       "openseaUrl": "-kill-jill-feat-killer-mike-jeezy"
@@ -256,7 +264,12 @@
       "id": "secretnumber-likeitlikeit",
       "name": "LIKE IT LIKE IT",
       "royalties": 4.98,
-      "tiers": []
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 10
+        }
+      ]
     },
     {
       "id": "halfanorange-champagneandcocaine",
@@ -343,6 +356,10 @@
       "royalties": 5.26,
       "tiers": [
         {
+          "tier": "GOLD",
+          "bidPrice": 10
+        },
+        {
           "tier": "DIAMOND",
           "bidPrice": 101
         }
@@ -369,13 +386,22 @@
       "id": "angelo-mota-madonna",
       "name": "Madonna",
       "royalties": 1.62,
-      "tiers": []
+      "tiers": [
+        {
+          "tier": "PLATINUM",
+          "bidPrice": 20
+        }
+      ]
     },
     {
       "id": "cartoon-no-halo",
       "name": "No Halo (feat. Asena)",
       "royalties": 5.23,
       "tiers": [
+        {
+          "tier": "PLATINUM",
+          "bidPrice": 75.01
+        },
         {
           "tier": "DIAMOND",
           "bidPrice": 120
@@ -390,7 +416,7 @@
       "tiers": [
         {
           "tier": "DIAMOND",
-          "bidPrice": 200
+          "bidPrice": 300.01
         }
       ]
     },
@@ -398,7 +424,15 @@
       "id": "verite-hes-not-you",
       "name": "He's Not You",
       "royalties": 0.82,
-      "tiers": [],
+      "tiers": [
+        {
+          "tier": "PLATINUM",
+          "bidPrice": 10
+        },{
+          "tier": "DIAMOND",
+          "bidPrice": 30
+        }
+      ],
       "openseaUrl": "-he-s-not-you"
     },
     {
@@ -408,7 +442,7 @@
       "tiers": [
         {
           "tier": "DIAMOND",
-          "bidPrice": 501
+          "bidPrice": 505.01
         }
       ]
     },
@@ -429,6 +463,10 @@
       "royalties": 4.52,
       "tiers": [
         {
+          "tier": "GOLD",
+          "bidPrice": 10
+        },
+        {
           "tier": "DIAMOND",
           "bidPrice": 80
         }
@@ -445,6 +483,10 @@
       "name": "Don't Forget My Love",
       "royalties": 6.64,
       "tiers": [
+        {
+          "tier": "PLATINUM",
+          "bidPrice": 150.01
+        },
         {
           "tier": "DIAMOND",
           "bidPrice": 600
@@ -465,7 +507,7 @@
       "tiers": [
         {
           "tier": "DIAMOND",
-          "bidPrice": 111
+          "bidPrice": 112.01
         }
       ],
       "openseaUrl": "-catching-on-feat-nevve"

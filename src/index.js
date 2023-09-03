@@ -25,11 +25,11 @@ eventHandler(client);
 client.login(process.env.TOKEN);
 
 const yieldThresholds = {
-    anotherblock: 12,
+    anotherblock: 14,
     royal: 35
 };
 
-const anotherblockPfpFloorThreshold = 0.15;
+const anotherblockPfpFloorThreshold = 0.1;
 const royalMaxPriceThreshold = 4000;
 
 cron.schedule('*/5 * * * *', async function() {
@@ -40,7 +40,7 @@ cron.schedule('*/5 * * * *', async function() {
     }
 });
 
-cron.schedule('*/15 * * * *', async function() {
+cron.schedule('0 8 */1 * *', async function() { //At 08:00 on every day-of-month.
     try {
         await calculateAnotherblockTopBid(client, yieldThresholds.anotherblock, anotherblockPfpFloorThreshold, process.env.WALLET_ADDRESS);
     } catch (error) {
@@ -64,7 +64,7 @@ cron.schedule('*/15 * * * *', async function() {
     }
 });
 
-cron.schedule('*/30 * * * *', async function() {
+cron.schedule('0 8 */1 * *', async function() { //At 08:00 on every day-of-month.
     try {
         await calculateRoyalTopBid(client, yieldThresholds.royal, royalMaxPriceThreshold, process.env.WALLET_ADDRESS);
     } catch (error) {

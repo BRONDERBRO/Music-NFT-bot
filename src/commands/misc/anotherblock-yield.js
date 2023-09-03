@@ -3,7 +3,7 @@ const { EmbedBuilder } = require('discord.js');
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
 const roundNumber = require('../../utils/roundNumber');
-const dropHasDifferentSongs = require('../../utils/dropHasDifferentSongs');
+const dropHasDifferentSongs = require('../../utils/anotherblockDropHasDifferentSongs');
 
 //Require APIs
 const reservoirFetchCollection = require('../../utils/apis/reservoirFetchCollection');
@@ -49,35 +49,23 @@ module.exports = {
             })
 
         //Get data from drops json file
-        let dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
+        const dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
 
         const collectionBlockchain = dataDrops.blockchain
 
         const tokenIdETH = 'weth'
 
         //Get price of tokens
-        let fetchedCoingecko = await coingeckoFetchPrice(tokenIdETH);
+        const fetchedCoingecko = await coingeckoFetchPrice(tokenIdETH);
         const ETHPrice = fetchedCoingecko[tokenIdETH]['usd'];
 
         const attributeKey = 'Song'
-
-        let collectionId = null
-        let collectionName = null
-        let collectionTittle = null
-        let collectionRoyalties = null
-        let collectionInitialPrize = null
-        let collectionSong = null
-        let floorPrice = null
-        let floorPriceInDollar = null
-        let expectedYield = null
-
         let yieldResults = []
-        let yieldResult = null
         
         //Loop drops json file
         for (const drop of dataDrops.drops) {
 
-            let {
+            const {
                 name: collectionName,
                 value: collectionId,
                 royalties: collectionRoyalties,
@@ -85,21 +73,30 @@ module.exports = {
                 tittles: dropTittles
             } = drop;
 
+            let floorPrice = null;
+            let floorPriceInDollar = null;
+            let expectedYield = null;
+
             //If collectionTittle is defined and not null, then the collection has different songs
             if (dropHasDifferentSongs(drop)) {
 
-                let fetchedReservoir = await reservoirFetchCollectionAttribute(collectionBlockchain, collectionId, attributeKey);
+                const fetchedReservoir = await reservoirFetchCollectionAttribute(collectionBlockchain, collectionId, attributeKey);
 
                 //Loop through the different songs
                 for (const dropTittle of dropTittles) {
 
-                    let {
+                    const {
                         song: collectionSong,
                         royalties: collectionRoyalties,
                         initialPrice: collectionInitialPrize,
                     } = dropTittle;
+                    
+                    const matchingAttribute = fetchedReservoir.attributes.find((attribute) => {
+                        return attribute.value === collectionSong;
+                    });
+                      
+                    floorPrice = matchingAttribute ? matchingAttribute.floorAskPrices : [];
 
-                    floorPrice = fetchedReservoir.attributes[j].floorAskPrices;
                     floorPriceInDollar = floorPrice * ETHPrice
                     
                     /*
@@ -112,58 +109,51 @@ module.exports = {
                     */
 
                     //If collectionRoyalties is defined and not null, then calculate the expectedYield
-                    if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
+                    if (collectionRoyalties) {
 
                         expectedYield = (collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 100
 
-                        yieldResult = {
+                        yieldResults.push ({
                             name: collectionName,
                             song: collectionSong,
                             yield: roundNumber(expectedYield, 2),
                             floor: roundNumber(floorPriceInDollar, 2),
                             floorETH: roundNumber(floorPrice, 4)
-                        }
-                        yieldResults.push(yieldResult);
-
+                        });
                     }
                 }
 
             //If collectionTittle is not defined or null, then the collection does not have different songs
             } else {
 
-                let fetchedReservoir = await reservoirFetchCollection(collectionId);
+                const fetchedReservoir = await reservoirFetchCollection(collectionId);
 
                 floorPrice = fetchedReservoir.collections[0].floorAsk.price.amount.decimal;
                 floorPriceInDollar = floorPrice * ETHPrice
 
                 //If collectionRoyalties is defined and not null, then calculate the expectedYield
-                if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
-
+                if (collectionRoyalties) {
                     expectedYield = (collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 100
 
-                    yieldResult = {
+                    yieldResults.push ({
                         name: collectionName,
                         song: null,
                         yield: roundNumber(expectedYield, 2),
-                            floor: roundNumber(floorPriceInDollar, 2),
-                            floorETH: roundNumber(floorPrice, 4)
-                    }
-                    yieldResults.push(yieldResult);
+                        floor: roundNumber(floorPriceInDollar, 2),
+                        floorETH: roundNumber(floorPrice, 4)
+                    });
                     
                 } else {
                     //If collectionRoyalties is null, it must be the PFP
-                    yieldResult = {
+                    yieldResults.push ({
                         name: collectionName,
                         song: null,
                         yield: 0,
                         floor: roundNumber(floorPriceInDollar, 2),
                         floorETH: roundNumber(floorPrice, 4)
-                    }
-                    yieldResults.push(yieldResult);
+                    });
                 }
-
             }
-
         }
 
         //Order the array on yield descending order
@@ -172,14 +162,10 @@ module.exports = {
         //console.log(yieldResults)
 
         //Build the embed
-        const z = yieldResults.length;
-        for (let k = 0; k <z; ++k) {
-
-            //console.log(yieldResults[k].name)
-
-            let fieldName = `${yieldResults[k].song ?? yieldResults[k].name}`;
-            let fieldValue = `${yieldResults[k].yield}% - $${yieldResults[k].floor} - ${yieldResults[k].floorETH} ETH`;
-
+        for (const result of yieldResults) {
+            const fieldName = result.song ?? result.name;
+            const fieldValue = `${result.yield}% - $${result.floor} - ${result.floorETH} ETH`;
+      
             embed.addFields({
                 name: fieldName,
                 value: fieldValue,
@@ -191,6 +177,5 @@ module.exports = {
         return interaction.followUp({
             embeds: [embed]
         });
-
     },
 };

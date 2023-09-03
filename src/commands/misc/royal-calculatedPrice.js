@@ -1,6 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 
-const wait = require('node:timers/promises').setTimeout;
+const { promisify } = require('util'); // Import promisify
+const setTimeoutPromise = promisify(setTimeout);
 
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
@@ -35,42 +36,27 @@ module.exports = {
         const desiredYield = interaction.options.get('yield_percentage').value
 
         //Get data from drops json file
-        let dataDrops = readJsonFile('src/files/dropsRoyal.json')  
+        const  dataDrops = readJsonFile('src/files/dropsRoyal.json')  
 
-        let collectionId = null
-        let collectionName = null
-        let collectionRoyalties = null
-        let collectionTier = null
-        let targetPrice = 0
-        let baseRoyalty = 0
-        let royaltyUnit = 0
-        let royalty = 0
-
-        let yieldResults = []
-        let yieldResult = null
-
-        //Only Songs over or equal to this price Threshold will be shown in the answer
-        let priceThreshold = 0
+        let priceThreshold = 0;
 
         //Number of Songs shown in each Embed message
         let songsPerEmbed = 15
 
         //Maximum number of embeds in reply
-        let maxEmbeds = 6
+        let maxEmbeds = 10
+
+        let yieldResults = [];
 
         //Loop dropsRoyal.json file to check if the collection has different songs defined
-        const x = dataDrops.drops.length;
-        for (let i = 0; i <x; ++i) {
-
-            collectionId = dataDrops.drops[i].id
-            collectionName = dataDrops.drops[i].name
-            collectionRoyalties = dataDrops.drops[i].royalties
+        for (const drop of dataDrops.drops) {
+            const { id: collectionId, name: collectionName, royalties: collectionRoyalties } = drop;
 
             let fetchedRoyal = await royalFetch(collectionId);
 
             //calculate the royalties obtained for each millionth of the song owned
-            baseRoyalty = fetchedRoyal.data.edition.tiers[0].royaltyClaimMillionths;
-            royaltyUnit = collectionRoyalties / baseRoyalty
+            const baseRoyalty = fetchedRoyal.data.edition.tiers[0].royaltyClaimMillionths;
+            const royaltyUnit = collectionRoyalties / baseRoyalty
 
             /*
             console.log(
@@ -83,11 +69,8 @@ module.exports = {
             */
 
             //Loop through the different tiers
-            const y = fetchedRoyal.data.edition.tiers.length;
-            for (let j = 0; j < y; ++j) {
-
-                collectionTier = fetchedRoyal.data.edition.tiers[j].type;
-                royalty = fetchedRoyal.data.edition.tiers[j].royaltyClaimMillionths;
+            for (const tier of fetchedRoyal.data.edition.tiers) {
+                const { type: collectionTier, royaltyClaimMillionths: royalty } = tier;
                 
                 /*
                 console.log(
@@ -97,7 +80,7 @@ module.exports = {
                 */
                 
                 //If collectionRoyalties is defined and not null, then calculate the targetPrice
-                if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
+                if (collectionRoyalties) {
 
                     targetPrice = royaltyUnit * royalty / desiredYield * 100
 
@@ -109,35 +92,36 @@ module.exports = {
                     */
 
                     if (targetPrice >= priceThreshold){
-
-                        yieldResult = {
+                        yieldResults.push({
                             name: collectionName,
                             tier: collectionTier,
                             price: roundNumber(targetPrice, 2)
-                        }
-
-                        yieldResults.push(yieldResult);
-
+                        });
                     }
 
                 }
             }
-
         }
 
         yieldResults.sort(function(a, b){return b.price - a.price});
 
         //console.log(yieldResults)
 
-        //Build embed1
-        const embed1 = new EmbedBuilder()
-            .setTitle('Royal Yield')
-            .setDescription('Calculated price of Royal songs for **' + desiredYield + '% yield**: ($ price)')
-            .setColor('White')
+        const embedTitle = 'Royal Calculated Price'
+        const embedDescription = 'Calculated price of Royal songs for **' + desiredYield + '% yield**: ($ price)'
+        const embedColor = 'White'
+        const embedUrl = 'https://royal.io/discover'
+
+        // Create an array of empty embeds
+        const embeds = Array.from({ length: maxEmbeds }, () => {
+            return new EmbedBuilder()
+            .setTitle(embedTitle)
+            .setDescription(embedDescription)
+            .setColor(embedColor)
             //.setImage(client.user.displayAvatarURL())
             //.setThumbnail(client.user.displayAvatarURL())
             .setTimestamp(Date.now())
-            .setURL('https://royal.io/discover')
+            .setURL(embedUrl)
             .setAuthor({
                 iconURL: client.user.displayAvatarURL(),
                 name: client.user.tag
@@ -146,328 +130,39 @@ module.exports = {
                 iconURL: client.user.displayAvatarURL(),
                 text: client.user.tag
             })
+        });
 
-        //Build embed2
-        const embed2 = new EmbedBuilder()
-            .setTitle('Royal Yield')
-            .setDescription('Calculated price of Royal songs for **' + desiredYield + '% yield**: ($ price)')
-            .setColor('White')
-            //.setImage(client.user.displayAvatarURL())
-            //.setThumbnail(client.user.displayAvatarURL())
-            .setTimestamp(Date.now())
-            .setURL('https://royal.io/discover')
-            .setAuthor({
-                iconURL: client.user.displayAvatarURL(),
-                name: client.user.tag
-            })
-            .setFooter({
-                iconURL: client.user.displayAvatarURL(),
-                text: client.user.tag
-            })
+        const yieldResultsLength = Math.min(yieldResults.length, songsPerEmbed * maxEmbeds);
+        let currentEmbedIndex = 0;
 
-        //Build embed3
-        const embed3 = new EmbedBuilder()
-            .setTitle('Royal Yield')
-            .setDescription('Calculated price of Royal songs for **' + desiredYield + '% yield**: ($ price)')
-            .setColor('White')
-            //.setImage(client.user.displayAvatarURL())
-            //.setThumbnail(client.user.displayAvatarURL())
-            .setTimestamp(Date.now())
-            .setURL('https://royal.io/discover')
-            .setAuthor({
-                iconURL: client.user.displayAvatarURL(),
-                name: client.user.tag
-            })
-            .setFooter({
-                iconURL: client.user.displayAvatarURL(),
-                text: client.user.tag
-            })
-
-        //Build embed4
-        const embed4 = new EmbedBuilder()
-            .setTitle('Royal Yield')
-            .setDescription('Calculated price of Royal songs for **' + desiredYield + '% yield**: ($ price)')
-            .setColor('White')
-            //.setImage(client.user.displayAvatarURL())
-            //.setThumbnail(client.user.displayAvatarURL())
-            .setTimestamp(Date.now())
-            .setURL('https://royal.io/discover')
-            .setAuthor({
-                iconURL: client.user.displayAvatarURL(),
-                name: client.user.tag
-            })
-            .setFooter({
-                iconURL: client.user.displayAvatarURL(),
-                text: client.user.tag
-            })
-
-        //Build embed5
-        const embed5 = new EmbedBuilder()
-            .setTitle('Royal Yield')
-            .setDescription('Calculated price of Royal songs for **' + desiredYield + '% yield**: ($ price)')
-            .setColor('White')
-            //.setImage(client.user.displayAvatarURL())
-            //.setThumbnail(client.user.displayAvatarURL())
-            .setTimestamp(Date.now())
-            .setURL('https://royal.io/discover')
-            .setAuthor({
-                iconURL: client.user.displayAvatarURL(),
-                name: client.user.tag
-            })
-            .setFooter({
-                iconURL: client.user.displayAvatarURL(),
-                text: client.user.tag
-            })
-
-        //Build embed6
-        const embed6 = new EmbedBuilder()
-            .setTitle('Royal Yield')
-            .setDescription('Calculated price of Royal songs for **' + desiredYield + '% yield**: ($ price)')
-            .setColor('White')
-            //.setImage(client.user.displayAvatarURL())
-            //.setThumbnail(client.user.displayAvatarURL())
-            .setTimestamp(Date.now())
-            .setURL('https://royal.io/discover')
-            .setAuthor({
-                iconURL: client.user.displayAvatarURL(),
-                name: client.user.tag
-            })
-            .setFooter({
-                iconURL: client.user.displayAvatarURL(),
-                text: client.user.tag
-            })
-
-        let yieldResultsLength = yieldResults.length;
-
-        if (yieldResultsLength > songsPerEmbed * maxEmbeds) {
-            yieldResults.length = songsPerEmbed * maxEmbeds
-
-            yieldResultsLength = yieldResults.length;
-        }
+        /*console.log(`yieldResultsLength: ${yieldResultsLength}`)*/
 
         for (let k = 0; k < yieldResultsLength; ++k) {
 
-            //console.log(yieldResults[k].name)
-
-            if(k < songsPerEmbed) {
-
-                embed1.addFields({
-                    name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: '$' + yieldResults[k].price,
-                    inline: false,
-                });
+            // Move to the next embed if songsPerEmbed songs have been added
+            if ((k) % songsPerEmbed === 0 && k > 0) {
+                currentEmbedIndex++;
             }
 
-            else if (k < songsPerEmbed * 2) {
+            const fieldName = `${yieldResults[k].name} - ${yieldResults[k].tier}`;
+            const fieldValue = `$${yieldResults[k].price}`;
 
-                embed2.addFields({
-                    name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: '$' + yieldResults[k].price,
-                    inline: false,
-                });
-
-            }
-
-            else if (k < songsPerEmbed * 3) {
-
-                embed3.addFields({
-                    name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: '$' + yieldResults[k].price,
-                    inline: false,
-                });
-
-            }
-
-            else if (k < songsPerEmbed * 4) {
-
-                embed4.addFields({
-                    name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: '$' + yieldResults[k].price,
-                    inline: false,
-                });
-
-            }
-
-            else if (k < songsPerEmbed * 5) {
-
-                embed5.addFields({
-                    name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: '$' + yieldResults[k].price,
-                    inline: false,
-                });
-
-            }
-
-            else {
-
-                embed6.addFields({
-                    name: yieldResults[k].name + ' - ' + yieldResults[k].tier,
-                    value: '$' + yieldResults[k].price,
-                    inline: false,
-                });
-
-            }
-            
+            embeds[currentEmbedIndex].addFields({
+                name: fieldName,
+                value: fieldValue,
+                inline: false,
+            });
         }
 
-        if (yieldResultsLength <= songsPerEmbed) {
+        /*console.log(`Current Embed Index: ${currentEmbedIndex}`)*/
 
-            //Return Edit Reply
-            return interaction.followUp({
-                embeds: [embed1]
+        // Send the embeds
+        for (let i = 0; i <= currentEmbedIndex  & yieldResultsLength > 0; i++) {
+            // Send follow-up messages with a delay
+            await setTimeoutPromise(1000);
+            interaction.followUp({
+                embeds: [embeds[i]]
             });
-
         }
-
-        else if (yieldResultsLength <= songsPerEmbed * 2) {
-
-            //Edit Initial Repply
-            interaction.followUp({
-                embeds: [embed1]
-            });
-
-            await wait(1000)
-
-            //Return Follow Up Reply
-            return interaction.followUp({
-                embeds: [embed2]
-            });
-
-        }
-
-        else if (yieldResultsLength <= songsPerEmbed * 3) {
-
-            //Edit Initial Repply
-            interaction.followUp({
-                embeds: [embed1]
-            });
-
-            await wait(1000)
-
-            //Follow Up Reply
-            interaction.followUp({
-                embeds: [embed2]
-            });
-
-            await wait(1000)
-
-            //Return Follow Up Reply
-            return interaction.followUp({
-                embeds: [embed3]
-            });
-
-        }
-
-        else if (yieldResultsLength <= songsPerEmbed * 4) {
-
-            //Edit Initial Repply
-            interaction.followUp({
-                embeds: [embed1]
-            });
-
-            await wait(1000)
-
-            //Follow Up Reply
-            interaction.followUp({
-                embeds: [embed2]
-            });
-
-            await wait(1000)
-
-            //Follow Up Reply
-            interaction.followUp({
-                embeds: [embed3]
-            });
-
-            await wait(1000)
-
-            //Return Follow Up Reply
-            return interaction.followUp({
-                embeds: [embed4]
-            });
-
-        }
-
-        else if (yieldResultsLength <= songsPerEmbed * 5) {
-
-            //Edit Initial Repply
-            interaction.followUp({
-                embeds: [embed1]
-            });
-
-            await wait(1000)
-
-            //Follow Up Reply
-            interaction.followUp({
-                embeds: [embed2]
-            });
-
-            await wait(1000)
-
-            //Follow Up Reply
-            interaction.followUp({
-                embeds: [embed3]
-            });
-
-            await wait(1000)
-
-            //Follow Up Reply
-            interaction.followUp({
-                embeds: [embed4]
-            });
-
-            await wait(1000)
-
-            //Return Follow Up Reply
-            return interaction.followUp({
-                embeds: [embed5]
-            });
-
-        }
-
-        else {
-
-            //Edit Initial Repply
-            interaction.followUp({
-                embeds: [embed1]
-            });
-
-            await wait(1000)
-
-            //Follow Up Reply
-            interaction.followUp({
-                embeds: [embed2]
-            });
-
-            await wait(1000)
-
-            //Follow Up Reply
-            interaction.followUp({
-                embeds: [embed3]
-            });
-
-            await wait(1000)
-
-            //Follow Up Reply
-            interaction.followUp({
-                embeds: [embed4]
-            });
-
-            await wait(1000)
-
-            //Follow Up Reply
-            interaction.followUp({
-                embeds: [embed5]
-            });
-
-            await wait(1000)
-
-            //Return Follow Up Reply
-            return interaction.followUp({
-                embeds: [embed6]
-            });
-
-        }
-
     },
 };

@@ -39,36 +39,30 @@ module.exports = {
             //Get the collectionId introduced in the command by the user
             const collectionId = interaction.options.get('collection').value
 
-            //console.log(collectionId)
-
             //Get data from drops json file
-            let dataDrops = readJsonFile('src/files/nft-distribution options.json')
-
-            let collectionIdDrop = null
+            const dataDrops = readJsonFile('src/files/nft-distribution options.json')
 
             //Loop drops json file to find the collectionName
-            const x = dataDrops.length;
-            for (let i = 0; i < x; ++i) {
+            const collection = dataDrops.find((drop) => drop.value === collectionId);
 
-                collectionIdDrop = dataDrops[i].value
-                if (collectionIdDrop === collectionId) {
-
-                    collectionName = dataDrops[i].name
-                    collectionBlockchain = dataDrops[i].blockchain
-                    break;
-
-                }
+            if (collection) {
+                collectionName = collection.name;
+                collectionBlockchain = collection.blockchain;
             }
+
+            const embedTitle = 'NFT collection distribution'
+            const embedDescription = `Distribution of NFT collection: ${collectionName}`
+            const embedColor = 'White'
 
             //Build embed
             const chartEmbed = new EmbedBuilder()
-                .setTitle('NFT collection distribution')
-                .setDescription('Distribution of NFT collection: ' + collectionName)
-                .setColor('White')
+                .setTitle(embedTitle)
+                .setDescription(embedDescription)
+                .setColor(embedColor)
                 //.setImage(client.user.displayAvatarURL())
                 //.setThumbnail(client.user.displayAvatarURL())
                 .setTimestamp(Date.now())
-                //.setURL('https://market.anotherblock.io/')
+                //.setURL(embedUrl)
                 .setAuthor({
                     iconURL: client.user.displayAvatarURL(),
                     name: client.user.tag

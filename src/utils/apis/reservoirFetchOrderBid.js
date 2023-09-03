@@ -41,10 +41,8 @@ module.exports = async (collectionID, collectionSong, sources, maker) => {
         }
 
         const data = await response.json();
-        
         //console.log(url, '\n');
         //console.log(data, '\n');
-        
         return data;
 
     } catch (error) {

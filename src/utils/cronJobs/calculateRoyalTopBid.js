@@ -1,7 +1,8 @@
 require('dotenv').config();
 const { EmbedBuilder } = require('discord.js');
 
-const wait = require('node:timers/promises').setTimeout;
+const { promisify } = require('util'); // Import promisify
+const setTimeoutPromise = promisify(setTimeout);
 
 //Require Utils
 const readJsonFile = require('../readJsonFile');
@@ -16,34 +17,20 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
     //Get data from drops json file
     let dataDrops = readJsonFile('src/files/dropsRoyal.json')  
 
-    let collectionRoyalties = null
-    let collectionTier = null
-    let baseRoyalty = 0
-    let royaltyUnit = 0
-    let royalty = 0
-    let expectedYield = 0
-
     //Number of Songs shown in each Embed message
     let songsPerEmbed = 15
 
     //Maximum number of embeds in reply
-    let maxEmbeds = 6
+    let maxEmbeds = 10
 
-    let collectionId = null
-    let collectionName = null
-    let bidPrice = null
-    let topBidder = null
+    const royalUrl = 'https://royal.io/editions/';
+    const tierUrl = '?tier=';
 
     let topBidResults = []
-    let topBidResult = null
 
     //Loop drops json file to check if the collection has different songs defined
-    const x = dataDrops.drops.length;
-    for (let i = 0; i < x; ++i) {
-
-        collectionId = dataDrops.drops[i].id
-        collectionName = dataDrops.drops[i].name
-        collectionRoyalties = dataDrops.drops[i].royalties
+    for (const drop of dataDrops.drops) {
+        const { id: collectionId, name: collectionName, royalties: collectionRoyalties, tiers: collectionTiers } = drop;
 
         /*
         console.log(
@@ -57,8 +44,8 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
         let fetchedRoyal = await royalFetch(collectionId);
 
         //calculate the royalties obtained for each millionth of the song owned
-        baseRoyalty = fetchedRoyal.data.edition.tiers[0].royaltyClaimMillionths;
-        royaltyUnit = collectionRoyalties / baseRoyalty
+        const baseRoyalty = fetchedRoyal.data.edition.tiers[0].royaltyClaimMillionths;
+        const royaltyUnit = collectionRoyalties / baseRoyalty
 
         /*
         console.log(
@@ -71,26 +58,15 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
         */
 
         //Loop through the different tiers
-        const y = fetchedRoyal.data.edition.tiers.length;
-        for (let j = 0; j < y; ++j) {
+        for (const tier of fetchedRoyal.data.edition.tiers) {
+            const { type: collectionTier, royaltyClaimMillionths: royalty } = tier;
+            
+            const bidPrice = parseFloat(tier.market.highestBidPrice.amount);
+            let collectionMyBidPrice = 0;
 
-            collectionTier = fetchedRoyal.data.edition.tiers[j].type;
-            royalty = fetchedRoyal.data.edition.tiers[j].royaltyClaimMillionths;
-            bidPrice = parseFloat(fetchedRoyal.data.edition.tiers[j].market.highestBidPrice.amount);
-
-            if (dataDrops.drops[i].tiers.length === 0) {
-                collectionMyBidPrice = 0;
-            } else {
-                for (const tiers of dataDrops.drops[i].tiers) {
-                    if (tiers.tier === collectionTier) {
-                        collectionMyBidPrice = parseFloat(tiers.bidPrice);
-                                                
-                        break;
-                    }
-                    else {
-                        collectionMyBidPrice = 0
-                    }
-                }
+            if (collectionTiers.length > 0) {
+                const matchingTier = collectionTiers.find((t) => t.tier === collectionTier);
+                collectionMyBidPrice = matchingTier ? parseFloat(matchingTier.bidPrice) : 0;
             }
 
             /*
@@ -99,27 +75,17 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
             */
 
             if (bidPrice === collectionMyBidPrice) {
-
                 topBidder = "BRONDER"
-            
             }
-
             else if (bidPrice < collectionMyBidPrice) {
-
                 topBidder = 'ERROR'
-            
             }
-
             else {
-
                 topBidder = 'Other'
-
             }
 
-            //If collectionRoyalties is defined and not null, then calculate the expectedYield
-            if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
-
-                expectedYield = royaltyUnit * royalty / bidPrice * 100
+            if (collectionRoyalties) {
+                const expectedYield = (royaltyUnit * royalty) / bidPrice * 100;
 
                 /*
                 console.log(
@@ -130,38 +96,39 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
 
                 if (expectedYield > desiredYield && bidPrice <= maxPrice  && topBidder != "BRONDER"){
 
-                    topBidResult = {
+                    topBidResults.push({
                         name: collectionName,
                         tier: collectionTier,
                         yield: roundNumber(expectedYield, 2),
                         bidPrice: bidPrice,
-                        topBidder: topBidder
-                    }
-
-                    topBidResults.push(topBidResult);
-
+                        topBidder: topBidder,
+                        url: `${royalUrl}${collectionId}${tierUrl}${collectionTier}`
+                    });
                 }
             }
         }        
     }
 
-    //Order the array on name ascending order
-    //topBidResults.sort((a, b) => a.name.localeCompare(b.name));
     //Order the array on yield descending order
     topBidResults.sort(function(a, b){return b.yield - a.yield});
 
     //console.log(topBidResults)
 
-    //Build embed1
-    const embed1 = new EmbedBuilder()
-        .setDescription(
-            `Royal NFTs where the top bidder is not ${targetAddress} and bid price is less than calculated price for ${desiredYield}% yield: (Top Bidder: $ Bid Price - Yield At Bid Price %)`
-        )
-        .setColor('White')
+    const embedTitle = 'Royal Top Bid'
+    const embedDescription = 'Top bid of Royal songs: (Top Bidder: $ Bid Price - Yield At Bid Price %)'
+    const embedColor = 'White'
+    const embedUrl = 'https://royal.io/discover'
+
+    // Create an array of empty embeds
+    const embeds = Array.from({ length: maxEmbeds }, () => {
+        return new EmbedBuilder()
+        .setTitle(embedTitle)
+        .setDescription(embedDescription)
+        .setColor(embedColor)
         //.setImage(client.user.displayAvatarURL())
         //.setThumbnail(client.user.displayAvatarURL())
         .setTimestamp(Date.now())
-        .setURL('https://royal.io/discover')
+        .setURL(embedUrl)
         .setAuthor({
             iconURL: client.user.displayAvatarURL(),
             name: client.user.tag
@@ -170,210 +137,35 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
             iconURL: client.user.displayAvatarURL(),
             text: client.user.tag
         })
+    });
 
-    //Build embed2
-    const embed2 = new EmbedBuilder()
-        .setDescription(
-            `Royal NFTs where the top bidder is not ${targetAddress} and bid price is less than calculated price for ${desiredYield}% yield: (Top Bidder: $ Bid Price - Yield At Bid Price %)`
-        )
-        .setColor('White')
-        //.setImage(client.user.displayAvatarURL())
-        //.setThumbnail(client.user.displayAvatarURL())
-        .setTimestamp(Date.now())
-        .setURL('https://royal.io/discover')
-        .setAuthor({
-            iconURL: client.user.displayAvatarURL(),
-            name: client.user.tag
-        })
-        .setFooter({
-            iconURL: client.user.displayAvatarURL(),
-            text: client.user.tag
-        })  
-    
-    //Build embed3
-    const embed3 = new EmbedBuilder()
-        .setDescription(
-            `Royal NFTs where the top bidder is not ${targetAddress} and bid price is less than calculated price for ${desiredYield}% yield: (Top Bidder: $ Bid Price - Yield At Bid Price %)`
-        )
-        .setColor('White')
-        //.setImage(client.user.displayAvatarURL())
-        //.setThumbnail(client.user.displayAvatarURL())
-        .setTimestamp(Date.now())
-        .setURL('https://royal.io/discover')
-        .setAuthor({
-            iconURL: client.user.displayAvatarURL(),
-            name: client.user.tag
-        })
-        .setFooter({
-            iconURL: client.user.displayAvatarURL(),
-            text: client.user.tag
-        })  
+    const topBidResultsLength = Math.min(topBidResults.length, songsPerEmbed * maxEmbeds);
+    let currentEmbedIndex = 0;
 
-    //Build embed4
-    const embed4 = new EmbedBuilder()
-        .setDescription(
-            `Royal NFTs where the top bidder is not ${targetAddress} and bid price is less than calculated price for ${desiredYield}% yield: (Top Bidder: $ Bid Price - Yield At Bid Price %)`
-        )
-        .setColor('White')
-        //.setImage(client.user.displayAvatarURL())
-        //.setThumbnail(client.user.displayAvatarURL())
-        .setTimestamp(Date.now())
-        .setURL('https://royal.io/discover')
-        .setAuthor({
-            iconURL: client.user.displayAvatarURL(),
-            name: client.user.tag
-        })
-        .setFooter({
-            iconURL: client.user.displayAvatarURL(),
-            text: client.user.tag
-        })  
-
-    //Build embed5
-    const embed5 = new EmbedBuilder()
-        .setDescription(
-            `Royal NFTs where the top bidder is not ${targetAddress} and bid price is less than calculated price for ${desiredYield}% yield: (Top Bidder: $ Bid Price - Yield At Bid Price %)`
-        )
-        .setColor('White')
-        //.setImage(client.user.displayAvatarURL())
-        //.setThumbnail(client.user.displayAvatarURL())
-        .setTimestamp(Date.now())
-        .setURL('https://royal.io/discover')
-        .setAuthor({
-            iconURL: client.user.displayAvatarURL(),
-            name: client.user.tag
-        })
-        .setFooter({
-            iconURL: client.user.displayAvatarURL(),
-            text: client.user.tag
-        })  
-
-    //Build embed6
-    const embed6 = new EmbedBuilder()
-        .setDescription(
-            `Royal NFTs where the top bidder is not ${targetAddress} and bid price is less than calculated price for ${desiredYield}% yield: (Top Bidder: $ Bid Price - Yield At Bid Price %)`
-        )
-        .setColor('White')
-        //.setImage(client.user.displayAvatarURL())
-        //.setThumbnail(client.user.displayAvatarURL())
-        .setTimestamp(Date.now())
-        .setURL('https://royal.io/discover')
-        .setAuthor({
-            iconURL: client.user.displayAvatarURL(),
-            name: client.user.tag
-        })
-        .setFooter({
-            iconURL: client.user.displayAvatarURL(),
-            text: client.user.tag
-        })  
-
-
-    const topBidResultsLength = topBidResults.length;
-
-    if (topBidResultsLength > songsPerEmbed * maxEmbeds) {
-        topBidResults.length = songsPerEmbed * maxEmbeds
-                    
-        topBidResultsLength = topBidResults.length;
-    }
+    /*console.log(`topBidResultsLength: ${topBidResultsLength}`)*/
 
     for (let k = 0; k < topBidResultsLength; ++k) {
 
-        //console.log(topBidResults[k].name)
-
-        if(k < songsPerEmbed) {
-
-            embed1.addFields({
-                name: topBidResults[k].name + ' - ' + topBidResults[k].tier,
-                value: topBidResults[k].topBidder + ':- $' + topBidResults[k].bidPrice + ' - ' + topBidResults[k].yield + '%',
-                inline: false,
-            });
+        // Move to the next embed if songsPerEmbed songs have been added
+        if ((k) % songsPerEmbed === 0 && k > 0) {
+            currentEmbedIndex++;
         }
 
-        else if (k < songsPerEmbed * 2) {
-
-            embed2.addFields({
-                name: topBidResults[k].name + ' - ' + topBidResults[k].tier,
-                value: topBidResults[k].topBidder + ':- $' + topBidResults[k].bidPrice + ' - ' + topBidResults[k].yield + '%',
-                inline: false,
-            });
-
-        }
-
-        else if (k < songsPerEmbed * 3) {
-
-            embed3.addFields({
-                name: topBidResults[k].name + ' - ' + topBidResults[k].tier,
-                value: topBidResults[k].topBidder + ':- $' + topBidResults[k].bidPrice + ' - ' + topBidResults[k].yield + '%',
-                inline: false,
-            });
-
-        }
-
-        else if (k < songsPerEmbed * 4) {
-
-            embed4.addFields({
-                name: topBidResults[k].name + ' - ' + topBidResults[k].tier,
-                value: topBidResults[k].topBidder + ':- $' + topBidResults[k].bidPrice + ' - ' + topBidResults[k].yield + '%',
-                inline: false,
-            });
-
-        }
-
-        else if (k < songsPerEmbed * 5) {
-
-            embed5.addFields({
-                name: topBidResults[k].name + ' - ' + topBidResults[k].tier,
-                value: topBidResults[k].topBidder + ':- $' + topBidResults[k].bidPrice + ' - ' + topBidResults[k].yield + '%',
-                inline: false,
-            });
-
-        }
-
-        else {
-
-            embed6.addFields({
-                name: topBidResults[k].name + ' - ' + topBidResults[k].tier,
-                value: topBidResults[k].topBidder + ':- $' + topBidResults[k].bidPrice + ' - ' + topBidResults[k].yield + '%',
-                inline: false,
-            });
-
-        }
-        
+        const fieldName = `${topBidResults[k].name} - ${topBidResults[k].tier}`;
+        const fieldValue = `[${topBidResults[k].topBidder}:- $ ${topBidResults[k].bidPrice} - ${topBidResults[k].yield} %](${topBidResults[k].url})`;
+        embeds[currentEmbedIndex].addFields({
+            name: fieldName,
+            value: fieldValue,
+            inline: false,
+        });
     }
 
-    //Send DMs with embed if the embed.data.fields is not undefined (fields have been added to the embed)
-    if (embed1.data.fields !== 'undefined' && embed1.data.fields) {
+    /*console.log(`Current Embed Index: ${currentEmbedIndex}`)*/
 
-        sendEmbedDM(client, process.env.USER_ID, embed1)
-
-        if (embed2.data.fields !== 'undefined' && embed2.data.fields) {
-
-            await wait(1000)
-            sendEmbedDM(client, process.env.USER_ID, embed2)
-
-            if (embed3.data.fields !== 'undefined' && embed3.data.fields) {
-
-                await wait(1000)
-                sendEmbedDM(client, process.env.USER_ID, embed3)
-    
-                if (embed4.data.fields !== 'undefined' && embed4.data.fields) {
-
-                    await wait(1000)
-                    sendEmbedDM(client, process.env.USER_ID, embed4)
-        
-                    if (embed5.data.fields !== 'undefined' && embed5.data.fields) {
-
-                        await wait(1000)
-                        sendEmbedDM(client, process.env.USER_ID, embed5)
-            
-                        if (embed6.data.fields !== 'undefined' && embed6.data.fields) {
-
-                            await wait(1000)
-                            sendEmbedDM(client, process.env.USER_ID, embed6) 
-                
-                        }                
-                    }            
-                }
-            }
-        }
+    // Send the embeds
+    for (let i = 0; i <= currentEmbedIndex && topBidResultsLength > 0; i++) {
+        // Send follow-up messages with a delay
+        await setTimeoutPromise(1000);
+        sendEmbedDM(client, process.env.USER_ID, embeds[i])
     }
 };

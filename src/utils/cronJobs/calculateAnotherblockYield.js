@@ -4,7 +4,7 @@ const { EmbedBuilder } = require('discord.js');
 //Require Utils
 const readJsonFile = require('../readJsonFile');
 const roundNumber = require('../roundNumber');
-const dropHasDifferentSongs = require('../dropHasDifferentSongs');
+const dropHasDifferentSongs = require('../anotherblockDropHasDifferentSongs');
 const sendEmbedDM = require('../sendEmbedDM');
 
 //Require APIs

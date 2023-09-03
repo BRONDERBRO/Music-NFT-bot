@@ -3,7 +3,7 @@ const { EmbedBuilder } = require('discord.js');
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
 const roundNumber = require('../../utils/roundNumber');
-const dropHasDifferentSongs = require('../../utils/dropHasDifferentSongs');
+const dropHasDifferentSongs = require('../../utils/anotherblockDropHasDifferentSongs');
 
 //Require APIs
 const coingeckoFetchPrice = require('../../utils/apis/coingeckoFetchPrice');
@@ -57,24 +57,20 @@ module.exports = {
             })
 
         //Get data from drops json file
-        let dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
+        const dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
 
         const tokenIdETH = 'weth'
 
         //Get price of tokens
-        let fetchedCoingecko = await coingeckoFetchPrice(tokenIdETH);
+        const fetchedCoingecko = await coingeckoFetchPrice(tokenIdETH);
         const ETHPrice = fetchedCoingecko[tokenIdETH]['usd'];
 
-        let targetPrice = null
-        let targetPriceETH = null
-
         let priceResults = []
-        let priceResult = null
 
         //Loop drops json file
         for (const drop of dataDrops.drops) {
 
-            let {
+            const {
                 name: collectionName,
                 value: collectionId,
                 royalties: collectionRoyalties,
@@ -88,7 +84,7 @@ module.exports = {
                 //Loop through the different songs
                 for (const dropTittle of dropTittles) {
 
-                    let {
+                    const {
                         song: collectionSong,
                         royalties: collectionRoyalties,
                         initialPrice: collectionInitialPrize,
@@ -103,20 +99,17 @@ module.exports = {
                 */  
 
                 //If collectionRoyalties is defined and not null, then calculate the expectedYield
-                if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
+                if (collectionRoyalties) {
+                    const targetPrice = (collectionRoyalties * collectionInitialPrize) / (desiredYield) * 100
+                    const targetPriceETH = targetPrice / ETHPrice
 
-                    targetPrice = (collectionRoyalties * collectionInitialPrize) / (desiredYield) * 100
-                    targetPriceETH = targetPrice / ETHPrice
-
-                    priceResult = {
+                    priceResults.push ({
                         name: collectionName,
                         song: collectionSong,
                         yield: desiredYield,
                         price: roundNumber(targetPrice, 2),
                         priceETH: roundNumber(targetPriceETH, 4)
-                    }
-                    priceResults.push(priceResult);
-
+                    });
                 }
             }
 
@@ -124,38 +117,30 @@ module.exports = {
             } else {
 
                 //If collectionRoyalties is defined and not null, then calculate the expectedYield. Else it is the pfp
-                if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties) {
+                if (collectionRoyalties) {
+                    const targetPrice = (collectionRoyalties * collectionInitialPrize) / (desiredYield) * 100
+                    const targetPriceETH = targetPrice / ETHPrice
 
-                    targetPrice = (collectionRoyalties * collectionInitialPrize) / (desiredYield) * 100
-                    targetPriceETH = targetPrice / ETHPrice
-
-                    priceResult = {
+                    priceResults.push ({
                         name: collectionName,
                         song: null,
                         yield: desiredYield,
                         price: roundNumber(targetPrice, 2),
                         priceETH: roundNumber(targetPriceETH, 4)
-                    }
-                    priceResults.push(priceResult);
-                    
+                    });
                 }
             }
-
         }
 
         //Order the array on price descending order
         priceResults.sort(function(a, b){return b.price - a.price});
 
-        //console.log(priceResults)
+        console.log(priceResults)
 
         //Build the embed
-        const z = priceResults.length;
-        for (let k = 0; k <z; ++k) {
-
-            //console.log(priceResults[k].name)
-
-            let fieldName = `${priceResults[k].song ?? priceResults[k].name}`;
-            let fieldValue = `$${priceResults[k].price} - ${priceResults[k].priceETH} ETH`;
+        for (const result of priceResults) {
+            const fieldName = `${result.song ?? result.name}`;
+            const fieldValue = `$${result.price} - ${result.priceETH} ETH`;
 
             embed.addFields({
                 name: fieldName,
