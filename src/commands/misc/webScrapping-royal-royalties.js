@@ -24,36 +24,33 @@ module.exports = {
         //Get data from drops json file
         const dataDrops = readJsonFile('src/files/dropsRoyal.json')  
 
-        let collectionId = null
-        let collectionName = null
-        let collectionRoyalties = null
-
         let numErrors = 0
 
         //Loop dropsRoyal.json file
-        const x = dataDrops.drops.length;
-        for (let i = 0; i <x; ++i) {
-
-            collectionId = dataDrops.drops[i].id
-            collectionName = dataDrops.drops[i].name
-            collectionRoyalties = dataDrops.drops[i].royalties
+        for (const drop of dataDrops.drops) {
+            const { 
+                id: collectionId, 
+                name: collectionName, 
+                royalties: collectionRoyalties 
+            } = drop;
 
             let scrappedPrice = await scrapeRoyalPrice('https://royal.io/editions/' + collectionId);
 
             // Check if the scrappedPrice is valid before updating royalties
-            if (scrappedPrice !== undefined && !isNaN(scrappedPrice) && scrappedPrice !== null) {
-                dataDrops.drops[i].royalties = scrappedPrice;
+            if (typeof scrappedPrice === 'number' && !isNaN(scrappedPrice) && scrappedPrice !== null) {
+                drop.royalties = scrappedPrice;
             } else {
-                numErrors = numErrors + 1
+                numErrors++;
             }
            
-            
-            console.log(
-                collectionName, '\n',
-                'Old Royalties: ' + collectionRoyalties, '\n',
-                'Collection ID: ' + collectionId, '\n',
-                'Scrapped Royalties: ' + scrappedPrice, '\n'                 
-            )
+            /*
+            console.log(`
+                Collection Name: ${collectionName}
+                Old Royalties: ${collectionRoyalties}
+                Collection ID: ${collectionId}
+                Scrapped Royalties: ${scrappedPrice}
+            `);
+            */
             
         }
 
@@ -63,8 +60,7 @@ module.exports = {
 
         //Return Edit Reply
         return interaction.followUp({
-            content: 'Web scrapping completed with ' + numErrors + ' errors.'
+            content: `Web scrapping completed with ${numErrors} errors.`
         });
-
     },
 };

@@ -1,22 +1,18 @@
 const fetch = require('cross-fetch');
 require('dotenv').config();
 
-module.exports = async (collectionID) => {
+const getReservoirOptions = require('../getReservoirOptions');
+const getReservoirBaseUrl = require('../getReservoirBaseUrl');
 
-    const url = `https://api.reservoir.tools/collections/v5?id=${collectionID}&sortBy=createdAt`;
-    
-    const headers = {
-        accept: '*/*',
-        'x-api-key': process.env.RESERVOIR_KEY
-    };
-    
-    try {
+module.exports = async (blockchain, collectionID) => {
 
-        const options = {
-            method: 'GET',
-            headers: headers
-        };
-        
+    const options = getReservoirOptions();
+    const baseUrl = getReservoirBaseUrl(blockchain);
+
+    const url = `${baseUrl}/collections/v5?id=${collectionID}&sortBy=createdAt`;
+    
+    try {     
+
         const response = await fetch(url, options);
         
         if (!response.ok) {

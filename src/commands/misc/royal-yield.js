@@ -1,11 +1,10 @@
-const { EmbedBuilder } = require('discord.js');
-
 const { promisify } = require('util'); // Import promisify
 const setTimeoutPromise = promisify(setTimeout);
 
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
 const roundNumber = require('../../utils/roundNumber');
+const { createEmbed } = require('../../utils/createEmbed');
 
 //Require APIs
 const royalFetch = require('../../utils/apis/royalFetch');
@@ -26,20 +25,9 @@ module.exports = {
         });
 
         //Get data from drops json file
-        let dataDrops = readJsonFile('src/files/dropsRoyal.json')  
-
-        let collectionId = null
-        let collectionName = null
-        let collectionRoyalties = null
-        let collectionTier = null
-        let floorPrice = null
-        let baseRoyalty = 0
-        let royaltyUnit = 0
-        let royalty = 0
-        let expectedYield = 0
+        const dataDrops = readJsonFile('src/files/dropsRoyal.json')          
 
         let yieldResults = []
-        let yieldResult = null
 
         //Only Songs over this yield Threshold will be shown in the answer
         let yieldThreshold = 0
@@ -51,12 +39,13 @@ module.exports = {
         let maxEmbeds = 10
 
         //Loop dropsRoyal.json file to check if the collection has different songs defined
-        const x = dataDrops.drops.length;
-        for (let i = 0; i <x; ++i) {
-
-            collectionId = dataDrops.drops[i].id
-            collectionName = dataDrops.drops[i].name
-            collectionRoyalties = dataDrops.drops[i].royalties
+        for (const drop of dataDrops.drops) {
+        const {
+            id: collectionId,
+            name: collectionName,
+            royalties: collectionRoyalties,
+            tiers: collectionTiers
+        } = drop;
 
             let fetchedRoyal = await royalFetch(collectionId);
 
@@ -75,12 +64,13 @@ module.exports = {
             */
 
             //Loop through the different tiers
-            const y = fetchedRoyal.data.edition.tiers.length;
-            for (let j = 0; j < y; ++j) {
+           for (const tier of fetchedRoyal.data.edition.tiers) {
+                const {
+                    type: collectionTier,
+                    royaltyClaimMillionths: royalty
+                } = tier;
 
-                collectionTier = fetchedRoyal.data.edition.tiers[j].type;
-                floorPrice = fetchedRoyal.data.edition.tiers[j].market.lowestAskPrice.amount;
-                royalty = fetchedRoyal.data.edition.tiers[j].royaltyClaimMillionths;
+                const floorPrice = tier.market.lowestAskPrice.amount;
                 
                 /*
                 console.log(
@@ -91,7 +81,7 @@ module.exports = {
                 */
                 
                 //If collectionRoyalties is defined and not null, and floorPrice > 0, then calculate the expectedYield
-                if (typeof collectionRoyalties !== 'undefined' && collectionRoyalties && floorPrice > 0) {
+                if (collectionRoyalties && floorPrice > 0) {
 
                     expectedYield = royaltyUnit * royalty / floorPrice * 100
 
@@ -103,21 +93,15 @@ module.exports = {
                     */
 
                     if (expectedYield > yieldThreshold){
-
-                        yieldResult = {
+                        yieldResults.push({
                             name: collectionName,
                             tier: collectionTier,
                             yield: roundNumber(expectedYield, 2),
                             floor: floorPrice
-                        }
-
-                        yieldResults.push(yieldResult);
-
+                        });
                     }
-
                 }
             }
-
         }
 
         yieldResults.sort(function(a, b){return b.yield - a.yield});
@@ -129,25 +113,8 @@ module.exports = {
         const embedColor = 'White'
         const embedUrl = 'https://royal.io/discover'
 
-       // Create an array of empty embeds
-        const embeds = Array.from({ length: maxEmbeds }, () => {
-            return new EmbedBuilder()
-            .setTitle(embedTitle)
-            .setDescription(embedDescription)
-            .setColor(embedColor)
-            //.setImage(client.user.displayAvatarURL())
-            //.setThumbnail(client.user.displayAvatarURL())
-            .setTimestamp(Date.now())
-            .setURL(embedUrl)
-            .setAuthor({
-                iconURL: client.user.displayAvatarURL(),
-                name: client.user.tag
-            })
-            .setFooter({
-                iconURL: client.user.displayAvatarURL(),
-                text: client.user.tag
-            })
-        });
+        // Create an array of empty embeds
+        const embeds = Array.from({ length: maxEmbeds }, () => createEmbed(client, embedTitle, embedDescription, embedColor, embedUrl));
 
         const yieldResultsLength = Math.min(yieldResults.length, songsPerEmbed * maxEmbeds);
         let currentEmbedIndex = 0;
@@ -161,8 +128,9 @@ module.exports = {
                 currentEmbedIndex++;
             }
 
-            const fieldName = `${yieldResults[k].name} - ${yieldResults[k].tier}`;
-            const fieldValue = `${yieldResults[k].yield}% - $ ${yieldResults[k].floor}`;
+            const { name, tier, yield, floor } = yieldResults[k];
+            const fieldName = `${name} - ${tier}`;
+            const fieldValue = `${yield}% - $ ${floor}`;
 
             embeds[currentEmbedIndex].addFields({
                 name: fieldName,

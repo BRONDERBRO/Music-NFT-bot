@@ -1,10 +1,11 @@
-const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
+const { ApplicationCommandOptionType } = require('discord.js');
 
 //Require creating charts
 const createBarChart = require('../../utils/createBarChart');
 
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
+const { createEmbed } = require('../../utils/createEmbed');
 
 //Require APIs
 const reservoirFetchCollectionDistribution = require('../../utils/apis/reservoirFetchCollectionDistribution');
@@ -55,24 +56,9 @@ module.exports = {
             const embedColor = 'White'
 
             //Build embed
-            const chartEmbed = new EmbedBuilder()
-                .setTitle(embedTitle)
-                .setDescription(embedDescription)
-                .setColor(embedColor)
-                //.setImage(client.user.displayAvatarURL())
-                //.setThumbnail(client.user.displayAvatarURL())
-                .setTimestamp(Date.now())
-                //.setURL(embedUrl)
-                .setAuthor({
-                    iconURL: client.user.displayAvatarURL(),
-                    name: client.user.tag
-                })
-                .setFooter({
-                    iconURL: client.user.displayAvatarURL(),
-                    text: client.user.tag
-                })
+            const chartEmbed = createEmbed(client, embedTitle, embedDescription, embedColor, null);
 
-            let fetchedReservoir = await reservoirFetchCollectionDistribution(collectionBlockchain, collectionId);
+            const fetchedReservoir = await reservoirFetchCollectionDistribution(collectionBlockchain, collectionId);
 
             const dataOwnersDistribution = fetchedReservoir.ownersDistribution;
 

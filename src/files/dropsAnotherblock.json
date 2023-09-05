@@ -14,7 +14,8 @@
                     "source": "market.anotherblock.io",
                     "marketplaceUrl": "0xbeff0289168f9589337838c826162da9dc29993d"
                 }
-            ]
+            ],
+            "blockchain": "Ethereum"
         },
         {
             "name": "So Far Away (David Guetta & Martin Garrix)",
@@ -30,7 +31,8 @@
                     "source": "market.anotherblock.io",
                     "marketplaceUrl": "0x65beEC116a625e2F68B6C04313105fE10F510135"
                 }
-            ]
+            ],
+            "blockchain": "Ethereum"
         },
         {
             "name": "Bitch Better Have My Money (Rihanna)",
@@ -46,7 +48,8 @@
                     "source": "market.anotherblock.io",
                     "marketplaceUrl": "0xCB8399D84e17fD5B4e955C716647c7BB2C35Ab63"
                 }
-            ]
+            ],
+            "blockchain": "Ethereum"
         },
         {
             "name": "Ric Flair Drip (Offset & Metro Boomin)",
@@ -66,7 +69,8 @@
                     "source": "market.anotherblock.io",
                     "marketplaceUrl": "0xFE5209ac341835670fA731383D5d28c8A093dda3"
                 }
-            ]
+            ],
+            "blockchain": "Ethereum"
         },
         {
             "name": "Anotherblock Season 1",
@@ -85,6 +89,7 @@
                     "marketplaceUrl": "0x9ef75b412D8466B9b35F3A1Bf7a809a5C6d0Aa7C"
                 }
             ],
+            "blockchain": "Ethereum",
             "tittles": [
                 {
                    "song": "Alone pt. II",
@@ -122,8 +127,8 @@
                     "source": "market.anotherblock.io",
                     "marketplaceUrl": "0x9ffb419404a5b1b8551d0127Ed3562D9E622292E"
                 }
-            ]
+            ],
+            "blockchain": "Ethereum"
         }
-    ],
-    "blockchain": "Ethereum"
+    ]
 }

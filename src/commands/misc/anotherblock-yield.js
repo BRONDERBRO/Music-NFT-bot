@@ -1,9 +1,8 @@
-const { EmbedBuilder } = require('discord.js');
-
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
 const roundNumber = require('../../utils/roundNumber');
 const dropHasDifferentSongs = require('../../utils/anotherblockDropHasDifferentSongs');
+const { createEmbed } = require('../../utils/createEmbed');
 
 //Require APIs
 const reservoirFetchCollection = require('../../utils/apis/reservoirFetchCollection');
@@ -31,27 +30,10 @@ module.exports = {
         const embedUrl = 'https://market.anotherblock.io/'
 
         //Build embed
-        const embed = new EmbedBuilder()
-            .setTitle(embedTitle)
-            .setDescription(embedDescription)
-            .setColor(embedColor)
-            //.setImage(client.user.displayAvatarURL())
-            //.setThumbnail(client.user.displayAvatarURL())
-            .setTimestamp(Date.now())
-            .setURL(embedUrl)
-            .setAuthor({
-                iconURL: client.user.displayAvatarURL(),
-                name: client.user.tag
-            })
-            .setFooter({
-                iconURL: client.user.displayAvatarURL(),
-                text: client.user.tag
-            })
+        const embed = createEmbed(client, embedTitle, embedDescription, embedColor, embedUrl);
 
         //Get data from drops json file
         const dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
-
-        const collectionBlockchain = dataDrops.blockchain
 
         const tokenIdETH = 'weth'
 
@@ -70,7 +52,8 @@ module.exports = {
                 value: collectionId,
                 royalties: collectionRoyalties,
                 initialPrice: collectionInitialPrize,
-                tittles: dropTittles
+                tittles: dropTittles,
+                blockchain: collectionBlockchain
             } = drop;
 
             let floorPrice = null;
@@ -101,11 +84,11 @@ module.exports = {
                     
                     /*
                     console.log(
-                        collectionSong, '\n',
-                        'Floor Price: ' + floorPrice, '\n',
-                        'Royalties: ' + collectionRoyalties, '\n',
-                        'Initial Price: ' + collectionInitialPrize, '\n'                        
-                    )
+                        `${collectionSong}\n` +
+                        `Floor Price: ${floorPrice}\n` +
+                        `Royalties: ${collectionRoyalties}\n` +
+                        `Initial Price: ${collectionInitialPrize}\n`
+                    );
                     */
 
                     //If collectionRoyalties is defined and not null, then calculate the expectedYield
@@ -126,7 +109,7 @@ module.exports = {
             //If collectionTittle is not defined or null, then the collection does not have different songs
             } else {
 
-                const fetchedReservoir = await reservoirFetchCollection(collectionId);
+                const fetchedReservoir = await reservoirFetchCollection(collectionBlockchain, collectionId);
 
                 floorPrice = fetchedReservoir.collections[0].floorAsk.price.amount.decimal;
                 floorPriceInDollar = floorPrice * ETHPrice
@@ -159,7 +142,7 @@ module.exports = {
         //Order the array on yield descending order
         yieldResults.sort(function(a, b){return b.yield - a.yield});
 
-        //console.log(yieldResults)
+        //console.log(JSON.stringify(yieldResults, null, 2));
 
         //Build the embed
         for (const result of yieldResults) {

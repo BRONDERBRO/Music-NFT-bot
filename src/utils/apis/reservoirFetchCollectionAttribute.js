@@ -1,27 +1,17 @@
 const fetch = require('cross-fetch');
 require('dotenv').config();
 
+const getReservoirOptions = require('../getReservoirOptions');
+const getReservoirBaseUrl = require('../getReservoirBaseUrl');
+
 module.exports = async (blockchain, collectionID, attributeKey) => {
 
-    const headers = {
-        accept: '*/*',
-        'x-api-key': process.env.RESERVOIR_KEY
-    };
+    const options = getReservoirOptions();
+    const baseUrl = getReservoirBaseUrl(blockchain);
 
-    let url = null;
-
-    if (blockchain === 'Polygon') {
-        url = `https://api-polygon.reservoir.tools/collections/${collectionID}/attributes/explore/v5?includeTopBid=true&attributeKey=${attributeKey}&limit=5000`;
-    } else {
-        url = `https://api.reservoir.tools/collections/${collectionID}/attributes/explore/v5?includeTopBid=true&attributeKey=${attributeKey}&limit=5000`;
-    }
+    const url = `${baseUrl}/collections/${collectionID}/attributes/explore/v5?includeTopBid=true&attributeKey=${attributeKey}&limit=5000`;
 
     try {
-
-        const options = {
-            method: 'GET',
-            headers: headers
-        };
 
         const response = await fetch(url, options);
 

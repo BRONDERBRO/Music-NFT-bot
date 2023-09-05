@@ -1,23 +1,24 @@
 const fetch = require('cross-fetch');
 require('dotenv').config();
 
-module.exports = async (collectionID, collectionSong, sources, maker) => {
+const getReservoirOptions = require('../getReservoirOptions');
+const getReservoirBaseUrl = require('../getReservoirBaseUrl');
 
-    const headers = {
-        accept: '*/*',
-        'x-api-key': process.env.RESERVOIR_KEY
-    };
+module.exports = async (blockchain, collectionID, collectionSong, sources, maker) => {
 
-    let url = `https://api.reservoir.tools/orders/bids/v6?collection=${collectionID}`;
+    const options = getReservoirOptions();
+    const baseUrl = getReservoirBaseUrl(blockchain);
+
+    let url = `${baseUrl}/orders/bids/v6?collection=${collectionID}`;
 
     try {
-        if (typeof maker !== 'undefined' && maker && sources.length === 1 && sources[0] === 'blur.io') {
+        if (maker && sources.length === 1 && sources[0] === 'blur.io') {
 
-            url = `https://api.reservoir.tools/orders/bids/v6?maker=${maker}&sources=${sources[0]}`;
+            url = `${baseUrl}/orders/bids/v6?maker=${maker}&sources=${sources[0]}`;
 
         } else {
 
-            if (typeof collectionSong !== 'undefined' && collectionSong) {
+            if (collectionSong) {
                 url += `&attribute[Song]=${encodeURIComponent(collectionSong)}`;
             }
 
@@ -25,14 +26,9 @@ module.exports = async (collectionID, collectionSong, sources, maker) => {
                 const sourcesQueryParam = sources.map(source => `&sources=${source}`).join('');
                 url += sourcesQueryParam;
             }
-
-            url += '&sortBy=price';
         }
 
-        const options = {
-            method: 'GET',
-            headers: headers
-        };
+        url += '&sortBy=price';
 
         const response = await fetch(url, options);
 

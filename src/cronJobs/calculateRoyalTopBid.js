@@ -1,16 +1,16 @@
 require('dotenv').config();
-const { EmbedBuilder } = require('discord.js');
 
 const { promisify } = require('util'); // Import promisify
 const setTimeoutPromise = promisify(setTimeout);
 
 //Require Utils
-const readJsonFile = require('../readJsonFile');
-const roundNumber = require('../roundNumber');
-const sendEmbedDM = require('../sendEmbedDM');
+const readJsonFile = require('../utils/readJsonFile');
+const roundNumber = require('../utils/roundNumber');
+const sendEmbedDM = require('../utils/sendEmbedDM');
+const { createEmbed } = require('../utils/createEmbed');
 
 //Require APIs
-const royalFetch = require('../../utils/apis/royalFetch');
+const royalFetch = require('../utils/apis/royalFetch');
 
 module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
 
@@ -34,11 +34,11 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
 
         /*
         console.log(
-            collectionName, '\n',
-            'Royalties: ' + collectionRoyalties, '\n',
-            'Collection ID: ' + collectionId, '\n',
-            'My Bid Price: ' + collectionMyBidPrice, '\n'
-        )
+            `${collectionName}\n` +
+            `Royalties: ${collectionRoyalties}\n` +
+            `Collection ID: ${collectionId}\n` +
+            `Collection Royalties: ${collectionRoyalties}\n`
+        );
         */
 
         let fetchedRoyal = await royalFetch(collectionId);
@@ -49,12 +49,11 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
 
         /*
         console.log(
-            collectionName, '\n',
-            'Royalties: ' + collectionRoyalties, '\n',
-            'Collection ID: ' + collectionId, '\n',
-            'Base Royalty: ' + baseRoyalty, '\n',
-            'Royalty Unit: ' + royaltyUnit, '\n'
-        )
+            `${collectionName}\n` +
+            `Collection ID: ${collectionId}\n` +
+            `Base Royalty: ${baseRoyalty}\n` +
+            `Royalty Unit: ${royaltyUnit}\n`
+        );
         */
 
         //Loop through the different tiers
@@ -70,8 +69,10 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
             }
 
             /*
-            console.log(`The collectionMyBidPrice for ${collectionName}: ${collectionTier} tier is: ${collectionMyBidPrice}`, '\n',
-                `The bidPrice for $ {collectionName}: ${collectionTier} tier is: ${bidPrice}`, '\n');
+            console.log(
+                `The collectionMyBidPrice for ${collectionName}: ${collectionTier} tier is: ${collectionMyBidPrice}\n` +
+                `The bidPrice for ${collectionName}: ${collectionTier} tier is: ${bidPrice}\n`
+            ); 
             */
 
             if (bidPrice === collectionMyBidPrice) {
@@ -89,9 +90,9 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
 
                 /*
                 console.log(
-                    collectionName + ' - ' + collectionTier, '\n',
-                    'Expected Yield %: ' + expectedYield, '\n'                     
-                )
+                    `${collectionName} - ${collectionTier}\n` +
+                    `Expected Yield %: ${expectedYield}\n`
+                );
                 */
 
                 if (expectedYield > desiredYield && bidPrice <= maxPrice  && topBidder != "BRONDER"){
@@ -112,37 +113,20 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
     //Order the array on yield descending order
     topBidResults.sort(function(a, b){return b.yield - a.yield});
 
-    //console.log(topBidResults)
+    //console.log(JSON.stringify(topBidResults, null, 2));
 
     const embedTitle = 'Royal Top Bid'
     const embedDescription = 'Top bid of Royal songs: (Top Bidder: $ Bid Price - Yield At Bid Price %)'
     const embedColor = 'White'
     const embedUrl = 'https://royal.io/discover'
 
-    // Create an array of empty embeds
-    const embeds = Array.from({ length: maxEmbeds }, () => {
-        return new EmbedBuilder()
-        .setTitle(embedTitle)
-        .setDescription(embedDescription)
-        .setColor(embedColor)
-        //.setImage(client.user.displayAvatarURL())
-        //.setThumbnail(client.user.displayAvatarURL())
-        .setTimestamp(Date.now())
-        .setURL(embedUrl)
-        .setAuthor({
-            iconURL: client.user.displayAvatarURL(),
-            name: client.user.tag
-        })
-        .setFooter({
-            iconURL: client.user.displayAvatarURL(),
-            text: client.user.tag
-        })
-    });
+    //Create an array of empty embeds
+    const embeds = Array.from({ length: maxEmbeds }, () => createEmbed(client, embedTitle, embedDescription, embedColor, embedUrl));
 
     const topBidResultsLength = Math.min(topBidResults.length, songsPerEmbed * maxEmbeds);
     let currentEmbedIndex = 0;
 
-    /*console.log(`topBidResultsLength: ${topBidResultsLength}`)*/
+    //console.log(`topBidResultsLength: ${topBidResultsLength}\n`)
 
     for (let k = 0; k < topBidResultsLength; ++k) {
 
@@ -151,8 +135,10 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
             currentEmbedIndex++;
         }
 
-        const fieldName = `${topBidResults[k].name} - ${topBidResults[k].tier}`;
-        const fieldValue = `[${topBidResults[k].topBidder}:- $ ${topBidResults[k].bidPrice} - ${topBidResults[k].yield} %](${topBidResults[k].url})`;
+        const { name, tier, yield, bidPrice, topBidder, url } = topBidResults[k];
+        const fieldName = `${name} - ${tier}`;
+        const fieldValue = `[${topBidder}:- $ ${bidPrice} - ${yield} %](${url})`;
+
         embeds[currentEmbedIndex].addFields({
             name: fieldName,
             value: fieldValue,
@@ -160,7 +146,7 @@ module.exports = async (client, desiredYield, maxPrice, targetAddress) => {
         });
     }
 
-    /*console.log(`Current Embed Index: ${currentEmbedIndex}`)*/
+    //console.log(`Current Embed Index: ${currentEmbedIndex}\n`)
 
     // Send the embeds
     for (let i = 0; i <= currentEmbedIndex && topBidResultsLength > 0; i++) {

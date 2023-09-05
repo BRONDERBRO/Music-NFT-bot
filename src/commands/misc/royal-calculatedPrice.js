@@ -1,11 +1,10 @@
-const { EmbedBuilder } = require('discord.js');
-
 const { promisify } = require('util'); // Import promisify
 const setTimeoutPromise = promisify(setTimeout);
 
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
 const roundNumber = require('../../utils/roundNumber');
+const { createEmbed } = require('../../utils/createEmbed');
 
 //Require APIs
 const royalFetch = require('../../utils/apis/royalFetch');
@@ -113,24 +112,7 @@ module.exports = {
         const embedUrl = 'https://royal.io/discover'
 
         // Create an array of empty embeds
-        const embeds = Array.from({ length: maxEmbeds }, () => {
-            return new EmbedBuilder()
-            .setTitle(embedTitle)
-            .setDescription(embedDescription)
-            .setColor(embedColor)
-            //.setImage(client.user.displayAvatarURL())
-            //.setThumbnail(client.user.displayAvatarURL())
-            .setTimestamp(Date.now())
-            .setURL(embedUrl)
-            .setAuthor({
-                iconURL: client.user.displayAvatarURL(),
-                name: client.user.tag
-            })
-            .setFooter({
-                iconURL: client.user.displayAvatarURL(),
-                text: client.user.tag
-            })
-        });
+        const embeds = Array.from({ length: maxEmbeds }, () => createEmbed(client, embedTitle, embedDescription, embedColor, embedUrl));
 
         const yieldResultsLength = Math.min(yieldResults.length, songsPerEmbed * maxEmbeds);
         let currentEmbedIndex = 0;
@@ -144,8 +126,9 @@ module.exports = {
                 currentEmbedIndex++;
             }
 
-            const fieldName = `${yieldResults[k].name} - ${yieldResults[k].tier}`;
-            const fieldValue = `$${yieldResults[k].price}`;
+            const { name, tier, price } = yieldResults[k];
+            const fieldName = `${name} - ${tier}`;
+            const fieldValue = `$${price}`;
 
             embeds[currentEmbedIndex].addFields({
                 name: fieldName,

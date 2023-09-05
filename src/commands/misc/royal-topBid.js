@@ -1,5 +1,4 @@
 require('dotenv').config();
-const { EmbedBuilder } = require('discord.js');
 
 const { promisify } = require('util'); // Import promisify
 const setTimeoutPromise = promisify(setTimeout);
@@ -7,6 +6,7 @@ const setTimeoutPromise = promisify(setTimeout);
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
 const roundNumber = require('../../utils/roundNumber');
+const { createEmbed } = require('../../utils/createEmbed');
 
 //Require APIs
 const royalFetch = require('../../utils/apis/royalFetch');
@@ -31,7 +31,12 @@ module.exports = {
         let topBidResults = [];
 
         for (const drop of dataDrops.drops) {
-            const { id: collectionId, name: collectionName, royalties: collectionRoyalties, tiers: collectionTiers } = drop;          
+            const {
+                id: collectionId,
+                name: collectionName,
+                royalties: collectionRoyalties,
+                tiers: collectionTiers
+            } = drop;          
 
             let fetchedRoyal = await royalFetch(collectionId);
             let baseRoyalty = fetchedRoyal.data.edition.tiers[0].royaltyClaimMillionths;
@@ -48,7 +53,11 @@ module.exports = {
             */
 
             for (const tier of fetchedRoyal.data.edition.tiers) {
-                const { type: collectionTier, royaltyClaimMillionths: royalty } = tier;
+                const {
+                    type: collectionTier,
+                    royaltyClaimMillionths: royalty
+                } = tier;
+                
                 const bidPrice = parseFloat(tier.market.highestBidPrice.amount);
                 let collectionMyBidPrice = 0;
 
@@ -94,24 +103,7 @@ module.exports = {
         const embedUrl = 'https://royal.io/discover'
 
         // Create an array of empty embeds
-        const embeds = Array.from({ length: maxEmbeds }, () => {
-            return new EmbedBuilder()
-            .setTitle(embedTitle)
-            .setDescription(embedDescription)
-            .setColor(embedColor)
-            //.setImage(client.user.displayAvatarURL())
-            //.setThumbnail(client.user.displayAvatarURL())
-            .setTimestamp(Date.now())
-            .setURL(embedUrl)
-            .setAuthor({
-                iconURL: client.user.displayAvatarURL(),
-                name: client.user.tag
-            })
-            .setFooter({
-                iconURL: client.user.displayAvatarURL(),
-                text: client.user.tag
-            })
-        });
+        const embeds = Array.from({ length: maxEmbeds }, () => createEmbed(client, embedTitle, embedDescription, embedColor, embedUrl));
 
         const topBidResultsLength = Math.min(topBidResults.length, songsPerEmbed * maxEmbeds);
         let currentEmbedIndex = 0;
@@ -125,8 +117,9 @@ module.exports = {
                 currentEmbedIndex++;
             }
 
-            const fieldName = `${topBidResults[k].name} - ${topBidResults[k].tier}`;
-            const fieldValue = `${topBidResults[k].topBidder}:- $ ${topBidResults[k].bidPrice} - ${topBidResults[k].yield} %`;
+            const { name, tier, yield, bidPrice, topBidder } = topBidResults[k];
+            const fieldName = `${name} - ${tier}`;
+            const fieldValue = `${topBidder}:- $ ${bidPrice} - ${yield} %`;
 
             embeds[currentEmbedIndex].addFields({
                 name: fieldName,

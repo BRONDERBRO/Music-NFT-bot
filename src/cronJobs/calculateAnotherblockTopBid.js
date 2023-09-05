@@ -1,16 +1,17 @@
 require('dotenv').config();
-const { EmbedBuilder } = require('discord.js');
 
-const wait = require('node:timers/promises').setTimeout;
+const { promisify } = require('util'); // Import promisify
+const setTimeoutPromise = promisify(setTimeout);
 
 //Require Utils
-const readJsonFile = require('../readJsonFile');
-const roundNumber = require('../roundNumber');
-const dropHasDifferentSongs = require('../anotherblockDropHasDifferentSongs');
-const sendEmbedDM = require('../sendEmbedDM');
+const readJsonFile = require('../utils/readJsonFile');
+const roundNumber = require('../utils/roundNumber');
+const dropHasDifferentSongs = require('../utils/anotherblockDropHasDifferentSongs');
+const sendEmbedDM = require('../utils/sendEmbedDM');
+const { createEmbed } = require('../utils/createEmbed');
 
 //Require APIs
-const reservoirFetchOrderBid = require('../../utils/apis/reservoirFetchOrderBid');
+const reservoirFetchOrderBid = require('../utils/apis/reservoirFetchOrderBid');
 
 module.exports = async (client, desiredYield, floorThreshold, targetAddress) => {
 
@@ -19,26 +20,10 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
     const embedColor = 'White'
     const embedUrl = 'https://market.anotherblock.io/'
 
-    //Build embed
-    const embed = new EmbedBuilder()
-        .setTitle(embedTitle)
-        .setDescription(embedDescription)
-        .setColor(embedColor)
-        //.setImage(client.user.displayAvatarURL())
-        //.setThumbnail(client.user.displayAvatarURL())
-        .setTimestamp(Date.now())
-        .setURL(embedUrl)
-        .setAuthor({
-            iconURL: client.user.displayAvatarURL(),
-            name: client.user.tag
-        })
-        .setFooter({
-            iconURL: client.user.displayAvatarURL(),
-            text: client.user.tag
-        })
+    const embed = createEmbed(client, embedTitle, embedDescription, embedColor, embedUrl);
 
     //Get data from drops json file
-    let dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
+    const dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
 
     let marketplaceUrl = null
     let marketplaceCollectionFixedUrl = null
@@ -62,8 +47,6 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
 
     let topBidResults = [];
 
-    let maker = process.env.WALLET_ADDRESS
-
     let fetchedReservoirBlurOwnBids = null
 
     //Loop sources
@@ -76,7 +59,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
         //For blur.io, get my own bids (Given that blud bids are meade by an EOA, this needs to be done to check my orders)
         if (currentSource.name === 'BLUR') {
 
-            fetchedReservoirBlurOwnBids = await reservoirFetchOrderBid(null, null, source, maker);
+            fetchedReservoirBlurOwnBids = await reservoirFetchOrderBid(collectionBlockchain, null, null, source, targetAddress);
 
             marketplaceUrl = 'https://blur.io/'
             marketplaceCollectionFixedUrl = 'collection/'
@@ -92,7 +75,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
 
             marketplaceUrl = 'https://market.anotherblock.io/'
             marketplaceCollectionFixedUrl = 'collections/'
-            marketplaceFilterUrl = '?attributes%5BDrop+ID%5D='
+            marketplaceFilterUrl = '?attributes%5BSong%5D='
 
         }
 
@@ -105,7 +88,8 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                 royalties: collectionRoyalties,
                 initialPrice: collectionInitialPrize,
                 sources: dropSources,
-                tittles: dropTittles
+                tittles: dropTittles,
+                blockchain: collectionBlockchain
             } = drop;
 
             // Check if the current source is included in the JSON data for this drop
@@ -122,11 +106,11 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                 continue; // Skip this iteration if the source is not included
             }
 
-            //console.log(collectionName, '\n')
+            //console.log(`${collectionName}\n`)
 
             collectionSong = null
 
-            let fetchedReservoir = await reservoirFetchOrderBid(collectionId, collectionSong, source, null);
+            let fetchedReservoir = await reservoirFetchOrderBid(collectionBlockchain, collectionId, collectionSong, source, null);
 
             //For blur.io, I don't need to loop the different songs
             //Check if drop has different songs (for blur.io don't loop the songs)
@@ -155,9 +139,9 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
 
                     embedResultUrl = marketplaceUrl + marketplaceCollectionFixedUrl + marketplaceCollectionUrl + marketplaceFilterUrl + marketplaceSongUrl
 
-                    //console.log(collectionSong)
+                    //console.log(`${collectionSong}\n`)
 
-                    let fetchedReservoirSong = await reservoirFetchOrderBid(collectionId, collectionSong, source);
+                    let fetchedReservoirSong = await reservoirFetchOrderBid(collectionBlockchain, collectionId, collectionSong, source, null);
 
                     //define JSONs without "orders" to combine them
                     const orders1 = fetchedReservoir.orders || [];
@@ -167,11 +151,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                     const combinedOrders = [...orders1, ...orders2];
 
                     // Sort the combined orders array by the "decimal" value
-                    const sortedCombinedOrders = combinedOrders.sort((a, b) => {
-                    const decimalA = a.price.amount.decimal;
-                    const decimalB = b.price.amount.decimal;
-                    return decimalB - decimalA;
-                    });
+                    const sortedCombinedOrders = combinedOrders.sort((a, b) => b.price.amount.decimal - a.price.amount.decimal);
 
                     // Create a new object with the sorted combined "orders" array
                     fetchedReservoirSong = { orders: sortedCombinedOrders };
@@ -202,19 +182,18 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                         targetPrice = 0 //(collectionRoyalties * collectionInitialPrize) / (desiredYield) * 100
    
                         /*
-                        console.log(`
-                            Collection Song: ${collectionSong}
-                            Bid Price: ${bidPriceETH}
-                            Bid Price $: ${bidPriceInDollar}
-                            Top Bidder: ${topBidder}
-                            Expected Yield %: ${expectedYieldAtBidPrice}
-                            Target Price $: ${targetPrice}
-                            Collection Royalties: ${collectionRoyalties}
-                            Collection Initial Price $: ${collectionInitialPrize}
-                        `);
+                        console.log(
+                            `Collection Song: ${collectionSong}\n` +
+                            `Bid Price: ${bidPriceETH}\n` +
+                            `Bid Price $: ${bidPriceInDollar}\n` +
+                            `Top Bidder: ${topBidder}\n` +
+                            `Expected Yield %: ${expectedYieldAtBidPrice}\n` +
+                            `Target Price $: ${targetPrice}\n` +
+                            `Collection Royalties: ${collectionRoyalties}\n` +
+                            `Collection Initial Price $: ${collectionInitialPrize}\n`
+                        );
                         */
                         
-
                         topBidResults.push({
                             name: collectionName,
                             song: collectionSong,
@@ -240,7 +219,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
 
                     collectionRoyalties = Number.POSITIVE_INFINITY;
 
-                    for (const title of drop.tittles) {
+                    for (const title of tittles) {
                         if (title.royalties < collectionRoyalties) {
                             collectionRoyalties = title.royalties;
                             collectionInitialPrize = title.initialPrice;
@@ -297,10 +276,10 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                         const matchingRecord = fetchedReservoirBlurOwnBids.orders.find(order => order.contract.toLowerCase() === collectionId.toLowerCase());
                         
                         /*
-                        console.log(`
-                            Collection ID: ${collectionId}
-                            Matching Record: ${matchingRecord}
-                        `);
+                        console.log(
+                            `Collection ID: ${collectionId}\n` +
+                            `Matching Record: ${matchingRecord}\n`
+                        );
                         */
 
                         // Extract the "decimal" value if a match was found
@@ -329,16 +308,16 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                     }
                                        
                     /*
-                    console.log(`
-                        Collection Name: ${collectionName}
-                        Bid Price: ${bidPriceETH}
-                        Bid Price $: ${bidPriceInDollar}
-                        Top Bidder: ${topBidder}
-                        Expected Yield %: ${expectedYieldAtBidPrice}
-                        Target Price $: ${targetPrice}
-                        Collection Royalties: ${collectionRoyalties}
-                        Collection Initial Price $: ${collectionInitialPrize}
-                    `);
+                    console.log(
+                        `Collection Name: ${collectionName}\n` +
+                        `Bid Price: ${bidPriceETH}\n` +
+                        `Bid Price $: ${bidPriceInDollar}\n` +
+                        `Top Bidder: ${topBidder}\n` +
+                        `Expected Yield %: ${expectedYieldAtBidPrice}\n` +
+                        `Target Price $: ${targetPrice}\n` +
+                        `Collection Royalties: ${collectionRoyalties}\n` +
+                        `Collection Initial Price $: ${collectionInitialPrize}\n`
+                    );
                     */
 
                     topBidResults.push({
@@ -358,17 +337,16 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
         //Order the array on yield descending order
         topBidResults.sort(function(a, b){return b.yield - a.yield});
 
-        //console.log(topBidResults)
+        //console.log(JSON.stringify(topBidResults, null, 2));
 
         // Build the embed
         for (const topBidResult of topBidResults) {
             if (topBidResult.bidder !== targetAddress && 
                 (topBidResult.yield >= desiredYield || topBidResult.bidPriceETH <= topBidResult.targetPrice)) {
 
-                let fieldName = `${topBidResult.song ?? topBidResult.name}`;
-                let fieldValue = `[${topBidResult.bidder}: $${topBidResult.bidPrice} - ${topBidResult.bidPriceETH} ETH - ${topBidResult.yield}%](${topBidResult.url})`;
-
-                //console.log(fieldValue);
+                const { name, song, bidder, bidPrice, bidPriceETH, targetPrice, yield, url } = topBidResult;
+                let fieldName = `${song ?? name}`;
+                let fieldValue = `[${bidder}: $${bidPrice} - ${bidPriceETH} ETH - ${yield}%](${url})`;
 
                 embed.addFields({
                     name: fieldName,
@@ -386,7 +364,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
 
             sendEmbedDM(client, process.env.USER_ID, embed)
 
-            await wait(1000)
+            await setTimeoutPromise(1000)
 
         };
     }

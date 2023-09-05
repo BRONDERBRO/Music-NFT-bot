@@ -1,9 +1,8 @@
-const { EmbedBuilder } = require('discord.js');
-
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
 const roundNumber = require('../../utils/roundNumber');
 const dropHasDifferentSongs = require('../../utils/anotherblockDropHasDifferentSongs');
+const { createEmbed } = require('../../utils/createEmbed');
 
 //Require APIs
 const coingeckoFetchPrice = require('../../utils/apis/coingeckoFetchPrice');
@@ -39,22 +38,7 @@ module.exports = {
         const embedUrl = 'https://market.anotherblock.io/'
 
         //Build embed
-        const embed = new EmbedBuilder()
-            .setTitle(embedTitle)
-            .setDescription(embedDescription)
-            .setColor(embedColor)
-            //.setImage(client.user.displayAvatarURL())
-            //.setThumbnail(client.user.displayAvatarURL())
-            .setTimestamp(Date.now())
-            .setURL(embedUrl)
-            .setAuthor({
-                iconURL: client.user.displayAvatarURL(),
-                name: client.user.tag
-            })
-            .setFooter({
-                iconURL: client.user.displayAvatarURL(),
-                text: client.user.tag
-            })
+        const embed = createEmbed(client, embedTitle, embedDescription, embedColor, embedUrl);
 
         //Get data from drops json file
         const dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
@@ -91,11 +75,11 @@ module.exports = {
                     } = dropTittle;
 
                 /*
-                console.log(`
-                    Collection Song: ${collectionSong}
-                    Royalties: ${collectionRoyalties}
-                    Initial Price: ${collectionInitialPrize}
-                `);
+                console.log(
+                    `Collection Song: ${collectionSong}\n` +
+                    `Royalties: ${collectionRoyalties}\n` +
+                    `Initial Price: ${collectionInitialPrize}\n`
+                );
                 */  
 
                 //If collectionRoyalties is defined and not null, then calculate the expectedYield
@@ -135,7 +119,7 @@ module.exports = {
         //Order the array on price descending order
         priceResults.sort(function(a, b){return b.price - a.price});
 
-        console.log(priceResults)
+        //console.log(JSON.stringify(priceResults, null, 2));
 
         //Build the embed
         for (const result of priceResults) {

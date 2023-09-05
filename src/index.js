@@ -5,11 +5,11 @@ const eventHandler = require('./handlers/eventHandler');
 const cron = require('node-cron');//https://crontab.guru/
 
 //Require cronJob utilities
-const calculateAnotherblockYield = require('./utils/cronJobs/calculateAnotherblockYield');
-const calculateAnotherblockTopBid = require('./utils/cronJobs/calculateAnotherblockTopBid');
-const calculateRoyalYield = require('./utils/cronJobs/calculateRoyalYield');
-const calculateRoyalYieldReservoir = require('./utils/cronJobs/calculateRoyalYieldReservoir');
-const calculateRoyalTopBid = require('./utils/cronJobs/calculateRoyalTopBid');
+const calculateAnotherblockYield = require('./cronJobs/calculateAnotherblockYield');
+const calculateAnotherblockTopBid = require('./cronJobs/calculateAnotherblockTopBid');
+const calculateRoyalYield = require('./cronJobs/calculateRoyalYield');
+const calculateRoyalYieldReservoir = require('./cronJobs/calculateRoyalYieldReservoir');
+const calculateRoyalTopBid = require('./cronJobs/calculateRoyalTopBid');
 
 const client = new Client({
     intents: [
@@ -40,7 +40,7 @@ cron.schedule('*/5 * * * *', async function() {
     }
 });
 
-cron.schedule('0 8 */1 * *', async function() { //At 08:00 on every day-of-month.
+cron.schedule('* 8 */1 * *', async function() { //At 08:00 on every day-of-month.
     try {
         await calculateAnotherblockTopBid(client, yieldThresholds.anotherblock, anotherblockPfpFloorThreshold, process.env.WALLET_ADDRESS);
     } catch (error) {
@@ -64,7 +64,7 @@ cron.schedule('*/15 * * * *', async function() {
     }
 });
 
-cron.schedule('0 8 */1 * *', async function() { //At 08:00 on every day-of-month.
+cron.schedule('* 8 */1 * *', async function() { //At 08:00 on every day-of-month.
     try {
         await calculateRoyalTopBid(client, yieldThresholds.royal, royalMaxPriceThreshold, process.env.WALLET_ADDRESS);
     } catch (error) {

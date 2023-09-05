@@ -1,9 +1,8 @@
-const { EmbedBuilder } = require('discord.js');
-
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
 const roundNumber = require('../../utils/roundNumber');
 const dropHasDifferentSongs = require('../../utils/anotherblockDropHasDifferentSongs');
+const { createEmbed } = require('../../utils/createEmbed');
 
 //Require APIs
 const reservoirFetchOrderBid = require('../../utils/apis/reservoirFetchOrderBid');
@@ -29,22 +28,7 @@ module.exports = {
         const embedUrl = 'https://market.anotherblock.io/'
 
         //Build embed
-        const embed = new EmbedBuilder()
-            .setTitle(embedTitle)
-            .setDescription(embedDescription)
-            .setColor(embedColor)
-            //.setImage(client.user.displayAvatarURL())
-            //.setThumbnail(client.user.displayAvatarURL())
-            .setTimestamp(Date.now())
-            .setURL(embedUrl)
-            .setAuthor({
-                iconURL: client.user.displayAvatarURL(),
-                name: client.user.tag
-            })
-            .setFooter({
-                iconURL: client.user.displayAvatarURL(),
-                text: client.user.tag
-            })
+        const embed = createEmbed(client, embedTitle, embedDescription, embedColor, embedUrl);
 
         //Get data from drops json file
         const dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
@@ -60,14 +44,15 @@ module.exports = {
                 value: collectionId,
                 royalties: collectionRoyalties,
                 initialPrice: collectionInitialPrize,
-                tittles: dropTittles
+                tittles: dropTittles,
+                blockchain: collectionBlockchain
             } = drop;
 
-            //console.log(collectionName, '\n')
+            //console.log(`${collectionName}\n`)
 
             let collectionSong = null
 
-            const fetchedReservoir = await reservoirFetchOrderBid(collectionId, collectionSong, source, null);
+            const fetchedReservoir = await reservoirFetchOrderBid(collectionBlockchain, collectionId, collectionSong, source, null);
 
             //If collectionTittle is defined and not null, then the collection has different songs
             if (dropHasDifferentSongs(drop)) {
@@ -81,9 +66,9 @@ module.exports = {
                         initialPrice: collectionInitialPrize,
                     } = dropTittle;
 
-                    //console.log(collectionSong)
+                    //console.log(`${collectionSong}\n`)
 
-                    let fetchedReservoirSong = await reservoirFetchOrderBid(collectionId, collectionSong, source);
+                    let fetchedReservoirSong = await reservoirFetchOrderBid(collectionBlockchain, collectionId, collectionSong, source);
 
                     //define JSONs without "orders" to combine them
                     const orders1 = fetchedReservoir.orders || [];
@@ -106,11 +91,11 @@ module.exports = {
                     
                     /*
                     console.log(
-                        collectionSong, '\n',
-                        'Bid Price: ' + bidPriceETH, '\n',
-                        'Bid Price $: ' + bidPriceInDollar, '\n',
-                        'Top Bidder: ' + topBidder, '\n'                        
-                    )
+                        `${collectionSong}\n` +
+                        `Bid Price: ${bidPriceETH}\n` +
+                        `Bid Price $: ${bidPriceInDollar}\n` +
+                        `Top Bidder: ${topBidder}\n`
+                    );
                     */
 
                     topBidResults.push ({
@@ -134,11 +119,11 @@ module.exports = {
                 
                 /*
                 console.log(
-                    collectionName, '\n',
-                    'Bid Price: ' + bidPriceETH, '\n',
-                    'Bid Price $: ' + bidPriceInDollar, '\n',
-                    'Top Bidder: ' + topBidder, '\n'                        
-                )
+                    `${collectionName}\n` +
+                    `Bid Price: ${bidPriceETH}\n` +
+                    `Bid Price $: ${bidPriceInDollar}\n` +
+                    `Top Bidder: ${topBidder}\n`
+                );
                 */
 
                 topBidResults.push ({
@@ -155,7 +140,7 @@ module.exports = {
         //Order the array on yield descending order
         topBidResults.sort(function(a, b){return b.yield - a.yield});
 
-        //console.log(topBidResults)
+        //console.log(JSON.stringify(topBidResults, null, 2));
 
         //Build the embed
         for (const result of topBidResults) {
