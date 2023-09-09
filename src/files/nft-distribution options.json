@@ -1,5 +1,10 @@
 [
     {
+        "name": "Company (Justin Bieber)",
+        "value": "0xD3d333E6FeD17f273D0415Df567ed5Eb65e8BB28",
+        "blockchain": "Base"
+    },
+    {
         "name": "This Is Why I'm Hot (Mims)",
         "value": "0xbeff0289168f9589337838c826162da9dc29993d",
         "blockchain": "Ethereum"
