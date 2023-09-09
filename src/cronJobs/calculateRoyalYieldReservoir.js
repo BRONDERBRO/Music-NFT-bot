@@ -1,8 +1,5 @@
 require('dotenv').config();
 
-const { promisify } = require('util'); // Import promisify
-const setTimeoutPromise = promisify(setTimeout);
-
 //Require Utils
 const readJsonFile = require('../utils/readJsonFile');
 const roundNumber = require('../utils/roundNumber');
@@ -44,6 +41,7 @@ module.exports = async (client, yieldThreshold) => {
 
     const creatorRoyalty = 1.075;
     const yieldResults = [];
+    const allYieldResults = [];
 
     const fetchedReservoir = await reservoirFetchCollectionAttribute(collectionBlockchain, collectionAddress, attributeKey);
 
@@ -102,6 +100,23 @@ module.exports = async (client, yieldThreshold) => {
 
         const expectedYield = roundNumber(collectionRoyalties / floorPrice * 100, 2)
 
+        const floorPriceInETH = roundNumber(floorPrice / ETHPrice, 4);                
+        const escapedCollectionName = encodeURIComponent(collectionName.replace(/[\]\[()]/g, '\\$&'));
+
+        const embedResultUrl = typeof openseaEditionUrl !== 'undefined' && openseaEditionUrl
+        ? openseaUrl + openseaEditionUrl
+        : openseaUrl + 's' + openseaFilterUrl + escapedCollectionName;
+
+        //Push all the yield results because they will be compared to the top bid
+        allYieldResults.push ({
+            name: collectionName,
+            tier: null, //collectionTier
+            yield: expectedYield,
+            floor: roundNumber(floorPrice, 2),
+            floorInETH: floorPriceInETH,
+            url: embedResultUrl
+        });
+
         if (expectedYield <= yieldThreshold) {
             continue; // Skip if yield is not over threshold
         }
@@ -112,14 +127,6 @@ module.exports = async (client, yieldThreshold) => {
             `Expected Yield %: ${expectedYield}\n`
         );
         */
-
-        const floorPriceInETH = roundNumber(floorPrice / ETHPrice, 4);                
-        const escapedCollectionName = encodeURIComponent(collectionName.replace(/[\]\[()]/g, '\\$&'));
-
-        const embedResultUrl = typeof openseaEditionUrl !== 'undefined' && openseaEditionUrl
-        ? openseaUrl + openseaEditionUrl
-        : openseaUrl + 's' + openseaFilterUrl + escapedCollectionName;
-
 
         yieldResults.push ({
             name: collectionName,
@@ -172,7 +179,9 @@ module.exports = async (client, yieldThreshold) => {
     // Send the embeds
     for (let i = 0; i <= currentEmbedIndex && yieldResultsLength > 0; i++) {
         // Send follow-up messages with a delay
-        await setTimeoutPromise(1000);
-        sendEmbedDM(client, process.env.USER_ID, embeds[i])
+        await sendEmbedDM(client, process.env.USER_ID, embeds[i])
     }
+
+    return allYieldResults
+
 };

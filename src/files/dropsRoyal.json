@@ -3,7 +3,7 @@
     {
       "id": "skye-holland-steve-kroeger-fade-away",
       "name": "Fade Away",
-      "royalties": 0.09,
+      "royalties": 0.08,
       "tiers": [
         {
           "tier": "DIAMOND",
@@ -14,11 +14,11 @@
     {
       "id": "aaronchilds-myway",
       "name": "My Way",
-      "royalties": 48.05,
+      "royalties": 49.25,
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 130.01
+          "bidPrice": 131.01
         },
         {
           "tier": "DIAMOND",
@@ -29,8 +29,12 @@
     {
       "id": "allem-iversom-the-ridge",
       "name": "The Ridge",
-      "royalties": 11.91,
+      "royalties": 11.69,
       "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 35
+        },
         {
           "tier": "DIAMOND",
           "bidPrice": 1001.01
@@ -40,7 +44,7 @@
     {
       "id": "elle-vee-into-dust",
       "name": "Into Dust",
-      "royalties": 2.83,
+      "royalties": 2.85,
       "tiers": [
         {
           "tier": "GOLD",
@@ -55,14 +59,14 @@
     {
       "id": "thechainsmokers-sofarsogood",
       "name": "So Far So Good",
-      "royalties": 1.13,
+      "royalties": 1.11,
       "tiers": [],
       "openseaUrl": "-so-far-so-good"
     },
     {
       "id": "jake-zimma-oh-san-francisco",
       "name": "Oh, San Francisco",
-      "royalties": 0.8,
+      "royalties": 0.81,
       "tiers": [
         {
           "tier": "GOLD",
@@ -88,8 +92,12 @@
     {
       "id": "disco-fries-family-affair",
       "name": "Family Affair",
-      "royalties": 6.87,
+      "royalties": 6.82,
       "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 20
+        },
         {
           "tier": "DIAMOND",
           "bidPrice": 250.01
@@ -100,7 +108,12 @@
       "id": "thechainsmokers-lofiremixes",
       "name": "So Far So Good (lofi remixes)",
       "royalties": 0.06,
-      "tiers": []
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 8.01
+        }
+      ]
     },
     {
       "id": "culture-code-after-all",
@@ -108,25 +121,38 @@
       "royalties": 6.4,
       "tiers": [
         {
+          "tier": "GOLD",
+          "bidPrice": 31.01
+        },
+        {
           "tier": "DIAMOND",
-          "bidPrice": 255.01
+          "bidPrice": 260.01
         }
       ]
     },
     {
       "id": "matt-cooper-something-beautiful",
       "name": "Something Beautiful",
-      "royalties": 2.05,
-      "tiers": []
+      "royalties": 2.12,
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 30.01
+        },
+        {
+          "tier": "DIAMOND",
+          "bidPrice": 202.01
+        }
+      ]
     },
     {
       "id": "timmy-trumpet-lifelikethis",
       "name": "Life Like This",
-      "royalties": 1.68,
+      "royalties": 1.59,
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 2
+          "bidPrice": 10.01
         },
         {
           "tier": "PLATINUM",
@@ -134,7 +160,7 @@
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 101
+          "bidPrice": 110.01
         }
       ],
       "openseaUrl": "-life-like-this"
@@ -142,41 +168,64 @@
     {
       "id": "maddix-heutenacht",
       "name": "Heute Nacht",
-      "royalties": 39.52,
+      "royalties": 39.07,
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 109.01
+          "bidPrice": 110.01
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 855.01
+          "bidPrice": 870.01
         }
       ]
     },
     {
       "id": "bingo-players-bathroom-line",
       "name": "Bathroom Line",
-      "royalties": 2.47,
-      "tiers": []
+      "royalties": 2.31,
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 10.01
+        },
+        {
+          "tier": "DIAMOND",
+          "bidPrice": 95
+        }
+      ]
     },
     {
       "id": "wyattcoleman-carfullofsmoke",
       "name": "Car Full of Smoke",
-      "royalties": 4.5,
-      "tiers": []
+      "royalties": 4.43,
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 10.01
+        }
+      ]
     },
     {
       "id": "zenaware-isaiah-brown-need-a-friend",
       "name": "Need A Friend",
-      "royalties": 4.65,
-      "tiers": []
+      "royalties": 4.17,
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 40.51
+        }
+      ]
     },
     {
       "id": "kaaze-ishouldhavewalkedaway",
       "name": "I Should Have Walked Away",
-      "royalties": 12.87,
+      "royalties": 13.05,
       "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 40
+        },
         {
           "tier": "DIAMOND",
           "bidPrice": 255.01
@@ -186,8 +235,12 @@
     {
       "id": "madison-ryann-ward-ill-wait",
       "name": "I'll Wait",
-      "royalties": 11.49,
+      "royalties": 11.21,
       "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 57.01
+        },
         {
           "tier": "PLATINUM",
           "bidPrice": 152.01
@@ -197,17 +250,26 @@
     {
       "id": "vanmurten-canyoufeelit",
       "name": "Can You Feel It (Van Múrten Remix)",
-      "royalties": 2.6,
-      "tiers": []
+      "royalties": 2.58,
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 10
+        },
+        {
+          "tier": "DIAMOND",
+          "bidPrice": 100.01
+        }
+      ]
     },
     {
       "id": "offrami-anthony-kleyrouz-tell-me-how",
       "name": "Tell Me How",
-      "royalties": 28.78,
+      "royalties": 29.39,
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 80.01
+          "bidPrice": 77.01
         },
         {
           "tier": "DIAMOND",
@@ -218,11 +280,15 @@
     {
       "id": "big-boi-kill-jill",
       "name": "Kill Jill (Feat. Killer Mike & Jeezy)",
-      "royalties": 23.97,
+      "royalties": 23.5,
       "tiers": [
         {
+          "tier": "PLATINUM",
+          "bidPrice": 120.01
+        },
+        {
           "tier": "DIAMOND",
-          "bidPrice": 825.01
+          "bidPrice": 840.01
         }
       ],
       "openseaUrl": "-kill-jill-feat-killer-mike-jeezy"
@@ -230,17 +296,22 @@
     {
       "id": "glass-of-water",
       "name": "Glass of Water (OG)",
-      "royalties": 1.41,
-      "tiers": []
+      "royalties": 1.36,
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 5
+        }
+      ]
     },
     {
       "id": "jacob-lee-break-my-heart-again",
       "name": "Break My Heart Again",
-      "royalties": 1.4,
+      "royalties": 1.42,
       "tiers": [
         {
-          "tier": "DIAMOND",
-          "bidPrice": 20
+          "tier": "PLATINUM",
+          "bidPrice": 26.01
         }
       ],
       "openseaUrl": "-break-my-heart-again"
@@ -248,7 +319,7 @@
     {
       "id": "yemi-alade-gimme-some-more",
       "name": "Gimme Some More (Club Mix)",
-      "royalties": 0.31,
+      "royalties": 0.32,
       "tiers": [
         {
           "tier": "GOLD",
@@ -263,25 +334,34 @@
     {
       "id": "secretnumber-likeitlikeit",
       "name": "LIKE IT LIKE IT",
-      "royalties": 4.98,
+      "royalties": 5.09,
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 10
+          "bidPrice": 20
         }
       ]
     },
     {
       "id": "halfanorange-champagneandcocaine",
       "name": "champagne and cocaine.",
-      "royalties": 1.27,
-      "tiers": []
+      "royalties": 1.38,
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 5
+        }
+      ]
     },
     {
       "id": "royceda59-caterpillar",
       "name": "Caterpillar ft. Eminem, King Green",
-      "royalties": 4.56,
+      "royalties": 4.53,
       "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 22.01
+        },
         {
           "tier": "PLATINUM",
           "bidPrice": 30.01
@@ -296,25 +376,40 @@
     {
       "id": "insomnia",
       "name": "Insomnia",
-      "royalties": 6.56,
-      "tiers": []
+      "royalties": 5.63,
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 70.01
+        }
+      ]
     },
     {
       "id": "jon-waltz-safe",
       "name": "Safe",
-      "royalties": 7.18,
-      "tiers": []
+      "royalties": 7.8,
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 29.01
+        }
+      ]
     },
     {
       "id": "punx-concentrate",
       "name": "Concentrate",
-      "royalties": 12.70,
-      "tiers": []
+      "royalties": 12.7,
+      "tiers": [
+        {
+          "tier": "PLATINUM",
+          "bidPrice": 30
+        }
+      ]
     },
     {
       "id": "worst-case",
       "name": "Worst Case",
-      "royalties": 39.45,
+      "royalties": 39.08,
       "tiers": [
         {
           "tier": "PLATINUM",
@@ -326,7 +421,7 @@
     {
       "id": "27delly-gimme-that",
       "name": "Gimme That",
-      "royalties": 8.04,
+      "royalties": 0.18,
       "tiers": [
         {
           "tier": "GOLD",
@@ -337,8 +432,12 @@
     {
       "id": "nas-ultrablack",
       "name": "Ultra Black",
-      "royalties": 2.47,
+      "royalties": 2.43,
       "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 25.01
+        },
         {
           "tier": "PLATINUM",
           "bidPrice": 20
@@ -353,7 +452,7 @@
     {
       "id": "gianni-blu-forever",
       "name": "Forever",
-      "royalties": 5.26,
+      "royalties": 5.25,
       "tiers": [
         {
           "tier": "GOLD",
@@ -368,8 +467,12 @@
     {
       "id": "angelomota-14grams",
       "name": "14GRAMS",
-      "royalties": 4.08,
+      "royalties": 3.93,
       "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 15
+        },
         {
           "tier": "DIAMOND",
           "bidPrice": 40
@@ -379,14 +482,23 @@
     {
       "id": "anderton-missed-calls",
       "name": "Missed Calls",
-      "royalties": 4.08,
-      "tiers": []
+      "royalties": 3.92,
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 36.01
+        }
+      ]
     },
     {
       "id": "angelo-mota-madonna",
       "name": "Madonna",
-      "royalties": 1.62,
+      "royalties": 1.63,
       "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 19.01
+        },
         {
           "tier": "PLATINUM",
           "bidPrice": 20
@@ -396,8 +508,12 @@
     {
       "id": "cartoon-no-halo",
       "name": "No Halo (feat. Asena)",
-      "royalties": 5.23,
+      "royalties": 5.09,
       "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 40.01
+        },
         {
           "tier": "PLATINUM",
           "bidPrice": 75.01
@@ -412,8 +528,12 @@
     {
       "id": "anthony-keyrouz-apologize",
       "name": "Apologize",
-      "royalties": 4.6,
+      "royalties": 4.48,
       "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 26.01
+        },
         {
           "tier": "DIAMOND",
           "bidPrice": 300.01
@@ -426,9 +546,14 @@
       "royalties": 0.82,
       "tiers": [
         {
+          "tier": "GOLD",
+          "bidPrice": 5
+        },
+        {
           "tier": "PLATINUM",
           "bidPrice": 10
-        },{
+        },
+        {
           "tier": "DIAMOND",
           "bidPrice": 30
         }
@@ -438,8 +563,12 @@
     {
       "id": "3lau-too-late-for-love",
       "name": "Too Late For Love",
-      "royalties": 5.85,
+      "royalties": 5.59,
       "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 20
+        },
         {
           "tier": "DIAMOND",
           "bidPrice": 505.01
@@ -449,22 +578,22 @@
     {
       "id": "before-we-go",
       "name": "Before We Go",
-      "royalties": 6.44,
+      "royalties": 5.93,
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 15
+          "bidPrice": 20.01
         }
       ]
     },
     {
       "id": "prettymuch-thisthingcalledlove",
       "name": "THIS THING CALLED LOVE",
-      "royalties": 4.52,
+      "royalties": 4.2,
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 10
+          "bidPrice": 15.01
         },
         {
           "tier": "DIAMOND",
@@ -475,14 +604,23 @@
     {
       "id": "madisonryannward-seasons",
       "name": "Seasons",
-      "royalties": 22.17,
-      "tiers": []
+      "royalties": 22.46,
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 88.01
+        }
+      ]
     },
     {
       "id": "diplo-dontforgetmylove",
       "name": "Don't Forget My Love",
-      "royalties": 6.64,
+      "royalties": 6.49,
       "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 62.53
+        },
         {
           "tier": "PLATINUM",
           "bidPrice": 150.01
@@ -498,13 +636,22 @@
       "id": "levianth--lies",
       "name": "Levianth - Lies",
       "royalties": 2.01,
-      "tiers": []
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 27.01
+        }
+      ]
     },
     {
       "id": "elephante-catching-on",
       "name": "Catching On feat. Nevve",
-      "royalties": 4.54,
+      "royalties": 4.49,
       "tiers": [
+        {
+          "tier": "PLATINUM",
+          "bidPrice": 23.01
+        },
         {
           "tier": "DIAMOND",
           "bidPrice": 112.01
@@ -516,12 +663,25 @@
       "id": "3lau-falling-fast-remix",
       "name": "Falling Fast (Seven Lions feat. GG Magree) [3LAU Remix]",
       "royalties": 0.25,
-      "tiers": []
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 10.02
+        },
+        {
+          "tier": "PLATINUM",
+          "bidPrice": 10
+        },
+        {
+          "tier": "DIAMOND",
+          "bidPrice": 90.01
+        }
+      ]
     },
     {
       "id": "ollie-underrated",
       "name": "Underrated",
-      "royalties": 2.68,
+      "royalties": 2.66,
       "tiers": [
         {
           "tier": "GOLD",
@@ -541,7 +701,7 @@
     {
       "id": "jamo-girl",
       "name": "GIRL",
-      "royalties": 6.19,
+      "royalties": 5.97,
       "tiers": [
         {
           "tier": "GOLD",
@@ -556,8 +716,12 @@
     {
       "id": "mandragora-slytherin",
       "name": "Slytherin",
-      "royalties": 22.17,
+      "royalties": 22.16,
       "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 96.01
+        },
         {
           "tier": "DIAMOND",
           "bidPrice": 400.01
@@ -568,16 +732,21 @@
       "id": "vassy-gt-ofice-tuff",
       "name": "Tuff",
       "royalties": 0.49,
-      "tiers": []
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 10.01
+        }
+      ]
     },
     {
       "id": "tritonal-getaway",
       "name": "Getaway",
-      "royalties": 4.05,
+      "royalties": 3.95,
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 10
+          "bidPrice": 25.01
         },
         {
           "tier": "PLATINUM",
@@ -593,28 +762,33 @@
     {
       "id": "prettymuch-excited",
       "name": "Excited",
-      "royalties": 0.29,
+      "royalties": 0.27,
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 5
+          "bidPrice": 6.01
         }
       ]
     },
     {
       "id": "xcelencia-tabu",
       "name": "Tabú",
-      "royalties": 1.54,
-      "tiers": []
+      "royalties": 1.53,
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 11.01
+        }
+      ]
     },
     {
       "id": "nas-rare",
       "name": "Rare",
-      "royalties": 4.33,
+      "royalties": 4.25,
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 9
+          "bidPrice": 36.51
         },
         {
           "tier": "PLATINUM",
@@ -630,7 +804,7 @@
     {
       "id": "chillpill-charger",
       "name": "CHARGER",
-      "royalties": 5.53,
+      "royalties": 5.3,
       "tiers": [
         {
           "tier": "GOLD",
@@ -645,8 +819,13 @@
     {
       "id": "shishi-aarti",
       "name": "Aarti",
-      "royalties": 3.04,
-      "tiers": []
+      "royalties": 3.01,
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "bidPrice": 19.01
+        }
+      ]
     },
     {
       "id": "3lau-ambush",

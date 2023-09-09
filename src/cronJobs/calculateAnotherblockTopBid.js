@@ -1,8 +1,5 @@
 require('dotenv').config();
 
-const { promisify } = require('util'); // Import promisify
-const setTimeoutPromise = promisify(setTimeout);
-
 //Require Utils
 const readJsonFile = require('../utils/readJsonFile');
 const roundNumber = require('../utils/roundNumber');
@@ -59,7 +56,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
         //For blur.io, get my own bids (Given that blud bids are meade by an EOA, this needs to be done to check my orders)
         if (currentSource.name === 'BLUR') {
 
-            fetchedReservoirBlurOwnBids = await reservoirFetchOrderBid(collectionBlockchain, null, null, source, targetAddress);
+            fetchedReservoirBlurOwnBids = await reservoirFetchOrderBid('Ethereum', null, null, source, targetAddress);
 
             marketplaceUrl = 'https://blur.io/'
             marketplaceCollectionFixedUrl = 'collection/'
@@ -362,10 +359,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
             embed.setURL(marketplaceUrl);
             embed.setTitle(`${embedTitle} - ${currentSource.name}`)
 
-            sendEmbedDM(client, process.env.USER_ID, embed)
-
-            await setTimeoutPromise(1000)
-
+            await sendEmbedDM(client, process.env.USER_ID, embed)
         };
     }
 }

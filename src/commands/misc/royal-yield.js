@@ -1,6 +1,3 @@
-const { promisify } = require('util'); // Import promisify
-const setTimeoutPromise = promisify(setTimeout);
-
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
 const roundNumber = require('../../utils/roundNumber');
@@ -144,8 +141,7 @@ module.exports = {
         // Send the embeds
         for (let i = 0; i <= currentEmbedIndex  & yieldResultsLength > 0; i++) {
             // Send follow-up messages with a delay
-            await setTimeoutPromise(1000);
-            interaction.followUp({
+            await interaction.followUp({
                 embeds: [embeds[i]]
             });
         }

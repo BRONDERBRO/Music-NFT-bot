@@ -25,7 +25,7 @@ module.exports = {
         });
 
         const embedTitle = 'Anotherblock Yield'
-        const embedDescription = 'Calculated yield of anotherblock collections: (yield % - $ floor - floor ETH)'
+        const embedDescription = 'Calculated yield of anotherblock collections: (yield % - $ floor - floor ETH' //  - seller)'
         const embedColor = 'White'
         const embedUrl = 'https://market.anotherblock.io/'
 
@@ -79,7 +79,6 @@ module.exports = {
                     });
                       
                     floorPrice = matchingAttribute ? matchingAttribute.floorAskPrices : [];
-
                     floorPriceInDollar = floorPrice * ETHPrice
                     
                     /*
@@ -101,7 +100,8 @@ module.exports = {
                             song: collectionSong,
                             yield: roundNumber(expectedYield, 2),
                             floor: roundNumber(floorPriceInDollar, 2),
-                            floorETH: roundNumber(floorPrice, 4)
+                            floorETH: roundNumber(floorPrice, 4),
+                            maker: null
                         });
                     }
                 }
@@ -114,6 +114,9 @@ module.exports = {
                 floorPrice = fetchedReservoir.collections[0].floorAsk.price.amount.decimal;
                 floorPriceInDollar = floorPrice * ETHPrice
 
+                const maker = fetchedReservoir.collections[0].floorAsk.maker;
+                const sellOwner = maker === process.env.WALLET_ADDRESS ? 'BRONDER' : 'Other';
+
                 //If collectionRoyalties is defined and not null, then calculate the expectedYield
                 if (collectionRoyalties) {
                     expectedYield = (collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 100
@@ -123,7 +126,8 @@ module.exports = {
                         song: null,
                         yield: roundNumber(expectedYield, 2),
                         floor: roundNumber(floorPriceInDollar, 2),
-                        floorETH: roundNumber(floorPrice, 4)
+                        floorETH: roundNumber(floorPrice, 4),
+                        maker: sellOwner,
                     });
                     
                 } else {
@@ -133,7 +137,8 @@ module.exports = {
                         song: null,
                         yield: 0,
                         floor: roundNumber(floorPriceInDollar, 2),
-                        floorETH: roundNumber(floorPrice, 4)
+                        floorETH: roundNumber(floorPrice, 4),
+                        maker: sellOwner,
                     });
                 }
             }
@@ -147,7 +152,7 @@ module.exports = {
         //Build the embed
         for (const result of yieldResults) {
             const fieldName = result.song ?? result.name;
-            const fieldValue = `${result.yield}% - $${result.floor} - ${result.floorETH} ETH`;
+            const fieldValue = `${result.yield}% - $${result.floor} - ${result.floorETH} ETH`; // - ${result.maker}`;
       
             embed.addFields({
                 name: fieldName,

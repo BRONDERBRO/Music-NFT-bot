@@ -190,7 +190,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
     //Sending embed response
     if (yieldResults.length > 0) {
 
-        sendEmbedDM(client, process.env.USER_ID, embed)
+        await sendEmbedDM(client, process.env.USER_ID, embed)
 
     } 
 }

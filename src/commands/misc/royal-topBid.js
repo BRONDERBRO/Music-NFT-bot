@@ -1,8 +1,5 @@
 require('dotenv').config();
 
-const { promisify } = require('util'); // Import promisify
-const setTimeoutPromise = promisify(setTimeout);
-
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
 const roundNumber = require('../../utils/roundNumber');
@@ -78,18 +75,16 @@ module.exports = {
                 );
                 */
 
-                if (bidPrice !== 0) {
-                    let expectedYield = (royaltyUnit * royalty) / bidPrice * 100;
-                    if (expectedYield > yieldThreshold) {
-                        topBidResults.push({
-                            name: collectionName,
-                            tier: collectionTier,
-                            yield: roundNumber(expectedYield, 2),
-                            bidPrice: bidPrice,
-                            topBidder: bidPrice === collectionMyBidPrice ? 'BRONDER' : 'Other'
-                        });
-                    }
-                }
+                let expectedYield = (royaltyUnit * royalty) / bidPrice * 100;
+                if (expectedYield > yieldThreshold) {
+                    topBidResults.push({
+                        name: collectionName,
+                        tier: collectionTier,
+                        yield: roundNumber(expectedYield, 2),
+                        bidPrice: bidPrice,
+                        topBidder: bidPrice === collectionMyBidPrice && bidPrice > 0 ? 'BRONDER' : 'Other'
+                    });
+                }            
             }
         }
 
@@ -133,8 +128,7 @@ module.exports = {
         // Send the embeds
         for (let i = 0; i <= currentEmbedIndex  & topBidResultsLength > 0; i++) {
             // Send follow-up messages with a delay
-            await setTimeoutPromise(1000);
-            interaction.followUp({
+            await interaction.followUp({
                 embeds: [embeds[i]]
             });
         }

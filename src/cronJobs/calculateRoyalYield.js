@@ -1,9 +1,5 @@
 require('dotenv').config();
 
-const { promisify } = require('util'); // Import promisify
-const setTimeoutPromise = promisify(setTimeout);
-
-
 //Require Utils
 const readJsonFile = require('../utils/readJsonFile');
 const roundNumber = require('../utils/roundNumber');
@@ -125,7 +121,6 @@ module.exports = async (client, yieldThreshold) => {
     }
 
     for (let i = 0; i <= currentEmbedIndex && yieldResultsLength > 0; i++) {
-        await setTimeoutPromise(1000);
-        sendEmbedDM(client, process.env.USER_ID, embeds[i]);
+        await sendEmbedDM(client, process.env.USER_ID, embeds[i]);
     }
 };

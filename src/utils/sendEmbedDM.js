@@ -3,7 +3,7 @@ module.exports = async (client, user, embed) => {
     
       const fetchedUser = await client.users.fetch(user, false);
       await fetchedUser.send({ embeds: [embed] });
-      // console.log('sendembedDM (', user.id, ' ', message);
+      //console.log('sendembedDM (', user.id, ' ', [embed]);
 
   } catch (error) {
       console.error('Error sending embed DM:', error);

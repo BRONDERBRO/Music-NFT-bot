@@ -54,44 +54,75 @@ module.exports = {
 
             const fetchedReservoir = await reservoirFetchOrderBid(collectionBlockchain, collectionId, collectionSong, source, null);
 
-            //If collectionTittle is defined and not null, then the collection has different songs
-            if (dropHasDifferentSongs(drop)) {
+            
+            if (fetchedReservoir.orders.length > 0){
 
-                //Loop through the different songs
-                for (const dropTittle of dropTittles) {
+                //If collectionTittle is defined and not null, then the collection has different songs
+                if (dropHasDifferentSongs(drop)) {
 
-                    const {
-                        song: collectionSong,
-                        royalties: collectionRoyalties,
-                        initialPrice: collectionInitialPrize,
-                    } = dropTittle;
+                    //Loop through the different songs
+                    for (const dropTittle of dropTittles) {
 
-                    //console.log(`${collectionSong}\n`)
+                        const {
+                            song: collectionSong,
+                            royalties: collectionRoyalties,
+                            initialPrice: collectionInitialPrize,
+                        } = dropTittle;
 
-                    let fetchedReservoirSong = await reservoirFetchOrderBid(collectionBlockchain, collectionId, collectionSong, source);
+                        //console.log(`${collectionSong}\n`)
 
-                    //define JSONs without "orders" to combine them
-                    const orders1 = fetchedReservoir.orders || [];
-                    const orders2 = fetchedReservoirSong.orders || [];
+                        let fetchedReservoirSong = await reservoirFetchOrderBid(collectionBlockchain, collectionId, collectionSong, source);
 
-                    // Combine the "orders" arrays
-                    const combinedOrders = [...orders1, ...orders2];
+                        //define JSONs without "orders" to combine them
+                        const orders1 = fetchedReservoir.orders || [];
+                        const orders2 = fetchedReservoirSong.orders || [];
 
-                    // Sort the combined orders array by the "decimal" value
-                    const sortedCombinedOrders = combinedOrders.sort((a, b) => b.price.amount.decimal - a.price.amount.decimal);
+                        // Combine the "orders" arrays
+                        const combinedOrders = [...orders1, ...orders2];
 
-                    // Create a new object with the sorted combined "orders" array
-                    fetchedReservoirSong = { orders: sortedCombinedOrders };
+                        // Sort the combined orders array by the "decimal" value
+                        const sortedCombinedOrders = combinedOrders.sort((a, b) => b.price.amount.decimal - a.price.amount.decimal);
 
-                    const topBidder = fetchedReservoirSong.orders[0].maker
-                    const bidPriceETH = fetchedReservoirSong.orders[0].price.amount.decimal;
-                    const bidPriceInDollar = fetchedReservoirSong.orders[0].price.amount.usd;
+                        // Create a new object with the sorted combined "orders" array
+                        fetchedReservoirSong = { orders: sortedCombinedOrders };
+
+                        const topBidder = fetchedReservoirSong.orders[0].maker
+                        const bidPriceETH = fetchedReservoirSong.orders[0].price.amount.decimal;
+                        const bidPriceInDollar = fetchedReservoirSong.orders[0].price.amount.usd;
+
+                        const expectedYieldAtBidPrice = (collectionRoyalties * collectionInitialPrize) / (bidPriceInDollar) * 100
+                        
+                        /*
+                        console.log(
+                            `${collectionSong}\n` +
+                            `Bid Price: ${bidPriceETH}\n` +
+                            `Bid Price $: ${bidPriceInDollar}\n` +
+                            `Top Bidder: ${topBidder}\n`
+                        );
+                        */
+
+                        topBidResults.push ({
+                            name: collectionName,
+                            song: collectionSong,
+                            bidder: topBidder,
+                            bidPrice: roundNumber(bidPriceInDollar, 2),
+                            bidPriceETH: roundNumber(bidPriceETH, 4),
+                            yield: roundNumber(expectedYieldAtBidPrice, 2)
+                        });
+                    }
+
+                //If collectionTittle is not defined or null, then the collection does not have different songs
+                } else {
+
+                    const topBidder = fetchedReservoir.orders[0].maker
+                    const bidPriceETH = fetchedReservoir.orders[0].price.amount.decimal;
+                    const bidPriceInDollar = fetchedReservoir.orders[0].price.amount.usd;
 
                     const expectedYieldAtBidPrice = (collectionRoyalties * collectionInitialPrize) / (bidPriceInDollar) * 100
                     
                     /*
                     console.log(
-                        `${collectionSong}\n` +
+                        `${collectionName}\n` +
                         `Bid Price: ${bidPriceETH}\n` +
                         `Bid Price $: ${bidPriceInDollar}\n` +
                         `Top Bidder: ${topBidder}\n`
@@ -107,33 +138,6 @@ module.exports = {
                         yield: roundNumber(expectedYieldAtBidPrice, 2)
                     });
                 }
-
-            //If collectionTittle is not defined or null, then the collection does not have different songs
-            } else {
-
-                const topBidder = fetchedReservoir.orders[0].maker
-                const bidPriceETH = fetchedReservoir.orders[0].price.amount.decimal;
-                const bidPriceInDollar = fetchedReservoir.orders[0].price.amount.usd;
-
-                const expectedYieldAtBidPrice = (collectionRoyalties * collectionInitialPrize) / (bidPriceInDollar) * 100
-                
-                /*
-                console.log(
-                    `${collectionName}\n` +
-                    `Bid Price: ${bidPriceETH}\n` +
-                    `Bid Price $: ${bidPriceInDollar}\n` +
-                    `Top Bidder: ${topBidder}\n`
-                );
-                */
-
-                topBidResults.push ({
-                    name: collectionName,
-                    song: collectionSong,
-                    bidder: topBidder,
-                    bidPrice: roundNumber(bidPriceInDollar, 2),
-                    bidPriceETH: roundNumber(bidPriceETH, 4),
-                    yield: roundNumber(expectedYieldAtBidPrice, 2)
-                });
             }
         }
 

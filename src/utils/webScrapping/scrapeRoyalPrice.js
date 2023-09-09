@@ -79,7 +79,10 @@ module.exports = async (url) => {
     return priceNumber;
 
   } catch (error) {
-    console.error("An error occurred:", error);
+    console.error(
+      `An error occurred with ${url}\n`+
+      `${error}\n`
+    );
     return null;
   }
 };
