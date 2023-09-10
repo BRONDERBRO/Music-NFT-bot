@@ -18,7 +18,7 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 131.01
+          "bidPrice": 132.01
         },
         {
           "tier": "DIAMOND",
@@ -37,7 +37,7 @@
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 1001.01
+          "bidPrice": 1005.01
         }
       ]
     },
@@ -122,11 +122,11 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 31.01
+          "bidPrice": 38.01
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 260.01
+          "bidPrice": 261.01
         }
       ]
     },
@@ -172,11 +172,11 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 110.01
+          "bidPrice": 111.01
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 870.01
+          "bidPrice": 875.01
         }
       ]
     },
@@ -228,7 +228,7 @@
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 255.01
+          "bidPrice": 256.01
         }
       ]
     },
@@ -239,11 +239,11 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 57.01
+          "bidPrice": 58.01
         },
         {
           "tier": "PLATINUM",
-          "bidPrice": 152.01
+          "bidPrice": 175.01
         }
       ]
     },
@@ -258,7 +258,7 @@
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 100.01
+          "bidPrice": 101.01
         }
       ]
     },
@@ -269,11 +269,11 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 77.01
+          "bidPrice": 79.01
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 456
+          "bidPrice": 460.01
         }
       ]
     },
@@ -288,7 +288,7 @@
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 840.01
+          "bidPrice": 850.01
         }
       ],
       "openseaUrl": "-kill-jill-feat-killer-mike-jeezy"
@@ -312,6 +312,10 @@
         {
           "tier": "PLATINUM",
           "bidPrice": 26.01
+        },
+        {
+          "tier": "DIAMOND",
+          "bidPrice": 200.01
         }
       ],
       "openseaUrl": "-break-my-heart-again"
@@ -413,7 +417,7 @@
       "tiers": [
         {
           "tier": "PLATINUM",
-          "bidPrice": 126.01
+          "bidPrice": 127.01
         }
       ],
       "openseaUrl": "-worst-case"
@@ -516,11 +520,11 @@
         },
         {
           "tier": "PLATINUM",
-          "bidPrice": 75.01
+          "bidPrice": 150.01
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 120
+          "bidPrice": 250.01
         }
       ],
       "openseaUrl": "-no-halo-feat-asena"
@@ -536,7 +540,7 @@
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 300.01
+          "bidPrice": 305.01
         }
       ]
     },
@@ -571,7 +575,7 @@
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 505.01
+          "bidPrice": 506.01
         }
       ]
     },
@@ -608,7 +612,7 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 88.01
+          "bidPrice": 89.01
         }
       ]
     },
@@ -623,7 +627,7 @@
         },
         {
           "tier": "PLATINUM",
-          "bidPrice": 150.01
+          "bidPrice": 350.01
         },
         {
           "tier": "DIAMOND",
@@ -639,7 +643,7 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 27.01
+          "bidPrice": 28.01
         }
       ]
     },
@@ -654,7 +658,7 @@
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 112.01
+          "bidPrice": 113.01
         }
       ],
       "openseaUrl": "-catching-on-feat-nevve"

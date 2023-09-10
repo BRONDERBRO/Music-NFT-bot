@@ -74,6 +74,16 @@ module.exports = {
                     `My Bid Price: ${collectionMyBidPrice}\n`
                 );
                 */
+                let topBidder = null
+                if (bidPrice === collectionMyBidPrice && bidPrice > 0) {
+                    topBidder = "BRONDER"
+                }
+                else if (bidPrice < collectionMyBidPrice) {
+                    topBidder = 'ERROR'
+                }
+                else {
+                    topBidder = 'Other'
+                }
 
                 let expectedYield = (royaltyUnit * royalty) / bidPrice * 100;
                 if (expectedYield > yieldThreshold) {
@@ -82,7 +92,7 @@ module.exports = {
                         tier: collectionTier,
                         yield: roundNumber(expectedYield, 2),
                         bidPrice: bidPrice,
-                        topBidder: bidPrice === collectionMyBidPrice && bidPrice > 0 ? 'BRONDER' : 'Other'
+                        topBidder: topBidder
                     });
                 }            
             }

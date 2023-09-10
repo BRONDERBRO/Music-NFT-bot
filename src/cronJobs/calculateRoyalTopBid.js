@@ -27,6 +27,9 @@ module.exports = async (client, desiredYield, maxPrice) => {
 
     const minimumPrice = 10 //Anything below $10 will send a DM
     const diamondYieldPonderation = 0.5 //Desired yield for Diamond tier NFTs compared to desiredYield
+    const platinumYieldPonderation = 0.7 //Desired yield for Platinum tier NFTs compared to desiredYield
+    const goldYieldPonderation = 0.9 //Desired yield for Gold tier NFTs compared to desiredYield
+
 
     let topBidResults = []
     let allTopBidResults = []
@@ -98,8 +101,16 @@ module.exports = async (client, desiredYield, maxPrice) => {
                     `Top bidder %: ${topBidder}\n`
                 );
                 */
-
-                const adjustedDesiredYield = collectionTier === 'DIAMOND' ? desiredYield * diamondYieldPonderation : desiredYield;
+                
+                let adjustedDesiredYield = 0
+                switch (collectionTier) {
+                    case 'DIAMOND':
+                        adjustedDesiredYield = desiredYield * diamondYieldPonderation
+                    case 'PLATINUM':
+                        adjustedDesiredYield = desiredYield * platinumYieldPonderation
+                    default:
+                        adjustedDesiredYield = desiredYield * goldYieldPonderation
+                  }; 
                 
                 allTopBidResults.push({
                     name: collectionName,
