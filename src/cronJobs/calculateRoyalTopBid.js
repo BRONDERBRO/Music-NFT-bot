@@ -106,8 +106,10 @@ module.exports = async (client, desiredYield, maxPrice) => {
                 switch (collectionTier) {
                     case 'DIAMOND':
                         adjustedDesiredYield = desiredYield * diamondYieldPonderation
+                        break;
                     case 'PLATINUM':
                         adjustedDesiredYield = desiredYield * platinumYieldPonderation
+                        break;
                     default:
                         adjustedDesiredYield = desiredYield * goldYieldPonderation
                   }; 

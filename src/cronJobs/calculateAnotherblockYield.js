@@ -53,6 +53,17 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
             tittles: dropTittles,
             blockchain: collectionBlockchain
         } = drop;
+        
+        let adjustedyieldThreshold;
+        switch (collectionName) {
+            case 'So Far Away (David Guetta & Martin Garrix)':
+                adjustedyieldThreshold = yieldThreshold + 3 //Manual adjustment for So Far Away Song
+                break;
+            default:
+                adjustedyieldThreshold = yieldThreshold
+        }; 
+        
+        //console.log(`${collectionName}: ${adjustedyieldThreshold}% Yield Threshold\n`)        
 
         //Get the corresponding marketplaceUrl depending on the currentSource.url
         for (const sourceEntry of dropSources) {
@@ -106,7 +117,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                             marketplaceSongUrl = encodeURIComponent(dropTittle.song)
                             const embedResultUrl = marketplaceUrl + marketplaceCollectionFixedUrl + marketplaceCollectionUrl + marketplaceFilterUrl + marketplaceSongUrl
 
-                            if (expectedYield >= yieldThreshold) {
+                            if (expectedYield >= adjustedyieldThreshold) {
                                 yieldResults.push({
                                     name: collectionName,
                                     song: collectionSong,
@@ -146,7 +157,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
 
                 expectedYield = (collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 100
 
-                if (expectedYield >= yieldThreshold) {
+                if (expectedYield >= adjustedyieldThreshold) {
                     yieldResults.push({
                         name: collectionName,
                         song: null,

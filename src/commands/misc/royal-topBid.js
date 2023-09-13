@@ -35,7 +35,17 @@ module.exports = {
                 tiers: collectionTiers
             } = drop;          
 
-            let fetchedRoyal = await royalFetch(collectionId);
+            let fetchedRoyal;
+            try {
+                fetchedRoyal = await royalFetch(collectionId);
+                // Process fetchedRoyal if the API call is successful
+            } catch (error) {
+                // Handle the error, log it, or take any necessary actions
+                console.error("Error fetching royal data:", error);
+                // Continue to the next iteration of the loop
+                continue;
+            }
+
             let baseRoyalty = fetchedRoyal.data.edition.tiers[0].royaltyClaimMillionths;
             let royaltyUnit = collectionRoyalties / baseRoyalty;
 
@@ -98,7 +108,15 @@ module.exports = {
             }
         }
 
-        topBidResults.sort((a, b) => b.yield - a.yield);
+        //Order by topBidder descending and then by yield descending
+        topBidResults.sort((a, b) => {
+            // First, compare by topBidder (string) in descending order
+            if (a.topBidder > b.topBidder) return -1;
+            if (a.topBidder < b.topBidder) return 1;
+          
+            // If topBidder is the same, compare by yield (number) in descending order
+            return b.yield - a.yield;
+          });
 
         //console.log(topBidResults, '\n');
 

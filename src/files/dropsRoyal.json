@@ -18,7 +18,7 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 132.01
+          "bidPrice": 134
         },
         {
           "tier": "DIAMOND",
@@ -172,11 +172,11 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 111.01
+          "bidPrice": 113
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 875.01
+          "bidPrice": 900
         }
       ]
     },
@@ -288,7 +288,7 @@
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 850.01
+          "bidPrice": 950
         }
       ],
       "openseaUrl": "-kill-jill-feat-killer-mike-jeezy"
@@ -516,7 +516,7 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 40.01
+          "bidPrice": 40.03
         },
         {
           "tier": "PLATINUM",
@@ -586,7 +586,7 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 20.01
+          "bidPrice": 30.01
         }
       ]
     },
@@ -612,7 +612,7 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 89.01
+          "bidPrice": 90.01
         }
       ]
     },
@@ -623,7 +623,7 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 62.53
+          "bidPrice": 62.55
         },
         {
           "tier": "PLATINUM",
@@ -827,7 +827,7 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 19.01
+          "bidPrice": 20.01
         }
       ]
     },

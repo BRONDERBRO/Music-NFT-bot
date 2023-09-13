@@ -1,6 +1,19 @@
 {
     "drops": [
         {
+            "name": "Company (Justin Bieber)",
+            "value": "0xD3d333E6FeD17f273D0415Df567ed5Eb65e8BB28",
+            "royalties": 0.0535,
+            "initialPrice": 27.73,
+            "sources": [
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "justin-bieber-company"
+                }
+            ],
+            "blockchain": "Base"        
+        },
+        {
             "name": "This Is Why I'm Hot (Mims)",
             "value": "0xbeff0289168f9589337838c826162da9dc29993d",
             "royalties": 0.066,
@@ -129,19 +142,6 @@
                 }
             ],
             "blockchain": "Ethereum"
-        },
-        {
-            "name": "Company (Justin Bieber)",
-            "value": "0xD3d333E6FeD17f273D0415Df567ed5Eb65e8BB28",
-            "royalties": 0.0535,
-            "initialPrice": 27.73,
-            "sources": [
-                {
-                    "source": "opensea.io",
-                    "marketplaceUrl": "justin-bieber-company"
-                }
-            ],
-            "blockchain": "Base"        
         }
     ]
 }

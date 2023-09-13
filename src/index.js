@@ -25,7 +25,7 @@ eventHandler(client);
 client.login(process.env.TOKEN);
 
 const yieldThresholds = {
-    anotherblock: 13.6,
+    anotherblock: 12,
     royal: 35
 };
 
@@ -48,7 +48,7 @@ cron.schedule('0 */6 */1 * *', async function() { //At minute 0 past every 6th h
     }
 });
 
-cron.schedule('*/15 * * * *', async function() {
+cron.schedule('0 */1 */1 * *', async function() { //At minute 0 past every 1 hour on every day-of-month.
     try {
         await calculateRoyalYield(client, yieldThresholds.royal);
     } catch (error) {
