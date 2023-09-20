@@ -26,9 +26,13 @@ module.exports = async (client, desiredYield, maxPrice) => {
     const tierUrl = '?tier=';
 
     const minimumPrice = 10 //Anything below $10 will send a DM
-    const diamondYieldPonderation = 0.5 //Desired yield for Diamond tier NFTs compared to desiredYield
-    const platinumYieldPonderation = 0.7 //Desired yield for Platinum tier NFTs compared to desiredYield
+    const diamondYieldPonderation = 0.9 //Desired yield for Diamond tier NFTs compared to desiredYield
+    const platinumYieldPonderation = 0.9 //Desired yield for Platinum tier NFTs compared to desiredYield
     const goldYieldPonderation = 0.9 //Desired yield for Gold tier NFTs compared to desiredYield
+    
+    const diamondLimitPricePonderation = 0.75 //If the bidPrice is less than limitPrice * limitPricePonderation, and the max bidder is not me, a DM is sent
+    const platinumLimitPricePonderation = 0.75 //If the bidPrice is less than limitPrice * limitPricePonderation, and the max bidder is not me, a DM is sent
+    const goldLimitPricePonderation = 0.75 //If the bidPrice is less than limitPrice * limitPricePonderation, and the max bidder is not me, a DM is sent
 
 
     let topBidResults = []
@@ -36,7 +40,12 @@ module.exports = async (client, desiredYield, maxPrice) => {
 
     //Loop drops json file to check if the collection has different songs defined
     for (const drop of dataDrops.drops) {
-        const { id: collectionId, name: collectionName, royalties: collectionRoyalties, tiers: collectionTiers } = drop;
+        const { 
+            id: collectionId,
+            name: collectionName,
+            royalties: collectionRoyalties,
+            tiers: collectionTiers 
+        } = drop;
 
         /*
         console.log(
@@ -64,15 +73,23 @@ module.exports = async (client, desiredYield, maxPrice) => {
 
         //Loop through the different tiers
         for (const tier of fetchedRoyal.data.edition.tiers) {
-            const { type: collectionTier, royaltyClaimMillionths: royalty } = tier;
+            const {
+                type: collectionTier,
+                market: { lowestAskPrice: { amount: floorPrice } },
+                royaltyClaimMillionths: royalty,
+              } = tier;
             
             const bidPrice = parseFloat(tier.market.highestBidPrice.amount);
             let collectionMyBidPrice = 0;
+            let collectionInitialPrice = 0;
 
             if (collectionTiers.length > 0) {
                 const matchingTier = collectionTiers.find((t) => t.tier === collectionTier);
                 collectionMyBidPrice = matchingTier ? parseFloat(matchingTier.bidPrice) : 0;
+                collectionInitialPrice = matchingTier ? parseFloat(matchingTier.initialPrice) : 0;
             }
+
+            const limitPrice = Math.min(floorPrice, collectionInitialPrice);
 
             /*
             console.log(
@@ -103,27 +120,34 @@ module.exports = async (client, desiredYield, maxPrice) => {
                 */
                 
                 let adjustedDesiredYield = 0
+                let adjustedLimitPrice = 0
                 switch (collectionTier) {
                     case 'DIAMOND':
                         adjustedDesiredYield = desiredYield * diamondYieldPonderation
+                        adjustedLimitPrice = limitPrice * diamondLimitPricePonderation
                         break;
                     case 'PLATINUM':
                         adjustedDesiredYield = desiredYield * platinumYieldPonderation
+                        adjustedLimitPrice = limitPrice * platinumLimitPricePonderation
                         break;
                     default:
                         adjustedDesiredYield = desiredYield * goldYieldPonderation
+                        adjustedLimitPrice = limitPrice * goldLimitPricePonderation
                   }; 
                 
                 allTopBidResults.push({
                     name: collectionName,
                     tier: collectionTier,
+                    limitPrice: limitPrice,
                     yield: roundNumber(expectedYield, 2),
                     bidPrice: bidPrice,
                     topBidder: topBidder,
+                    floor: roundNumber(floorPrice, 2),
                     url: `${royalUrl}${collectionId}${tierUrl}${collectionTier}`
                 });
 
-                if ((expectedYield > adjustedDesiredYield || bidPrice <= minimumPrice) && bidPrice <= maxPrice && topBidder != "BRONDER"){
+                if ((expectedYield > adjustedDesiredYield || bidPrice <= minimumPrice || bidPrice <= adjustedLimitPrice)
+                && bidPrice <= maxPrice && topBidder != "BRONDER"){
 
                     /*
                     console.log(
@@ -134,9 +158,11 @@ module.exports = async (client, desiredYield, maxPrice) => {
                     topBidResults.push({
                         name: collectionName,
                         tier: collectionTier,
+                        limitPrice: limitPrice,
                         yield: roundNumber(expectedYield, 2),
                         bidPrice: bidPrice,
                         topBidder: topBidder,
+                        floor: roundNumber(floorPrice, 2),
                         url: `${royalUrl}${collectionId}${tierUrl}${collectionTier}`
                     });
                 }

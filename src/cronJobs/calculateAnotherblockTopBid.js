@@ -45,6 +45,8 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
     let topBidResults = [];
 
     let fetchedReservoirBlurOwnBids = null
+    const yieldPonderation = 1 //If yield is higher than the desiredYield * yieldPonderation, and the max bidder is not me, a DM is sent
+    const initialPricePonderation = 0.85 //If the bidPrice is less than initialPrice * initialPricePonderation, and the max bidder is not me, a DM is sent
 
     //Loop sources
     for (const currentSource of sources) {
@@ -160,6 +162,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                         topBidResults.push({
                             name: collectionName,
                             song: collectionSong,
+                            initialPrice: collectionInitialPrize,
                             bidder: null,
                             bidPrice: 0,
                             bidPriceETH: 0,
@@ -194,6 +197,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                         topBidResults.push({
                             name: collectionName,
                             song: collectionSong,
+                            initialPrice: collectionInitialPrize,
                             bidder: topBidder,
                             bidPrice: roundNumber(bidPriceInDollar, 2),
                             bidPriceETH: roundNumber(bidPriceETH, 4),
@@ -251,6 +255,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                     topBidResults.push({
                         name: collectionName,
                         song: collectionSong,
+                        initialPrice: collectionInitialPrize,
                         bidder: null,
                         bidPrice: 0,
                         bidPriceETH: 0,
@@ -320,6 +325,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                     topBidResults.push({
                         name: collectionName,
                         song: collectionSong,
+                        initialPrice: collectionInitialPrize,
                         bidder: topBidder,
                         bidPrice: roundNumber(bidPriceInDollar, 2),
                         bidPriceETH: roundNumber(bidPriceETH, 4),
@@ -339,7 +345,10 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
         // Build the embed
         for (const topBidResult of topBidResults) {
             if (topBidResult.bidder !== targetAddress && 
-                (topBidResult.yield >= desiredYield || topBidResult.bidPriceETH <= topBidResult.targetPrice)) {
+                (topBidResult.yield >= desiredYield * yieldPonderation ||
+                topBidResult.bidPriceETH <= topBidResult.targetPrice ||
+                topBidResult.bidPrice <= topBidResult.initialPrice * initialPricePonderation
+                )) {
 
                 const { name, song, bidder, bidPrice, bidPriceETH, targetPrice, yield, url } = topBidResult;
                 let fieldName = `${song ?? name}`;

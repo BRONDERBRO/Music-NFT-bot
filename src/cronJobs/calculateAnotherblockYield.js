@@ -39,6 +39,8 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
     let marketplaceCollectionUrl = null
     let marketplaceSongUrl = null
 
+    const initialPricePonderation = 0.85 //If the bidPrice is less than initialPrice * initialPricePonderation, and the max bidder is not me, a DM is sent
+
     source = 'market.anotherblock.io'
 
     //Loop drops json file
@@ -54,7 +56,8 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
             blockchain: collectionBlockchain
         } = drop;
         
-        let adjustedyieldThreshold;
+        let adjustedyieldThreshold = yieldThreshold;
+        /*
         switch (collectionName) {
             case 'So Far Away (David Guetta & Martin Garrix)':
                 adjustedyieldThreshold = yieldThreshold + 3 //Manual adjustment for So Far Away Song
@@ -62,6 +65,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
             default:
                 adjustedyieldThreshold = yieldThreshold
         }; 
+        */
         
         //console.log(`${collectionName}: ${adjustedyieldThreshold}% Yield Threshold\n`)        
 
@@ -121,6 +125,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                                 yieldResults.push({
                                     name: collectionName,
                                     song: collectionSong,
+                                    initialPrice: collectionInitialPrize,
                                     yield: roundNumber(expectedYield, 2),
                                     floor: roundNumber(floorPriceInDollar, 2),
                                     floorETH: roundNumber(floorPrice, 4),
@@ -157,10 +162,11 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
 
                 expectedYield = (collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 100
 
-                if (expectedYield >= adjustedyieldThreshold) {
+                if (expectedYield >= adjustedyieldThreshold || floorPriceInDollar <= collectionInitialPrize * initialPricePonderation) {
                     yieldResults.push({
                         name: collectionName,
                         song: null,
+                        initialPrice: collectionInitialPrize,
                         yield: roundNumber(expectedYield, 2),
                         floor: roundNumber(floorPriceInDollar, 2),
                         floorETH: roundNumber(floorPrice, 4),
@@ -172,6 +178,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                 yieldResults.push({
                     name: collectionName,
                     song: null,
+                    initialPrice: collectionInitialPrize,
                     yield: 0,
                     floor: roundNumber(floorPriceInDollar, 2),
                     floorETH: roundNumber(floorPrice, 4),

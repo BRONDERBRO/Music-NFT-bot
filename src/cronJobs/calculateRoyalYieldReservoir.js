@@ -43,6 +43,9 @@ module.exports = async (client, yieldThreshold) => {
     const yieldResults = [];
     const allYieldResults = [];
 
+    const minimumPrice = 10
+    const goldLimitPricePonderation = 0.5 //If the bidPrice is less than limitPrice * limitPricePonderation, and the max bidder is not me, a DM is sent
+
     const fetchedReservoir = await reservoirFetchCollectionAttribute(collectionBlockchain, collectionAddress, attributeKey);
 
     //Loop dropsRoyal.json file to check if the collection has different songs defined
@@ -51,6 +54,7 @@ module.exports = async (client, yieldThreshold) => {
             //id: collectionId, 
             name: collectionName, 
             royalties: collectionRoyalties, 
+            tiers: [{ initialPrice: initialPrize }],
             openseaUrl: openseaEditionUrl 
         } = drop;
 
@@ -117,25 +121,24 @@ module.exports = async (client, yieldThreshold) => {
             url: embedResultUrl
         });
 
-        if (expectedYield <= yieldThreshold) {
-            continue; // Skip if yield is not over threshold
+        if (expectedYield >= yieldThreshold || floorPrice <= initialPrize * goldLimitPricePonderation || floorPrice <= minimumPrice) {
+
+            /*
+            console.log(
+                `${collectionName}\n` +
+                `Expected Yield %: ${expectedYield}\n`
+            );
+            */
+
+            yieldResults.push ({
+                name: collectionName,
+                tier: null, //collectionTier
+                yield: expectedYield,
+                floor: roundNumber(floorPrice, 2),
+                floorInETH: floorPriceInETH,
+                url: embedResultUrl
+            });
         }
-
-        /*
-        console.log(
-            `${collectionName}\n` +
-            `Expected Yield %: ${expectedYield}\n`
-        );
-        */
-
-        yieldResults.push ({
-            name: collectionName,
-            tier: null, //collectionTier
-            yield: expectedYield,
-            floor: roundNumber(floorPrice, 2),
-            floorInETH: floorPriceInETH,
-            url: embedResultUrl
-        });
     }
 
     yieldResults.sort(function(a, b){return b.yield - a.yield});

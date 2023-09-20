@@ -6,7 +6,13 @@
       "royalties": 0.08,
       "tiers": [
         {
+          "tier": "GOLD",
+          "initialPrice": 59,
+          "bidPrice": 11.01
+        },
+        {
           "tier": "DIAMOND",
+          "initialPrice": 799,
           "bidPrice": 2.1
         }
       ]
@@ -18,10 +24,12 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 134
+          "initialPrice": 199,
+          "bidPrice": 136.01
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 999,
           "bidPrice": 505.01
         }
       ]
@@ -33,10 +41,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 99,
           "bidPrice": 35
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 4200,
           "bidPrice": 1005.01
         }
       ]
@@ -48,10 +58,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+        "initialPrice": 49,
           "bidPrice": 10.01
         },
         {
           "tier": "PLATINUM",
+          "initialPrice": 159,
           "bidPrice": 30.01
         }
       ]
@@ -60,7 +72,13 @@
       "id": "thechainsmokers-sofarsogood",
       "name": "So Far So Good",
       "royalties": 1.11,
-      "tiers": [],
+      "tiers": [
+        {
+          "tier": "GOLD",
+          "initialPrice": 0,
+          "bidPrice": 19.01
+        }
+      ],
       "openseaUrl": "-so-far-so-good"
     },
     {
@@ -70,10 +88,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 45,
           "bidPrice": 2
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 415,
           "bidPrice": 10
         }
       ]
@@ -85,6 +105,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 0,
           "bidPrice": 0.01
         }
       ]
@@ -96,10 +117,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 79,
           "bidPrice": 20
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 999,
           "bidPrice": 250.01
         }
       ]
@@ -111,6 +134,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 0,
           "bidPrice": 8.01
         }
       ]
@@ -122,10 +146,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 75,
           "bidPrice": 38.01
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 899,
           "bidPrice": 261.01
         }
       ]
@@ -137,10 +163,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 49,
           "bidPrice": 30.01
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 1199,
           "bidPrice": 202.01
         }
       ]
@@ -152,14 +180,17 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 10.01
+          "initialPrice": 99,
+          "bidPrice": 15.01
         },
         {
           "tier": "PLATINUM",
+          "initialPrice": 199,
           "bidPrice": 10
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 1999,
           "bidPrice": 110.01
         }
       ],
@@ -172,11 +203,13 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 99,
           "bidPrice": 113
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 900
+          "initialPrice": 799,
+          "bidPrice": 1000
         }
       ]
     },
@@ -187,10 +220,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 39,
           "bidPrice": 10.01
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 499,
           "bidPrice": 95
         }
       ]
@@ -202,6 +237,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 40,
           "bidPrice": 10.01
         }
       ]
@@ -213,6 +249,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 45,
           "bidPrice": 40.51
         }
       ]
@@ -224,10 +261,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 99,
           "bidPrice": 40
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 799,
           "bidPrice": 256.01
         }
       ]
@@ -239,10 +278,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 59,
           "bidPrice": 58.01
         },
         {
           "tier": "PLATINUM",
+          "initialPrice": 299,
           "bidPrice": 175.01
         }
       ]
@@ -254,10 +295,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 49,
           "bidPrice": 10
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 499,
           "bidPrice": 101.01
         }
       ]
@@ -269,11 +312,13 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 79.01
+          "initialPrice": 89,
+          "bidPrice": 83.01
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 460.01
+          "initialPrice": 899,
+          "bidPrice": 475.01
         }
       ]
     },
@@ -284,11 +329,13 @@
       "tiers": [
         {
           "tier": "PLATINUM",
+          "initialPrice": 299,
           "bidPrice": 120.01
         },
         {
           "tier": "DIAMOND",
-          "bidPrice": 950
+          "initialPrice": 4999,
+          "bidPrice": 1100
         }
       ],
       "openseaUrl": "-kill-jill-feat-killer-mike-jeezy"
@@ -300,7 +347,8 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 5
+          "initialPrice": 40,
+          "bidPrice": 6.01
         }
       ]
     },
@@ -311,10 +359,12 @@
       "tiers": [
         {
           "tier": "PLATINUM",
+          "initialPrice": 199,
           "bidPrice": 26.01
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 1999,
           "bidPrice": 200.01
         }
       ],
@@ -327,10 +377,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 65,
           "bidPrice": 2.01
         },
         {
           "tier": "PLATINUM",
+          "initialPrice": 299,
           "bidPrice": 5.01
         }
       ]
@@ -342,6 +394,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 49,
           "bidPrice": 20
         }
       ]
@@ -353,6 +406,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 5,
           "bidPrice": 5
         }
       ]
@@ -364,14 +418,17 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 79,
           "bidPrice": 22.01
         },
         {
           "tier": "PLATINUM",
+          "initialPrice": 299,
           "bidPrice": 30.01
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 1999,
           "bidPrice": 130
         }
       ],
@@ -384,6 +441,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 99,
           "bidPrice": 70.01
         }
       ]
@@ -395,7 +453,8 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 29.01
+          "initialPrice": 79,
+          "bidPrice": 44.01
         }
       ]
     },
@@ -406,6 +465,7 @@
       "tiers": [
         {
           "tier": "PLATINUM",
+          "initialPrice": 0,
           "bidPrice": 30
         }
       ]
@@ -417,6 +477,7 @@
       "tiers": [
         {
           "tier": "PLATINUM",
+          "initialPrice": 0,
           "bidPrice": 127.01
         }
       ],
@@ -429,6 +490,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 39,
           "bidPrice": 5
         }
       ]
@@ -440,14 +502,17 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 50,
           "bidPrice": 25.01
         },
         {
           "tier": "PLATINUM",
+          "initialPrice": 250,
           "bidPrice": 20
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 4999,
           "bidPrice": 300
         }
       ],
@@ -460,10 +525,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 49,
           "bidPrice": 10
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 499,
           "bidPrice": 101
         }
       ]
@@ -475,10 +542,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 85,
           "bidPrice": 15
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 599,
           "bidPrice": 40
         }
       ]
@@ -490,6 +559,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 45,
           "bidPrice": 36.01
         }
       ]
@@ -501,10 +571,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 29,
           "bidPrice": 19.01
         },
         {
           "tier": "PLATINUM",
+          "initialPrice": 199,
           "bidPrice": 20
         }
       ]
@@ -516,14 +588,17 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 40.03
+          "initialPrice": 49,
+          "bidPrice": 40.05
         },
         {
           "tier": "PLATINUM",
+          "initialPrice": 299,
           "bidPrice": 150.01
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 999,
           "bidPrice": 250.01
         }
       ],
@@ -536,10 +611,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 29,
           "bidPrice": 26.01
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 999,
           "bidPrice": 305.01
         }
       ]
@@ -551,14 +628,17 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 145,
           "bidPrice": 5
         },
         {
           "tier": "PLATINUM",
+          "initialPrice": 400,
           "bidPrice": 10
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 950,
           "bidPrice": 30
         }
       ],
@@ -571,10 +651,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 111,
           "bidPrice": 20
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 3333,
           "bidPrice": 506.01
         }
       ]
@@ -586,6 +668,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 30,
           "bidPrice": 30.01
         }
       ]
@@ -597,10 +680,12 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 15.01
+          "initialPrice": 125,
+          "bidPrice": 20.01
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 2450,
           "bidPrice": 80
         }
       ]
@@ -612,6 +697,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 100,
           "bidPrice": 90.01
         }
       ]
@@ -623,14 +709,17 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 62.55
+          "initialPrice": 99,
+          "bidPrice": 62.57
         },
         {
           "tier": "PLATINUM",
+          "initialPrice": 999,
           "bidPrice": 350.01
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 9999,
           "bidPrice": 600
         }
       ],
@@ -643,6 +732,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 24,
           "bidPrice": 28.01
         }
       ]
@@ -654,10 +744,12 @@
       "tiers": [
         {
           "tier": "PLATINUM",
+          "initialPrice": 99,
           "bidPrice": 23.01
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 999,
           "bidPrice": 113.01
         }
       ],
@@ -670,14 +762,17 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 0,
           "bidPrice": 10.02
         },
         {
           "tier": "PLATINUM",
+          "initialPrice": 0,
           "bidPrice": 10
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 0,
           "bidPrice": 90.01
         }
       ]
@@ -689,14 +784,17 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 5
+          "initialPrice": 75,
+          "bidPrice": 16.01
         },
         {
           "tier": "PLATINUM",
+          "initialPrice": 249,
           "bidPrice": 50.01
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 749,
           "bidPrice": 250.01
         }
       ],
@@ -709,10 +807,12 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 25.02
+          "initialPrice": 99,
+          "bidPrice": 35.01
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 519,
           "bidPrice": 100
         }
       ]
@@ -724,10 +824,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 149,
           "bidPrice": 96.01
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 999,
           "bidPrice": 400.01
         }
       ]
@@ -739,6 +841,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 60,
           "bidPrice": 10.01
         }
       ]
@@ -750,14 +853,17 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 199,
           "bidPrice": 25.01
         },
         {
           "tier": "PLATINUM",
+          "initialPrice": 499,
           "bidPrice": 40
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 999,
           "bidPrice": 150.01
         }
       ],
@@ -770,6 +876,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 19,
           "bidPrice": 6.01
         }
       ]
@@ -781,6 +888,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 29,
           "bidPrice": 11.01
         }
       ]
@@ -792,14 +900,17 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 36.51
+          "initialPrice": 99,
+          "bidPrice": 40.01
         },
         {
           "tier": "PLATINUM",
+          "initialPrice": 499,
           "bidPrice": 50
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 9999,
           "bidPrice": 1000
         }
       ],
@@ -812,10 +923,12 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 69,
           "bidPrice": 31.01
         },
         {
           "tier": "DIAMOND",
+          "initialPrice": 699,
           "bidPrice": 200.01
         }
       ]
@@ -827,7 +940,8 @@
       "tiers": [
         {
           "tier": "GOLD",
-          "bidPrice": 20.01
+          "initialPrice": 39,
+          "bidPrice": 21.01
         }
       ]
     },
@@ -838,6 +952,7 @@
       "tiers": [
         {
           "tier": "GOLD",
+          "initialPrice": 0,
           "bidPrice": 50.01
         }
       ]

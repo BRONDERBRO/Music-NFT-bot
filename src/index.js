@@ -25,7 +25,7 @@ eventHandler(client);
 client.login(process.env.TOKEN);
 
 const yieldThresholds = {
-    anotherblock: 12,
+    anotherblock: 15,
     royal: 35
 };
 
@@ -56,7 +56,7 @@ cron.schedule('0 */1 */1 * *', async function() { //At minute 0 past every 1 hou
     }
 });
 
-cron.schedule('*/15 * * * *', async function() {
+cron.schedule('*/1 * * * *', async function() {
     try {
         await calculateRoyalYieldReservoir(client, yieldThresholds.royal);
     } catch (error) {
