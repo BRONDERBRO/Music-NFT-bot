@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
 const roundNumber = require('../../utils/roundNumber');

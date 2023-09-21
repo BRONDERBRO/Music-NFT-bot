@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
 const roundNumber = require('../../utils/roundNumber');
@@ -7,6 +9,7 @@ const { createEmbed } = require('../../utils/createEmbed');
 //Require APIs
 const reservoirFetchCollection = require('../../utils/apis/reservoirFetchCollection');
 const reservoirFetchCollectionAttribute = require('../../utils/apis/reservoirFetchCollectionAttribute');
+const reservoirFetchUserTokens = require('../../utils/apis/reservoirFetchUserTokens');
 const coingeckoFetchPrice = require('../../utils/apis/coingeckoFetchPrice');
 
 module.exports = {
@@ -25,7 +28,7 @@ module.exports = {
         });
 
         const embedTitle = 'Anotherblock Yield'
-        const embedDescription = 'Calculated yield of anotherblock collections: (yield % - $ floor - floor ETH' //  - seller)'
+        const embedDescription = 'Calculated yield of anotherblock collections: (yield % - $ floor - floor ETH - seller)'
         const embedColor = 'White'
         const embedUrl = 'https://market.anotherblock.io/'
 
@@ -43,6 +46,8 @@ module.exports = {
 
         const attributeKey = 'Song'
         let yieldResults = []
+
+        const targetAddress = process.env.WALLET_ADDRESS
         
         //Loop drops json file
         for (const drop of dataDrops.drops) {
@@ -65,6 +70,8 @@ module.exports = {
 
                 const fetchedReservoir = await reservoirFetchCollectionAttribute(collectionBlockchain, collectionId, attributeKey);
 
+                const fetchReservoirUser = await reservoirFetchUserTokens(collectionBlockchain, collectionId, targetAddress)
+
                 //Loop through the different songs
                 for (const dropTittle of dropTittles) {
 
@@ -73,6 +80,35 @@ module.exports = {
                         royalties: collectionRoyalties,
                         initialPrice: collectionInitialPrize,
                     } = dropTittle;
+
+                    //Get my own floor value
+                    const amounts = [];
+
+                    // Loop through the tokens array if it exists
+                    fetchReservoirUser.data.tokens.forEach(token => {
+                        const { name } = token.token;
+
+                       // Check if the name contains the 6 first characters of collectionSong (otherwise there was a problem with Alone song)
+                        if (name.includes(collectionSong.substring(0, 5))) {
+
+                            const ownership = token.ownership
+
+                            //Check if ownership and its properties are defined in the object
+                            if (ownership && ownership.floorAsk && ownership.floorAsk.price && ownership.floorAsk.price.amount) {
+                                const decimalAmount = ownership.floorAsk.price.amount.decimal;
+
+                                // Check if decimalAmount exists and is a valid number
+                                if (typeof decimalAmount === 'number' && !isNaN(decimalAmount)) {
+                                    amounts.push(decimalAmount);
+                                }
+                            }
+                        }
+                    });
+                
+                    // Find the minimum value from the amounts array
+                    const ownFloorPrice = Math.min(...amounts);
+                    
+                    //console.log(`Minimum own sell price for ${collectionSong} is ${ownFloorPrice}\n`);
                     
                     const matchingAttribute = fetchedReservoir.attributes.find((attribute) => {
                         return attribute.value === collectionSong;
@@ -80,6 +116,17 @@ module.exports = {
                       
                     floorPrice = matchingAttribute ? matchingAttribute.floorAskPrices : [];
                     floorPriceInDollar = floorPrice * ETHPrice
+
+                    const maker = parseFloat(ownFloorPrice) === parseFloat(floorPrice) ? 'BRONDER' : 'Other';
+
+                    /*
+                    console.log(
+                        `${collectionSong}\n` +
+                        `ownFloorPrice: ${ownFloorPrice}\n` +
+                        `floorPrice: ${floorPrice}\n` +
+                        `Maker: ${maker}\n`
+                    );
+                    */
                     
                     /*
                     console.log(
@@ -101,7 +148,7 @@ module.exports = {
                             yield: roundNumber(expectedYield, 2),
                             floor: roundNumber(floorPriceInDollar, 2),
                             floorETH: roundNumber(floorPrice, 4),
-                            maker: null
+                            maker: maker
                         });
                     }
                 }
@@ -152,7 +199,7 @@ module.exports = {
         //Build the embed
         for (const result of yieldResults) {
             const fieldName = result.song ?? result.name;
-            const fieldValue = `${result.yield}% - $${result.floor} - ${result.floorETH} ETH`; // - ${result.maker}`;
+            const fieldValue = `${result.yield}% - $${result.floor} - ${result.floorETH} ETH - ${result.maker}`;
       
             embed.addFields({
                 name: fieldName,
