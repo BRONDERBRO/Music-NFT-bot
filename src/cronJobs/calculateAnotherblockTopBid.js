@@ -9,6 +9,9 @@ const { createEmbed } = require('../utils/createEmbed');
 
 //Require APIs
 const reservoirFetchOrderBid = require('../utils/apis/reservoirFetchOrderBid');
+const reservoirFetchCollection = require('../utils/apis/reservoirFetchCollection');
+const reservoirFetchCollectionAttribute = require('../utils/apis/reservoirFetchCollectionAttribute');
+const coingeckoFetchPrice = require('../utils/apis/coingeckoFetchPrice');
 
 module.exports = async (client, desiredYield, floorThreshold, targetAddress) => {
 
@@ -22,6 +25,11 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
     //Get data from drops json file
     const dataDrops = readJsonFile('src/files/dropsAnotherblock.json')
 
+    const tokenID = 'weth'
+    //Get price of tokenID
+    const fetchedCoingecko = await coingeckoFetchPrice(tokenID);
+    const ETHPrice = fetchedCoingecko.weth.usd
+
     let marketplaceUrl = null
     let marketplaceCollectionFixedUrl = null
     let marketplaceFilterUrl = null
@@ -32,6 +40,8 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
     let bidPriceETH = null;
     let bidPriceInDollar = null;
     let topBidder = null;
+
+    const attributeKey = 'Song'
 
     const sources = [
         { name: 'BLUR', url: 'blur.io' },
@@ -91,6 +101,9 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                 blockchain: collectionBlockchain
             } = drop;
 
+            let floorPrice
+            let floorPriceInDollar
+
             // Check if the current source is included in the JSON data for this drop
             hasMatchingSource = false;
     
@@ -115,6 +128,8 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
             //Check if drop has different songs (for blur.io don't loop the songs)
             if (dropHasDifferentSongs(drop) && currentSource.name !== 'BLUR') {
 
+                const fetchedReservoirFloor = await reservoirFetchCollectionAttribute(collectionBlockchain, collectionId, attributeKey);
+
                 //Loop through the different songs
                 for (const dropTittle of dropTittles) {
 
@@ -125,6 +140,17 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                         initialPrice: collectionInitialPrize,
                     } = dropTittle;
 
+                    //Find floor value for song
+                    for (const attribute of fetchedReservoirFloor.attributes) {
+                        const collectionSongFloor = attribute.value;
+                    
+                        for (const dropTittle of dropTittles) {
+                            if (collectionSongFloor === dropTittle.song) { // Check if collectionSong matches        
+                                floorPrice = attribute.floorAskPrices[0];
+                                floorPriceInDollar = floorPrice * ETHPrice;
+                            }
+                        }
+                    }
 
                     marketplaceSongUrl = encodeURIComponent(dropTittle.song)
 
@@ -163,6 +189,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                             name: collectionName,
                             song: collectionSong,
                             initialPrice: collectionInitialPrize,
+                            floorPriceInDollar: floorPriceInDollar,
                             bidder: null,
                             bidPrice: 0,
                             bidPriceETH: 0,
@@ -198,6 +225,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                             name: collectionName,
                             song: collectionSong,
                             initialPrice: collectionInitialPrize,
+                            floorPriceInDollar: floorPriceInDollar,
                             bidder: topBidder,
                             bidPrice: roundNumber(bidPriceInDollar, 2),
                             bidPriceETH: roundNumber(bidPriceETH, 4),
@@ -212,6 +240,11 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
             } else {
 
                 const collectionSong = null
+
+                const fetchedReservoirFloor = await reservoirFetchCollection(collectionBlockchain, collectionId);
+
+                floorPrice = fetchedReservoirFloor.collections[0].floorAsk.price.amount.decimal;
+                floorPriceInDollar = floorPrice * ETHPrice
 
                 //if drop has different songs, then it is Blur. Obtain the minimum collectionRoyalties from all the songs in the collection
                 if (dropHasDifferentSongs(drop)) {
@@ -256,6 +289,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                         name: collectionName,
                         song: collectionSong,
                         initialPrice: collectionInitialPrize,
+                        floorPriceInDollar: floorPriceInDollar,
                         bidder: null,
                         bidPrice: 0,
                         bidPriceETH: 0,
@@ -326,6 +360,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                         name: collectionName,
                         song: collectionSong,
                         initialPrice: collectionInitialPrize,
+                        floorPriceInDollar: floorPriceInDollar,
                         bidder: topBidder,
                         bidPrice: roundNumber(bidPriceInDollar, 2),
                         bidPriceETH: roundNumber(bidPriceETH, 4),
@@ -344,13 +379,25 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
 
         // Build the embed
         for (const topBidResult of topBidResults) {
+
+            const { name, song, initialPrice, floorPriceInDollar, bidder, bidPrice, bidPriceETH, targetPrice, yield, url } = topBidResult;
+
+            const limitPrice = Math.min(floorPriceInDollar, initialPrice);
+
+            /*
+            console.log(
+                `Collection Name: ${name}${song ? ` - ${song}` : ''}\n` +
+                `Floor: ${floorPriceInDollar}\n` +
+                `Limit Price: ${limitPrice}\n`
+            );
+            */
+
             if (topBidResult.bidder !== targetAddress && 
-                (topBidResult.yield >= desiredYield * yieldPonderation ||
-                topBidResult.bidPriceETH <= topBidResult.targetPrice ||
-                topBidResult.bidPrice <= topBidResult.initialPrice * initialPricePonderation
+                (yield >= desiredYield * yieldPonderation ||
+                bidPriceETH <= targetPrice ||
+                bidPrice <= limitPrice * initialPricePonderation
                 )) {
 
-                const { name, song, bidder, bidPrice, bidPriceETH, targetPrice, yield, url } = topBidResult;
                 let fieldName = `${song ?? name}`;
                 let fieldValue = `[${bidder}: $${bidPrice} - ${bidPriceETH} ETH - ${yield}%](${url})`;
 

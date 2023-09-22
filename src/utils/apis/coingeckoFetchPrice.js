@@ -13,11 +13,12 @@ module.exports = async (tokenID) => {
         }
 
         const data = await response.json();
-        //console.log(url, '\n');
+        const timestamp = new Date().toISOString(); // ISO 8601 format
         return data;
 
     } catch (error) {
-        console.error(`Error fetching data from ${url}:`, error);
+        const timestamp = new Date().toISOString(); // ISO 8601 format
+        console.error(`[${timestamp}] Error fetching data from ${url}:`, error);
         throw error; // Rethrow the error to be handled by the caller        
     }
 };

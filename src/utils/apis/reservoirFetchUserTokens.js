@@ -28,7 +28,8 @@ module.exports = async (blockchain, collectionID, user) => {
         return response
 
     } catch (error) {
-        console.error('An error occurred:', error.message);
+        const timestamp = new Date().toISOString(); // ISO 8601 format
+        console.error(`[${timestamp}] Error fetching data from ${url}:`, error);
         throw error;
     }
 };

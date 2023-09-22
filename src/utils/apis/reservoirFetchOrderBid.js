@@ -42,7 +42,8 @@ module.exports = async (blockchain, collectionID, collectionSong, sources, maker
         return data;
 
     } catch (error) {
-        console.error(`Error fetching data from ${url}:`, error);
+        const timestamp = new Date().toISOString(); // ISO 8601 format
+        console.error(`[${timestamp}] Error fetching data from ${url}:`, error);
         throw error;       
     }
 };

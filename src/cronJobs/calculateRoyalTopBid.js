@@ -34,6 +34,7 @@ module.exports = async (client, desiredYield, maxPrice) => {
     const platinumLimitPricePonderation = 0.75 //If the bidPrice is less than limitPrice * limitPricePonderation, and the max bidder is not me, a DM is sent
     const goldLimitPricePonderation = 0.75 //If the bidPrice is less than limitPrice * limitPricePonderation, and the max bidder is not me, a DM is sent
 
+    const minimumResultsForDM = 3 //If there are not equal or more results than this, a DM won't be sent
 
     let topBidResults = []
     let allTopBidResults = []
@@ -188,22 +189,24 @@ module.exports = async (client, desiredYield, maxPrice) => {
 
     //console.log(`topBidResultsLength: ${topBidResultsLength}\n`)
 
-    for (let k = 0; k < topBidResultsLength; k++) {
+    if (topBidResultsLength >= minimumResultsForDM) {
+        for (let k = 0; k < topBidResultsLength; k++) {
 
-        // Move to the next embed if songsPerEmbed songs have been added
-        if ((k) % songsPerEmbed === 0 && k > 0) {
-            currentEmbedIndex++;
+            // Move to the next embed if songsPerEmbed songs have been added
+            if ((k) % songsPerEmbed === 0 && k > 0) {
+                currentEmbedIndex++;
+            }
+
+            const { name, tier, yield, bidPrice, topBidder, url } = topBidResults[k];
+            const fieldName = `${name} - ${tier}`;
+            const fieldValue = `[${topBidder}:- $ ${bidPrice} - ${yield} %](${url})`;
+
+            embeds[currentEmbedIndex].addFields({
+                name: fieldName,
+                value: fieldValue,
+                inline: false,
+            });
         }
-
-        const { name, tier, yield, bidPrice, topBidder, url } = topBidResults[k];
-        const fieldName = `${name} - ${tier}`;
-        const fieldValue = `[${topBidder}:- $ ${bidPrice} - ${yield} %](${url})`;
-
-        embeds[currentEmbedIndex].addFields({
-            name: fieldName,
-            value: fieldValue,
-            inline: false,
-        });
     }
 
     //console.log(`Current Embed Index: ${currentEmbedIndex}\n`)

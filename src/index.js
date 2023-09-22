@@ -56,7 +56,7 @@ cron.schedule('0 */1 */1 * *', async function() { //At minute 0 past every 1 hou
     }
 });
 
-cron.schedule('*/1 * * * *', async function() {
+cron.schedule('*/15 * * * *', async function() {
     try {
         await calculateRoyalYieldReservoir(client, yieldThresholds.royal);
     } catch (error) {
@@ -64,7 +64,7 @@ cron.schedule('*/1 * * * *', async function() {
     }
 });
 
-cron.schedule('0 */6 */1 * *', async function() { //At minute 0 past every 8th hour on every day-of-month.
+cron.schedule('0 */6 */1 * *', async function() { //At minute 0 past every 6th hour on every day-of-month.
     try {
         await calculateRoyalTopBid(client, yieldThresholds.royal, royalMaxPriceThreshold);
     } catch (error) {
