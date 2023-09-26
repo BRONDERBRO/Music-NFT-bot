@@ -13,7 +13,7 @@
         {
           "tier": "DIAMOND",
           "initialPrice": 799,
-          "bidPrice": 2.1
+          "bidPrice": 5
         }
       ]
     },
@@ -94,7 +94,7 @@
         {
           "tier": "DIAMOND",
           "initialPrice": 415,
-          "bidPrice": 10
+          "bidPrice": 15
         }
       ]
     },
@@ -106,7 +106,7 @@
         {
           "tier": "GOLD",
           "initialPrice": 0,
-          "bidPrice": 0.01
+          "bidPrice": 1
         }
       ]
     },
@@ -335,7 +335,7 @@
         {
           "tier": "DIAMOND",
           "initialPrice": 4999,
-          "bidPrice": 1100
+          "bidPrice": 1200.01
         }
       ],
       "openseaUrl": "-kill-jill-feat-killer-mike-jeezy"
@@ -419,7 +419,7 @@
         {
           "tier": "GOLD",
           "initialPrice": 79,
-          "bidPrice": 22.01
+          "bidPrice": 40.01
         },
         {
           "tier": "PLATINUM",
@@ -429,7 +429,7 @@
         {
           "tier": "DIAMOND",
           "initialPrice": 1999,
-          "bidPrice": 130
+          "bidPrice": 100
         }
       ],
       "openseaUrl": "-caterpillar-ft-eminem-king-green"
@@ -478,7 +478,7 @@
         {
           "tier": "PLATINUM",
           "initialPrice": 0,
-          "bidPrice": 127.01
+          "bidPrice": 128.01
         }
       ],
       "openseaUrl": "-worst-case"
@@ -491,7 +491,7 @@
         {
           "tier": "GOLD",
           "initialPrice": 39,
-          "bidPrice": 5
+          "bidPrice": 1
         }
       ]
     },
@@ -513,7 +513,7 @@
         {
           "tier": "DIAMOND",
           "initialPrice": 4999,
-          "bidPrice": 300
+          "bidPrice": 900
         }
       ],
       "openseaUrl": "-ultra-black"
@@ -531,7 +531,7 @@
         {
           "tier": "DIAMOND",
           "initialPrice": 499,
-          "bidPrice": 101
+          "bidPrice": 130
         }
       ]
     },
@@ -548,7 +548,7 @@
         {
           "tier": "DIAMOND",
           "initialPrice": 599,
-          "bidPrice": 40
+          "bidPrice": 70
         }
       ]
     },
@@ -681,12 +681,12 @@
         {
           "tier": "GOLD",
           "initialPrice": 125,
-          "bidPrice": 20.01
+          "bidPrice": 21.01
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 2450,
-          "bidPrice": 80
+          "bidPrice": 200
         }
       ]
     },
@@ -710,7 +710,7 @@
         {
           "tier": "GOLD",
           "initialPrice": 99,
-          "bidPrice": 62.57
+          "bidPrice": 62.59
         },
         {
           "tier": "PLATINUM",
@@ -720,7 +720,7 @@
         {
           "tier": "DIAMOND",
           "initialPrice": 9999,
-          "bidPrice": 600
+          "bidPrice": 1000
         }
       ],
       "openseaUrl": "-don-t-forget-my-love"
@@ -763,12 +763,12 @@
         {
           "tier": "GOLD",
           "initialPrice": 0,
-          "bidPrice": 10.02
+          "bidPrice": 1
         },
         {
           "tier": "PLATINUM",
           "initialPrice": 0,
-          "bidPrice": 10
+          "bidPrice": 20.03
         },
         {
           "tier": "DIAMOND",
@@ -901,7 +901,7 @@
         {
           "tier": "GOLD",
           "initialPrice": 99,
-          "bidPrice": 40.01
+          "bidPrice": 41.01
         },
         {
           "tier": "PLATINUM",

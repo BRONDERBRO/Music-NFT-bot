@@ -26,15 +26,16 @@ module.exports = async (client, desiredYield, maxPrice) => {
     const tierUrl = '?tier=';
 
     const minimumPrice = 10 //Anything below $10 will send a DM
-    const diamondYieldPonderation = 0.9 //Desired yield for Diamond tier NFTs compared to desiredYield
-    const platinumYieldPonderation = 0.9 //Desired yield for Platinum tier NFTs compared to desiredYield
-    const goldYieldPonderation = 0.9 //Desired yield for Gold tier NFTs compared to desiredYield
+    const minimumYield = 5 // Below 5% yield, no DM is sent
+    const diamondYieldPonderation = 0.6 //Desired yield for Diamond tier NFTs compared to desiredYield
+    const platinumYieldPonderation = 0.6 //Desired yield for Platinum tier NFTs compared to desiredYield
+    const goldYieldPonderation = 0.8 //Desired yield for Gold tier NFTs compared to desiredYield
     
     const diamondLimitPricePonderation = 0.75 //If the bidPrice is less than limitPrice * limitPricePonderation, and the max bidder is not me, a DM is sent
     const platinumLimitPricePonderation = 0.75 //If the bidPrice is less than limitPrice * limitPricePonderation, and the max bidder is not me, a DM is sent
     const goldLimitPricePonderation = 0.75 //If the bidPrice is less than limitPrice * limitPricePonderation, and the max bidder is not me, a DM is sent
 
-    const minimumResultsForDM = 3 //If there are not equal or more results than this, a DM won't be sent
+    const minimumResultsForDM = 5 //If there are not equal or more results than this, a DM won't be sent
 
     let topBidResults = []
     let allTopBidResults = []
@@ -89,6 +90,8 @@ module.exports = async (client, desiredYield, maxPrice) => {
                 collectionMyBidPrice = matchingTier ? parseFloat(matchingTier.bidPrice) : 0;
                 collectionInitialPrice = matchingTier ? parseFloat(matchingTier.initialPrice) : 0;
             }
+
+            collectionInitialPrice = collectionInitialPrice === 0 ? floorPrice : collectionInitialPrice
 
             const limitPrice = Math.min(floorPrice, collectionInitialPrice);
 
@@ -148,7 +151,7 @@ module.exports = async (client, desiredYield, maxPrice) => {
                 });
 
                 if ((expectedYield > adjustedDesiredYield || bidPrice <= minimumPrice || bidPrice <= adjustedLimitPrice)
-                && bidPrice <= maxPrice && topBidder != "BRONDER"){
+                && bidPrice <= maxPrice && yield >= minimumYield && topBidder != "BRONDER"){
 
                     /*
                     console.log(
@@ -174,6 +177,7 @@ module.exports = async (client, desiredYield, maxPrice) => {
     //Order the array on yield descending order
     topBidResults.sort(function(a, b){return b.yield - a.yield});
 
+    //console.log(JSON.stringify(allTopBidResults, null, 2));
     //console.log(JSON.stringify(topBidResults, null, 2));
 
     let embedTitle = 'Royal Top Bid'
@@ -186,7 +190,7 @@ module.exports = async (client, desiredYield, maxPrice) => {
 
     const topBidResultsLength = Math.min(topBidResults.length, songsPerEmbed * maxEmbeds);
     let currentEmbedIndex = 0;
-
+    
     //console.log(`topBidResultsLength: ${topBidResultsLength}\n`)
 
     if (topBidResultsLength >= minimumResultsForDM) {
@@ -207,17 +211,17 @@ module.exports = async (client, desiredYield, maxPrice) => {
                 inline: false,
             });
         }
-    }
 
-    //console.log(`Current Embed Index: ${currentEmbedIndex}\n`)
+        //console.log(`Current Embed Index: ${currentEmbedIndex}\n`)
 
-    // Send the embeds
-    for (let i = 0; i <= currentEmbedIndex && topBidResultsLength > 0; i++) {
-        // Send follow-up messages with a delay
-        await sendEmbedDM(client, process.env.USER_ID, embeds[i])
+        // Send the embeds
+        for (let i = 0; i <= currentEmbedIndex && topBidResultsLength > 0; i++) {
+            // Send follow-up messages with a delay
+            await sendEmbedDM(client, process.env.USER_ID, embeds[i])
 
-        //Reset embeds value to reuse it
-        embeds[i].data.fields = [];
+            //Reset embeds value to reuse it
+            embeds[i].data.fields = [];
+        }
     }
 
     currentEmbedIndex = 0;

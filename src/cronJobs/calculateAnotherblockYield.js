@@ -39,7 +39,8 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
     let marketplaceCollectionUrl = null
     let marketplaceSongUrl = null
 
-    const initialPricePonderation = 0.85 //If the bidPrice is less than initialPrice * initialPricePonderation, and the max bidder is not me, a DM is sent
+    const initialPricePonderation = 0.75 //If the bidPrice is less than initialPrice * initialPricePonderation, and the max bidder is not me, a DM is sent
+    const minYield = 8 //If yield is below 8%, no DM is sent
 
     source = 'market.anotherblock.io'
 
@@ -121,7 +122,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                             marketplaceSongUrl = encodeURIComponent(dropTittle.song)
                             const embedResultUrl = marketplaceUrl + marketplaceCollectionFixedUrl + marketplaceCollectionUrl + marketplaceFilterUrl + marketplaceSongUrl
 
-                            if (expectedYield >= adjustedyieldThreshold) {
+                            if (expectedYield >= adjustedyieldThreshold || (floorPriceInDollar <= collectionInitialPrize * initialPricePonderation && expectedYield >= minYield)) {
                                 yieldResults.push({
                                     name: collectionName,
                                     song: collectionSong,
@@ -162,7 +163,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
 
                 expectedYield = (collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 100
 
-                if (expectedYield >= adjustedyieldThreshold || floorPriceInDollar <= collectionInitialPrize * initialPricePonderation) {
+                if (expectedYield >= adjustedyieldThreshold || (floorPriceInDollar <= collectionInitialPrize * initialPricePonderation && expectedYield >= minYield)) {
                     yieldResults.push({
                         name: collectionName,
                         song: null,

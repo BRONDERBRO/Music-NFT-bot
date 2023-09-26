@@ -56,7 +56,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
 
     let fetchedReservoirBlurOwnBids = null
     const yieldPonderation = 1 //If yield is higher than the desiredYield * yieldPonderation, and the max bidder is not me, a DM is sent
-    const initialPricePonderation = 0.85 //If the bidPrice is less than initialPrice * initialPricePonderation, and the max bidder is not me, a DM is sent
+    const initialPricePonderation = 0.75 //If the bidPrice is less than initialPrice * initialPricePonderation, and the max bidder is not me, a DM is sent
 
     //Loop sources
     for (const currentSource of sources) {
