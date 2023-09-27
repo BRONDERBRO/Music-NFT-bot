@@ -151,7 +151,7 @@ module.exports = async (client, desiredYield, maxPrice) => {
                 });
 
                 if ((expectedYield > adjustedDesiredYield || bidPrice <= minimumPrice || bidPrice <= adjustedLimitPrice)
-                && bidPrice <= maxPrice && yield >= minimumYield && topBidder != "BRONDER"){
+                && bidPrice <= maxPrice && expectedYield >= minimumYield && topBidder != "BRONDER"){
 
                     /*
                     console.log(

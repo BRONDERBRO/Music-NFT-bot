@@ -22,7 +22,10 @@ module.exports = {
         });
 
         //Get data from drops json file
-        const dataDrops = readJsonFile('src/files/dropsRoyal.json')          
+        const dataDrops = readJsonFile('src/files/dropsRoyal.json')       
+        
+        const royalUrl = 'https://royal.io/editions/';
+        const tierUrl = '?tier=';
 
         let yieldResults = []
 
@@ -94,7 +97,8 @@ module.exports = {
                             name: collectionName,
                             tier: collectionTier,
                             yield: roundNumber(expectedYield, 2),
-                            floor: floorPrice
+                            floor: floorPrice,
+                            url: `${royalUrl}${collectionId}${tierUrl}${collectionTier}`
                         });
                     }
                 }
@@ -125,9 +129,9 @@ module.exports = {
                 currentEmbedIndex++;
             }
 
-            const { name, tier, yield, floor } = yieldResults[k];
+            const { name, tier, yield, floor, url } = yieldResults[k];
             const fieldName = `${name} - ${tier}`;
-            const fieldValue = `${yield}% - $ ${floor}`;
+            const fieldValue = `[${yield}% - $ ${floor}](${url})`;
 
             embeds[currentEmbedIndex].addFields({
                 name: fieldName,

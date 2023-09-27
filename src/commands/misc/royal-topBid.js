@@ -15,6 +15,9 @@ module.exports = {
         //Get data from drops json file
         const dataDrops = readJsonFile('src/files/dropsRoyal.json');
 
+        const royalUrl = 'https://royal.io/editions/';
+        const tierUrl = '?tier=';
+
         let yieldThreshold = 0;
 
         //Number of Songs shown in each Embed message
@@ -100,7 +103,8 @@ module.exports = {
                         tier: collectionTier,
                         yield: roundNumber(expectedYield, 2),
                         bidPrice: bidPrice,
-                        topBidder: topBidder
+                        topBidder: topBidder,
+                        url: `${royalUrl}${collectionId}${tierUrl}${collectionTier}`
                     });
                 }            
             }
@@ -138,9 +142,9 @@ module.exports = {
                 currentEmbedIndex++;
             }
 
-            const { name, tier, yield, bidPrice, topBidder } = topBidResults[k];
+            const { name, tier, yield, bidPrice, topBidder, url } = topBidResults[k];
             const fieldName = `${name} - ${tier}`;
-            const fieldValue = `${topBidder}:- $ ${bidPrice} - ${yield} %`;
+            const fieldValue = `[${topBidder}:- $ ${bidPrice} - ${yield} %](${url})`;
 
             embeds[currentEmbedIndex].addFields({
                 name: fieldName,
