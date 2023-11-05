@@ -4,7 +4,10 @@ const wait = require('node:timers/promises').setTimeout;
 
 module.exports = async (url) => {
   try {
-    const browser = await puppeteer.launch({ headless: 'new' }); // Use new headless mode
+    const browser = await puppeteer.launch({
+      headless: 'new',
+      userDataDir: '/home/ubuntu/.cache/puppeteer', // Set the cache path here
+    }); // Use new headless mode
     const page = await browser.newPage();
 
     // Set a custom navigation timeout for this page instance

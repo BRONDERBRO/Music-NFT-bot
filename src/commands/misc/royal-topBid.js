@@ -71,9 +71,7 @@ module.exports = {
 
                 if (collectionTiers.length > 0) {
                     const matchingTier = collectionTiers.find((t) => t.tier === collectionTier);
-                    if (matchingTier) {
-                        collectionMyBidPrice = parseFloat(matchingTier.bidPrice);
-                    }
+                    collectionMyBidPrice = matchingTier ? parseFloat(matchingTier.bidPrice) : 0;
                 }
 
                 /*
@@ -85,6 +83,7 @@ module.exports = {
                     `My Bid Price: ${collectionMyBidPrice}\n`
                 );
                 */
+                
                 let topBidder = null
                 if (bidPrice === collectionMyBidPrice && bidPrice > 0) {
                     topBidder = "BRONDER"

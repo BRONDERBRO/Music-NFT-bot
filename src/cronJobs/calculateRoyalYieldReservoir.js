@@ -26,8 +26,11 @@ module.exports = async (client, yieldThreshold) => {
     const ETHPrice = fetchedCoingeckoETH[tokenIdETH]['usd'];
     const PolygonPrice = fetchedCoingeckoPolygon[tokenIdPolygon]['usd'];
 
-    const openseaUrl = 'https://opensea.io/collection/royal-lda';
-    const openseaFilterUrl = '?search[stringTraits][0][name]=Edition&search[stringTraits][0][values][0]=';
+    //const openseaUrl = 'https://opensea.io/collection/royal-lda';
+    //const openseaFilterUrl = '?search[stringTraits][0][name]=Edition&search[stringTraits][0][values][0]=';
+
+    const reservoirUrl = 'https://explorer.reservoir.tools/polygon/collection/0x7c885c4bfd179fb59f1056fbea319d579a278075'   
+    const reservoirFilterUrl = '?attributes%5BEdition%5D='
 
     const collectionAddress = dataDrops.contractAddress;
     const collectionBlockchain = dataDrops.blockchain;
@@ -39,7 +42,7 @@ module.exports = async (client, yieldThreshold) => {
     //Maximum number of embeds in reply
     const maxEmbeds = 6
 
-    const creatorRoyalty = 1.075;
+    const creatorRoyalty = 1; //1.075;
     const yieldResults = [];
     const allYieldResults = [];
 
@@ -55,7 +58,7 @@ module.exports = async (client, yieldThreshold) => {
             name: collectionName, 
             royalties: collectionRoyalties, 
             tiers: [{ initialPrice: initialPrize }],
-            openseaUrl: openseaEditionUrl 
+            //openseaUrl: openseaEditionUrl 
         } = drop;
 
          // Find the item with the matching collectionName
@@ -87,16 +90,7 @@ module.exports = async (client, yieldThreshold) => {
             continue; // Skip if no floor prices or no tokens on sale
         }
 
-        const floorPrice = floorAskPrices[0] * PolygonPrice * creatorRoyalty;
-
-        /*
-        console.log(
-            `${collectionName}\n` +
-            `Royalties: ${collectionRoyalties}\n` +
-            `Collection ID: ${collectionId}\n` +
-            `Floor Price: ${floorPrice}\n`
-        );
-        */
+        const floorPrice = floorAskPrices[0] * PolygonPrice * creatorRoyalty;     
 
         if (!collectionRoyalties || floorPrice <= 0) {
             continue; // Skip if no royalties or invalid floor price
@@ -107,9 +101,21 @@ module.exports = async (client, yieldThreshold) => {
         const floorPriceInETH = roundNumber(floorPrice / ETHPrice, 4);                
         const escapedCollectionName = encodeURIComponent(collectionName.replace(/[\]\[()]/g, '\\$&'));
 
-        const embedResultUrl = typeof openseaEditionUrl !== 'undefined' && openseaEditionUrl
-        ? openseaUrl + openseaEditionUrl
-        : openseaUrl + 's' + openseaFilterUrl + escapedCollectionName;
+        console.log(
+            `${collectionName}\n` +
+            `Royalties: ${collectionRoyalties}\n` +
+            `Collection Name: ${collectionName}\n` +
+            `Floor Price: ${floorPrice}\n` +
+            `Limit Price: ${initialPrize * goldLimitPricePonderation}\n` +
+            `Expected Yield: ${expectedYield}\n`
+        );
+
+        /*
+            const embedResultUrl = typeof openseaEditionUrl !== 'undefined' && openseaEditionUrl
+            ? openseaUrl + openseaEditionUrl
+            : openseaUrl + 's' + openseaFilterUrl + escapedCollectionName;
+        */
+        const embedResultUrl = reservoirUrl + reservoirFilterUrl + escapedCollectionName;
 
         //Push all the yield results because they will be compared to the top bid
         allYieldResults.push ({

@@ -26,7 +26,7 @@ module.exports = async (client, desiredYield, maxPrice) => {
     const tierUrl = '?tier=';
 
     const minimumPrice = 10 //Anything below $10 will send a DM
-    const minimumYield = 5 // Below 5% yield, no DM is sent
+    const minimumYield = 7 // Below 7% yield, no DM is sent
     const diamondYieldPonderation = 0.6 //Desired yield for Diamond tier NFTs compared to desiredYield
     const platinumYieldPonderation = 0.6 //Desired yield for Platinum tier NFTs compared to desiredYield
     const goldYieldPonderation = 0.8 //Desired yield for Gold tier NFTs compared to desiredYield
@@ -35,7 +35,7 @@ module.exports = async (client, desiredYield, maxPrice) => {
     const platinumLimitPricePonderation = 0.75 //If the bidPrice is less than limitPrice * limitPricePonderation, and the max bidder is not me, a DM is sent
     const goldLimitPricePonderation = 0.75 //If the bidPrice is less than limitPrice * limitPricePonderation, and the max bidder is not me, a DM is sent
 
-    const minimumResultsForDM = 5 //If there are not equal or more results than this, a DM won't be sent
+    const minimumResultsForDM = 6 //If there are not equal or more results than this, a DM won't be sent
 
     let topBidResults = []
     let allTopBidResults = []

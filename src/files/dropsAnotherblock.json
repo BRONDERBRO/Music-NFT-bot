@@ -1,14 +1,27 @@
 {
     "drops": [
         {
+            "name": "Solo Dance (Martin Jensen)",
+            "value": "0x0affeE09f95399Ec05d405d1633eF0dA072FbA0f",
+            "royalties": 0.063,
+            "initialPrice": 35.40,
+            "sources": [
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "this-is-why-im-hot"
+                }
+            ],
+            "blockchain": "Base"        
+        },
+        {
             "name": "Company (Justin Bieber)",
             "value": "0xD3d333E6FeD17f273D0415Df567ed5Eb65e8BB28",
             "royalties": 0.0535,
             "initialPrice": 27.73,
             "sources": [
                 {
-                    "source": "opensea.io",
-                    "marketplaceUrl": "justin-bieber-company"
+                    "source": "explorer.reservoir.tools",
+                    "marketplaceUrl": "0xd3d333e6fed17f273d0415df567ed5eb65e8bb28"
                 }
             ],
             "blockchain": "Base"        

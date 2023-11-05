@@ -48,7 +48,8 @@ module.exports = {
         const sources = [
             { name: 'BLUR', url: 'blur.io' },
             { name: 'OPENSEA', url: 'opensea.io' },
-            { name: 'ANOTHERBLOCK', url: 'market.anotherblock.io' }
+            { name: 'ANOTHERBLOCK', url: 'market.anotherblock.io' },
+            { name: 'RESERVOIR', url: 'explorer.reservoir.tools' }
         ];
 
         let source = [];
@@ -57,6 +58,8 @@ module.exports = {
         let topBidResults = [];
 
         let fetchedReservoirBlurOwnBids = null
+
+        let collectionBlockchain = null
 
         const targetAddress = process.env.WALLET_ADDRESS
 
@@ -84,10 +87,16 @@ module.exports = {
                 marketplaceCollectionFixedUrl = 'collection/'
                 marketplaceFilterUrl = '?search[stringTraits][0][name]=Song&search[stringTraits][0][values][0]='
 
-            } else {
+            } else if (currentSource.name === 'ANOTHERBLOCK'){
 
                 marketplaceUrl = 'https://market.anotherblock.io/'
                 marketplaceCollectionFixedUrl = 'collections/'
+                marketplaceFilterUrl = '?attributes%5BSong%5D='
+
+            } else if (currentSource.name === 'RESERVOIR'){
+
+                marketplaceUrl = 'https://explorer.reservoir.tools/'
+                marketplaceCollectionFixedUrl = '/collection/'
                 marketplaceFilterUrl = '?attributes%5BSong%5D='
 
             }
@@ -150,7 +159,11 @@ module.exports = {
                             }
                         }
 
-                        embedResultUrl = marketplaceUrl + marketplaceCollectionFixedUrl + marketplaceCollectionUrl + marketplaceFilterUrl + marketplaceSongUrl
+                        if (currentSource.name === 'RESERVOIR'){
+                            embedResultUrl = marketplaceUrl + collectionBlockchain.toLowerCase() + marketplaceCollectionFixedUrl + marketplaceCollectionUrl + marketplaceFilterUrl + marketplaceSongUrl
+                        } else {
+                            embedResultUrl = marketplaceUrl + marketplaceCollectionFixedUrl + marketplaceCollectionUrl + marketplaceFilterUrl + marketplaceSongUrl
+                        }
 
                         //console.log(`${collectionSong}\n`)
 
@@ -243,7 +256,12 @@ module.exports = {
                         }
                     }
 
-                    embedResultUrl = marketplaceUrl + marketplaceCollectionFixedUrl + marketplaceCollectionUrl
+                    if (currentSource.name === 'RESERVOIR'){
+                        embedResultUrl = marketplaceUrl + collectionBlockchain.toLowerCase() + marketplaceCollectionFixedUrl + marketplaceCollectionUrl
+                    } else {
+                        embedResultUrl = marketplaceUrl + marketplaceCollectionFixedUrl + marketplaceCollectionUrl
+                    }
+                    
 
                     // Check if the response has no orders
                     if (fetchedReservoir.orders.length === 0){
