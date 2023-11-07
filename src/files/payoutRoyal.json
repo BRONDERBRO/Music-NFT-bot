@@ -1,0 +1,908 @@
+{
+  "data": [
+    {
+        "name": "GUARDIAN MARKED",
+        "tier": "GOLD",
+        "royalties": "$0.00",
+        "royaltyDate": "NOV 1 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "THE RIDGE",
+        "tier": "DIAMOND",
+        "royalties": "$132.85",
+        "royaltyDate": "NOV 1 23",
+        "streamStartDate": "AUG 1 23",
+        "streamEndDate": "SEP 30 23"
+    },
+    {
+        "name": "THE RIDGE",
+        "tier": "GOLD",
+        "royalties": "$2.40",
+        "royaltyDate": "NOV 1 23",
+        "streamStartDate": "AUG 1 23",
+        "streamEndDate": "SEP 30 23"
+    },
+    {
+        "name": "SO FAR SO GOOD",
+        "tier": "GOLD",
+        "royalties": "$0.86",
+        "royaltyDate": "NOV 1 23",
+        "streamStartDate": "JAN 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "UNDERRATED",
+        "tier": "GOLD",
+        "royalties": "$0.59",
+        "royaltyDate": "NOV 1 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "UNDERRATED",
+        "tier": "PLATINUM",
+        "royalties": "$3.60",
+        "royaltyDate": "NOV 1 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "UNDERRATED",
+        "tier": "DIAMOND",
+        "royalties": "$18.02",
+        "royaltyDate": "NOV 1 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "TOO LATE FOR LOVE",
+        "tier": "GOLD",
+        "royalties": "$11.31",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JAN 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "TOO LATE FOR LOVE",
+        "tier": "DIAMOND",
+        "royalties": "$373.68",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JAN 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "WORST CASE",
+        "tier": "PLATINUM",
+        "royalties": "$8.88",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JAN 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "APOLOGIZE",
+        "tier": "GOLD",
+        "royalties": "$0.24",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "AUG 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "APOLOGIZE",
+        "tier": "DIAMOND",
+        "royalties": "$9.45",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "AUG 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "TELL ME HOW",
+        "tier": "GOLD",
+        "royalties": "$1.58",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "AUG 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "TELL ME HOW",
+        "tier": "DIAMOND",
+        "royalties": "$17.62",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "AUG 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "FOREVER",
+        "tier": "GOLD",
+        "royalties": "$1.50",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "FOREVER",
+        "tier": "DIAMOND",
+        "royalties": "$16.85",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "CATCHING ON FEAT. NEVVE",
+        "tier": "DIAMOND",
+        "royalties": "$3.88",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "SEP 1 23",
+        "streamEndDate": "SEP 30 23"
+    },
+    {
+        "name": "CATCHING ON FEAT. NEVVE",
+        "tier": "PLATINUM",
+        "royalties": "$0.34",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "SEP 1 23",
+        "streamEndDate": "SEP 30 23"
+    },
+    {
+        "name": "EXCITED",
+        "tier": "GOLD",
+        "royalties": "$0.13",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "SEP 1 23",
+        "streamEndDate": "SEP 30 23"
+    },
+    {
+        "name": "SAFE",
+        "tier": "GOLD",
+        "royalties": "$0.57",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "SEP 1 23",
+        "streamEndDate": "SEP 30 23"
+    },
+    {
+        "name": "BREAK MY HEART AGAIN",
+        "tier": "DIAMOND",
+        "royalties": "$5.77",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "BREAK MY HEART AGAIN",
+        "tier": "PLATINUM",
+        "royalties": "$0.51",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "DON'T FORGET MY LOVE",
+        "tier": "DIAMOND",
+        "royalties": "$409.53",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "DON'T FORGET MY LOVE",
+        "tier": "PLATINUM",
+        "royalties": "$29.25",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "DON'T FORGET MY LOVE",
+        "tier": "GOLD",
+        "royalties": "$2.34",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "FAMILY AFFAIR",
+        "tier": "DIAMOND",
+        "royalties": "$278.18",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUL 1 22",
+        "streamEndDate": "DEC 31 22"
+    },
+    {
+        "name": "FAMILY AFFAIR",
+        "tier": "GOLD",
+        "royalties": "$19.99",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUL 1 22",
+        "streamEndDate": "DEC 31 22"
+    },
+    {
+        "name": "I'LL WAIT",
+        "tier": "GOLD",
+        "royalties": "$3.21",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "I'LL WAIT",
+        "tier": "PLATINUM",
+        "royalties": "$17.90",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "SLYTHERIN",
+        "tier": "DIAMOND",
+        "royalties": "$44.57",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "SLYTHERIN",
+        "tier": "GOLD",
+        "royalties": "$6.04",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "SOMETHING BEAUTIFUL",
+        "tier": "GOLD",
+        "royalties": "$0.54",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "SOMETHING BEAUTIFUL",
+        "tier": "DIAMOND",
+        "royalties": "$14.62",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "OH, SAN FRANCISCO",
+        "tier": "DIAMOND",
+        "royalties": "$2.95",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "OH, SAN FRANCISCO",
+        "tier": "GOLD",
+        "royalties": "$0.29",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "MISSED CALLS",
+        "tier": "GOLD",
+        "royalties": "$0.27",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "14GRAMS",
+        "tier": "GOLD",
+        "royalties": "$1.76",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "14GRAMS",
+        "tier": "DIAMOND",
+        "royalties": "$13.66",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "CHAMPAGNE AND COCAINE.",
+        "tier": "GOLD",
+        "royalties": "$0.64",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "SEASONS",
+        "tier": "GOLD",
+        "royalties": "$11.40",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+      "name": "AFTER ALL",
+      "tier": "GOLD",
+      "royalties": "$4.58",
+      "royaltyDate": "OCT 31 23",
+      "streamStartDate": "JUN 1 23",
+      "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "AFTER ALL",
+        "tier": "DIAMOND",
+        "royalties": "$60.52",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "HE'S NOT YOU",
+        "tier": "DIAMOND",
+        "royalties": "$2.78",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "HE'S NOT YOU",
+        "tier": "GOLD",
+        "royalties": "$0.16",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "HE'S NOT YOU",
+        "tier": "PLATINUM",
+        "royalties": "$0.73",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "FADE AWAY",
+        "tier": "GOLD",
+        "royalties": "$0.10",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "FADE AWAY",
+        "tier": "DIAMOND",
+        "royalties": "$1.60",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "GLASS OF WATER (OG)",
+        "tier": "GOLD",
+        "royalties": "$0.00",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "AUG 1 23",
+        "streamEndDate": "SEP 30 23"
+    },
+    {
+        "name": "MADONNA",
+        "tier": "PLATINUM",
+        "royalties": "$7.14",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "SEP 30 23"
+    },
+    {
+        "name": "MADONNA",
+        "tier": "GOLD",
+        "royalties": "$0.94",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "SEP 30 23"
+    },
+    {
+        "name": "INTO DUST",
+        "tier": "PLATINUM",
+        "royalties": "$6.98",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JAN 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "INTO DUST",
+        "tier": "GOLD",
+        "royalties": "$1.95",
+        "royaltyDate": "OCT 31 23",
+        "streamStartDate": "JAN 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "CATCHING ON FEAT. NEVVE",
+        "tier": "DIAMOND",
+        "royalties": "$3.81",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "AUG 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "CATCHING ON FEAT. NEVVE",
+        "tier": "PLATINUM",
+        "royalties": "$0.34",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "AUG 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "EXCITED",
+        "tier": "GOLD",
+        "royalties": "$0.19",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "AUG 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "SAFE",
+        "tier": "GOLD",
+        "royalties": "$0.44",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "AUG 1 23",
+        "streamEndDate": "AUG 31 23"
+    },
+    {
+        "name": "GIRL",
+        "tier": "GOLD",
+        "royalties": "$2.50",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "GIRL",
+        "tier": "DIAMOND",
+        "royalties": "$14.69",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "NO HALO (FEAT. ASENA)",
+        "tier": "PLATINUM",
+        "royalties": "$10.04",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "NO HALO (FEAT. ASENA)",
+        "tier": "DIAMOND",
+        "royalties": "$33.53",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "NO HALO (FEAT. ASENA)",
+        "tier": "GOLD",
+        "royalties": "$1.64",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "BEFORE WE GO",
+        "tier": "GOLD",
+        "royalties": "$0.50",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "NEED A FRIEND",
+        "tier": "GOLD",
+        "royalties": "$0.58",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+      "name": "CAN YOU FEEL IT (VAN MÚRTEN REMIX)",
+      "tier": "GOLD",
+      "royalties": "$0.21",
+      "royaltyDate": "SEP 28 23",
+      "streamStartDate": "JUN 1 23",
+      "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "CAN YOU FEEL IT (VAN MÚRTEN REMIX)",
+        "tier": "DIAMOND",
+        "royalties": "$2.40",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "INSOMNIA",
+        "tier": "GOLD",
+        "royalties": "$0.51",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "LEVIANTH - LIES",
+        "tier": "GOLD",
+        "royalties": "$0.12",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "JUN 30 23"
+    },
+    {
+        "name": "APOLOGIZE",
+        "tier": "GOLD",
+        "royalties": "$0.29",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "JUL 1 23",
+        "streamEndDate": "JUL 31 23"
+    },
+    {
+        "name": "APOLOGIZE",
+        "tier": "DIAMOND",
+        "royalties": "$11.26",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "JUL 1 23",
+        "streamEndDate": "JUL 31 23"
+    },
+    {
+        "name": "TELL ME HOW",
+        "tier": "GOLD",
+        "royalties": "$1.47",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "JUL 1 23",
+        "streamEndDate": "JUL 31 23"
+    },
+    {
+        "name": "TELL ME HOW",
+        "tier": "DIAMOND",
+        "royalties": "$16.36",
+        "royaltyDate": "SEP 28 23",
+        "streamStartDate": "JUL 1 23",
+        "streamEndDate": "JUL 31 23"
+    },
+    {
+        "name": "THE RIDGE",
+        "tier": "DIAMOND",
+        "royalties": "$395.49",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "MAR 1 23",
+        "streamEndDate": "AUG 1 23"
+    },
+    {
+        "name": "THE RIDGE",
+        "tier": "GOLD",
+        "royalties": "$7.16",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "MAR 1 23",
+        "streamEndDate": "AUG 1 23"
+    },
+    {
+        "name": "RARE",
+        "tier": "PLATINUM",
+        "royalties": "$5.71",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "JAN 1 23",
+        "streamEndDate": "APR 1 23"
+    },
+    {
+        "name": "RARE",
+        "tier": "DIAMOND",
+        "royalties": "$137.11",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "JAN 1 23",
+        "streamEndDate": "APR 1 23"
+    },
+    {
+        "name": "RARE",
+        "tier": "GOLD",
+        "royalties": "$0.98",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "JAN 1 23",
+        "streamEndDate": "APR 1 23"
+    },
+    {
+        "name": "ULTRA BLACK",
+        "tier": "GOLD",
+        "royalties": "$0.55",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "JAN 1 23",
+        "streamEndDate": "APR 1 23"
+    },
+    {
+        "name": "ULTRA BLACK",
+        "tier": "PLATINUM",
+        "royalties": "$3.34",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "JAN 1 23",
+        "streamEndDate": "APR 1 23"
+    },
+    {
+        "name": "ULTRA BLACK",
+        "tier": "DIAMOND",
+        "royalties": "$83.60",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "JAN 1 23",
+        "streamEndDate": "APR 1 23"
+    },
+    {
+        "name": "DON'T FORGET MY LOVE",
+        "tier": "DIAMOND",
+        "royalties": "$978.76",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "OCT 1 22",
+        "streamEndDate": "APR 1 23"
+    },
+    {
+        "name": "DON'T FORGET MY LOVE",
+        "tier": "PLATINUM",
+        "royalties": "$69.91",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "OCT 1 22",
+        "streamEndDate": "APR 1 23"
+    },
+    {
+        "name": "DON'T FORGET MY LOVE",
+        "tier": "GOLD",
+        "royalties": "$5.59",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "OCT 1 22",
+        "streamEndDate": "APR 1 23"
+    },
+    {
+        "name": "APOLOGIZE",
+        "tier": "GOLD",
+        "royalties": "$0.32",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "JUL 1 23"
+    },
+    {
+        "name": "APOLOGIZE",
+        "tier": "DIAMOND",
+        "royalties": "$12.28",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "JUL 1 23"
+    },
+    {
+      "name": "TELL ME HOW",
+      "tier": "GOLD",
+      "royalties": "$1.31",
+      "royaltyDate": "AUG 31 23",
+      "streamStartDate": "JUN 1 23",
+      "streamEndDate": "JUL 1 23"
+    },
+    {
+        "name": "TELL ME HOW",
+        "tier": "DIAMOND",
+        "royalties": "$14.64",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "JUN 1 23",
+        "streamEndDate": "JUL 1 23"
+    },
+    {
+        "name": "CATCHING ON FEAT. NEVVE",
+        "tier": "DIAMOND",
+        "royalties": "$3.78",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "JUL 1 23",
+        "streamEndDate": "AUG 1 23"
+    },
+    {
+        "name": "CATCHING ON FEAT. NEVVE",
+        "tier": "PLATINUM",
+        "royalties": "$0.34",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "JUL 1 23",
+        "streamEndDate": "AUG 1 23"
+    },
+    {
+        "name": "EXCITED",
+        "tier": "GOLD",
+        "royalties": "$0.28",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "JUL 1 23",
+        "streamEndDate": "AUG 1 23"
+    },
+    {
+        "name": "SAFE",
+        "tier": "GOLD",
+        "royalties": "$0.56",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "JUL 1 23",
+        "streamEndDate": "AUG 1 23"
+    },
+    {
+        "name": "NEED A FRIEND",
+        "tier": "GOLD",
+        "royalties": "$0.52",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "MAY 1 23",
+        "streamEndDate": "JUN 1 23"
+    },
+    {
+        "name": "CAN YOU FEEL IT (VAN MÚRTEN REMIX)",
+        "tier": "GOLD",
+        "royalties": "$0.22",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "MAY 1 23",
+        "streamEndDate": "JUN 1 23"
+    },
+    {
+        "name": "CAN YOU FEEL IT (VAN MÚRTEN REMIX)",
+        "tier": "DIAMOND",
+        "royalties": "$2.47",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "MAY 1 23",
+        "streamEndDate": "JUN 1 23"
+    },
+    {
+        "name": "INSOMNIA",
+        "tier": "GOLD",
+        "royalties": "$1.11",
+        "royaltyDate": "AUG 31 23",
+        "streamStartDate": "MAY 1 23",
+        "streamEndDate": "JUN 1 23"
+    },
+    {
+        "name": "APOLOGIZE",
+        "tier": "DIAMOND",
+        "royalties": "$12.35",
+        "royaltyDate": "JUL 31 23",
+        "streamStartDate": "MAY 1 23",
+        "streamEndDate": "JUN 1 23"
+    },
+    {
+        "name": "APOLOGIZE",
+        "tier": "GOLD",
+        "royalties": "$0.32",
+        "royaltyDate": "JUL 31 23",
+        "streamStartDate": "MAY 1 23",
+        "streamEndDate": "JUN 1 23"
+    },
+    {
+        "name": "CAN YOU FEEL IT (VAN MÚRTEN REMIX)",
+        "tier": "DIAMOND",
+        "royalties": "$2.62",
+        "royaltyDate": "JUL 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "MAY 1 23"
+    },
+    {
+        "name": "CAN YOU FEEL IT (VAN MÚRTEN REMIX)",
+        "tier": "GOLD",
+        "royalties": "$0.23",
+        "royaltyDate": "JUL 31 23",
+        "streamStartDate": "APR 1 23",
+        "streamEndDate": "MAY 1 23"
+    },
+    {
+        "name": "TELL ME HOW",
+        "tier": "DIAMOND",
+        "royalties": "$12.10",
+        "royaltyDate": "JUL 31 23",
+        "streamStartDate": "MAY 1 23",
+        "streamEndDate": "JUN 1 23"
+    },
+    {
+        "name": "TELL ME HOW",
+        "tier": "GOLD",
+        "royalties": "$1.08",
+        "royaltyDate": "JUL 31 23",
+        "streamStartDate": "MAY 1 23",
+        "streamEndDate": "JUN 1 23"
+    },
+    {
+      "name": "MY WAY",
+      "tier": "GOLD",
+      "royalties": "$3.79",
+      "royaltyDate": "JUN 30 23",
+      "streamStartDate": "FEB 1 23",
+      "streamEndDate": "APR 1 23"
+    },
+    {
+      "name": "MY WAY",
+      "tier": "DIAMOND",
+      "royalties": "$20.96",
+      "royaltyDate": "JUN 30 23",
+      "streamStartDate": "FEB 1 23",
+      "streamEndDate": "APR 1 23"
+    },
+    {
+      "name": "LIFE LIKE THIS",
+      "tier": "GOLD",
+      "royalties": "$6.53",
+      "royaltyDate": "MAY 30 23",
+      "streamStartDate": "JUL 1 22",
+      "streamEndDate": "JAN 1 23"
+    },
+    {
+      "name": "LIFE LIKE THIS",
+      "tier": "PLATINUM",
+      "royalties": "$14.46",
+      "royaltyDate": "MAY 30 23",
+      "streamStartDate": "JUL 1 22",
+      "streamEndDate": "JAN 1 23"
+    },
+    {
+      "name": "LIFE LIKE THIS",
+      "tier": "DIAMOND",
+      "royalties": "$145.27",
+      "royaltyDate": "MAY 30 23",
+      "streamStartDate": "JUL 1 22",
+      "streamEndDate": "JAN 1 23"
+    },
+    {
+      "name": "GETAWAY",
+      "tier": "GOLD",
+      "royalties": "$10.18",
+      "royaltyDate": "MAY 30 23",
+      "streamStartDate": "JUL 1 22",
+      "streamEndDate": "JAN 1 23"
+    },
+    {
+      "name": "GETAWAY",
+      "tier": "PLATINUM",
+      "royalties": "$38.19",
+      "royaltyDate": "MAY 30 23",
+      "streamStartDate": "JUL 1 22",
+      "streamEndDate": "JAN 1 23"
+    },
+    {
+      "name": "GETAWAY",
+      "tier": "DIAMOND",
+      "royalties": "$101.86",
+      "royaltyDate": "MAY 30 23",
+      "streamStartDate": "JUL 1 22",
+      "streamEndDate": "JAN 1 23"
+    },
+    {
+      "name": "TUFF",
+      "tier": "GOLD",
+      "royalties": "$0.53",
+      "royaltyDate": "APR 28 23",
+      "streamStartDate": "OCT 1 22",
+      "streamEndDate": "DEC 1 22"
+    },
+    {
+      "name": "GIMME SOME MORE (CLUB MIX)",
+      "tier": "GOLD",
+      "royalties": "$0.11",
+      "royaltyDate": "APR 1 23",
+      "streamStartDate": "DEC 1 22",
+      "streamEndDate": "FEB 1 23"
+    },
+    {
+      "name": "GIMME SOME MORE (CLUB MIX)",
+      "tier": "PLATINUM",
+      "royalties": "$1.07",
+      "royaltyDate": "APR 1 23",
+      "streamStartDate": "DEC 1 22",
+      "streamEndDate": "FEB 1 23"
+    },
+    {
+      "name": "KILL JILL (FEAT. KILLER MIKE & JEEZY)",
+      "tier": "PLATINUM",
+      "royalties": "$15.39",
+      "royaltyDate": "FEB 28 23",
+      "streamStartDate": "JAN 1 22",
+      "streamEndDate": "JUL 1 22"
+    },
+    {
+      "name": "KILL JILL (FEAT. KILLER MIKE & JEEZY)",
+      "tier": "DIAMOND",
+      "royalties": "$257.57",
+      "royaltyDate": "FEB 28 23",
+      "streamStartDate": "JAN 1 22",
+      "streamEndDate": "JUL 1 22"
+    }
+  ]
+}

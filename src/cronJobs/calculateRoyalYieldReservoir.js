@@ -101,6 +101,7 @@ module.exports = async (client, yieldThreshold) => {
         const floorPriceInETH = roundNumber(floorPrice / ETHPrice, 4);                
         const escapedCollectionName = encodeURIComponent(collectionName.replace(/[\]\[()]/g, '\\$&'));
 
+        /*
         console.log(
             `${collectionName}\n` +
             `Royalties: ${collectionRoyalties}\n` +
@@ -109,6 +110,7 @@ module.exports = async (client, yieldThreshold) => {
             `Limit Price: ${initialPrize * goldLimitPricePonderation}\n` +
             `Expected Yield: ${expectedYield}\n`
         );
+        */
 
         /*
             const embedResultUrl = typeof openseaEditionUrl !== 'undefined' && openseaEditionUrl

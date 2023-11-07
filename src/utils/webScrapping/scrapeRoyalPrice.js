@@ -6,7 +6,7 @@ module.exports = async (url) => {
   try {
     const browser = await puppeteer.launch({
       headless: 'new',
-      userDataDir: '/home/ubuntu/.cache/puppeteer', // Set the cache path here
+      //userDataDir: '/home/ubuntu/.cache/puppeteer', // Set the cache path here
     }); // Use new headless mode
     const page = await browser.newPage();
 
@@ -16,7 +16,7 @@ module.exports = async (url) => {
     // Navigate to the website
     await page.goto(url);
 
-    const sliderHandleSelector = '.absolute.top-0.bottom-0.rounded.bg-accent-1.opacity-20';
+    //const sliderHandleSelector = '.absolute.top-0.bottom-0.rounded.bg-accent-1.opacity-20';
     const priceSelector = '.inline-block.text-interactive-1'
 
     //AFTER WEBPAGE UPDATE, SCROLLING IS NO LONGER NEEDED FOR THE PRICE TO UPDATE
