@@ -29,7 +29,7 @@ const yieldThresholds = {
     royal: 35
 };
 
-const anotherblockPfpFloorThreshold = 0.1;
+const anotherblockPfpFloorThreshold = 0.01;
 const royalMaxPriceThreshold = 4000;
 
 cron.schedule('*/5 * * * *', async function() {
