@@ -2,6 +2,7 @@ const fs = require('fs/promises'); // Import the fs/promises module
 
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
+const executeCommand = require('../../utils/executeCommand');
 
 //Require Royal webscrapping prices
 const scrapeRoyalPrice = require('../../utils/webScrapping/scrapeRoyalPrice');

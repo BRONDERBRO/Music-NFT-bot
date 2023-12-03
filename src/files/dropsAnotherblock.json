@@ -1,6 +1,19 @@
 {
     "drops": [
         {
+            "name": "Hate Me (Lil Peep)",
+            "value": "0xfa1e5e3eb01deffa53be3e5a76e8dcfd43169408",
+            "royalties": 0.092,
+            "initialPrice": 60,
+            "sources": [
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "lil-peep-hate-me"
+                }
+            ],
+            "blockchain": "Base"        
+        },
+        {
             "name": "Solo Dance (Martin Jensen)",
             "value": "0x0affeE09f95399Ec05d405d1633eF0dA072FbA0f",
             "royalties": 0.063,
@@ -8,7 +21,7 @@
             "sources": [
                 {
                     "source": "opensea.io",
-                    "marketplaceUrl": "this-is-why-im-hot"
+                    "marketplaceUrl": "martin-jensen-solo-dance"
                 }
             ],
             "blockchain": "Base"        

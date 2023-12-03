@@ -2,6 +2,7 @@ const fs = require('fs/promises'); // Import the fs/promises module
 
 //Require Utils
 const readJsonFile = require('../../utils/readJsonFile');
+const executeCommand = require('../../utils/executeCommand');
 
 //Require Royal webscrapping prices
 const scrapeRoyalOrderBids = require('../../utils/webScrapping/scrapeRoyalOrderBids');
@@ -26,6 +27,17 @@ module.exports = {
         //DeferReply
         await interaction.deferReply({
             //ephemeral: true
+        });
+
+        //Delete SingletonLock file
+        const commandToExecute = 'rm /home/ubuntu/.cache/puppeteer/SingletonLock';
+
+        executeCommand(commandToExecute)
+        .then((output) => {
+            console.log(`Command executed successfully. Output: ${output}`);
+        })
+        .catch((error) => {
+            console.error(`Error executing command: ${error}`);
         });
 
         //Get the desiredYield introduced in the command by the user

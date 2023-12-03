@@ -2,7 +2,21 @@ const puppeteer = require('puppeteer');
 
 const wait = require('node:timers/promises').setTimeout;
 
+const executeCommand = require('../executeCommand');
+
 module.exports = async (url) => {
+
+  //Delete SingletonLock file
+  const commandToExecute = 'rm /home/ubuntu/.cache/puppeteer/SingletonLock';
+
+  executeCommand(commandToExecute)
+  .then((output) => {
+      console.log(`Command executed successfully. Output: ${output}`);
+  })
+  .catch((error) => {
+      console.error(`Error executing command: ${error}`);
+  });
+
   try {
     const browser = await puppeteer.launch({
       headless: 'new',
