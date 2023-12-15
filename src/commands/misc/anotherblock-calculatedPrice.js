@@ -35,7 +35,7 @@ module.exports = {
         const embedTitle = 'Anotherblock Calculated Price'
         const embedDescription = 'Calculated price of anotherblock songs for **' + desiredYield + '% yield**: ($ price - price ETH)'
         const embedColor = 'White'
-        const embedUrl = 'https://market.anotherblock.io/'
+        const embedUrl = 'https://anotherblock.io/'
 
         //Build embed
         const embed = createEmbed(client, embedTitle, embedDescription, embedColor, embedUrl);

@@ -25,7 +25,7 @@ module.exports = {
         const embedTitle = 'Anotherblock Top Bids'
         const embedDescription = 'Top bid of anotherblock collections: (Top Bidder: $ Bid Price - Bid Price ETH - Yield At Bid Price %)'
         const embedColor = 'White'
-        const embedUrl = 'https://market.anotherblock.io/'
+        const embedUrl = 'https://anotherblock.io/'
 
         //Build embed
         const embed = createEmbed(client, embedTitle, embedDescription, embedColor, embedUrl);

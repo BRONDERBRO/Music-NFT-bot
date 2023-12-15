@@ -9,6 +9,10 @@
                 {
                     "source": "opensea.io",
                     "marketplaceUrl": "lil-peep-hate-me"
+                },
+                {
+                    "source": "explorer.reservoir.tools",
+                    "marketplaceUrl": "0xfa1e5e3eb01deffa53be3e5a76e8dcfd43169408"
                 }
             ],
             "blockchain": "Base"        
@@ -22,6 +26,10 @@
                 {
                     "source": "opensea.io",
                     "marketplaceUrl": "martin-jensen-solo-dance"
+                },
+                {
+                    "source": "explorer.reservoir.tools",
+                    "marketplaceUrl": "0x0affeE09f95399Ec05d405d1633eF0dA072FbA0f"
                 }
             ],
             "blockchain": "Base"        
@@ -50,7 +58,7 @@
                     "marketplaceUrl": "this-is-why-im-hot"
                 },
                 {
-                    "source": "market.anotherblock.io",
+                    "source": "explorer.reservoir.tools",
                     "marketplaceUrl": "0xbeff0289168f9589337838c826162da9dc29993d"
                 }
             ],
@@ -67,7 +75,7 @@
                     "marketplaceUrl": "so-far-away-anotherblock"
                 },
                 {
-                    "source": "market.anotherblock.io",
+                    "source": "explorer.reservoir.tools",
                     "marketplaceUrl": "0x65beEC116a625e2F68B6C04313105fE10F510135"
                 }
             ],
@@ -84,7 +92,7 @@
                     "marketplaceUrl": "rihanna-bitch-better-have-my-money"
                 },
                 {
-                    "source": "market.anotherblock.io",
+                    "source": "explorer.reservoir.tools",
                     "marketplaceUrl": "0xCB8399D84e17fD5B4e955C716647c7BB2C35Ab63"
                 }
             ],
@@ -105,7 +113,7 @@
                     "marketplaceUrl": "ric-flair-drip"
                 },
                 {
-                    "source": "market.anotherblock.io",
+                    "source": "explorer.reservoir.tools",
                     "marketplaceUrl": "0xFE5209ac341835670fA731383D5d28c8A093dda3"
                 }
             ],
@@ -124,7 +132,7 @@
                     "marketplaceUrl": "anotherblock-season-1"
                 },
                 {
-                    "source": "market.anotherblock.io",
+                    "source": "explorer.reservoir.tools",
                     "marketplaceUrl": "0x9ef75b412D8466B9b35F3A1Bf7a809a5C6d0Aa7C"
                 }
             ],
@@ -163,7 +171,7 @@
                     "marketplaceUrl": "anotherpfp"
                 },
                 {
-                    "source": "market.anotherblock.io",
+                    "source": "explorer.reservoir.tools",
                     "marketplaceUrl": "0x9ffb419404a5b1b8551d0127Ed3562D9E622292E"
                 }
             ],

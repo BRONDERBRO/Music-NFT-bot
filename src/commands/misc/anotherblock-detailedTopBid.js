@@ -27,7 +27,7 @@ module.exports = {
         const embedTitle = 'Anotherblock Top Bids for each source'
         const embedDescription = `Top bid of anotherblock collections for each source: ($ Bid Price - Bid Price ETH - Yield At Bid Price %)`
         const embedColor = 'White'
-        const embedUrl = 'https://market.anotherblock.io/'
+        const embedUrl = 'https://anotherblock.io/'
 
         const embed = createEmbed(client, embedTitle, embedDescription, embedColor, embedUrl);
 
@@ -48,7 +48,7 @@ module.exports = {
         const sources = [
             { name: 'BLUR', url: 'blur.io' },
             { name: 'OPENSEA', url: 'opensea.io' },
-            { name: 'ANOTHERBLOCK', url: 'market.anotherblock.io' },
+            //{ name: 'ANOTHERBLOCK', url: 'market.anotherblock.io' },
             { name: 'RESERVOIR', url: 'explorer.reservoir.tools' }
         ];
 
