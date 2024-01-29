@@ -62,8 +62,9 @@ module.exports = async (url, numBids) => {
       await page.waitForSelector(profilePictureSelector, { timeout: 40000 });
       // Continue with the rest of your code when the selector is found
     } catch (error) {
-      await browser.close()
-      throw new Error("Error while logging: Selector not found within the specified timeout");
+      //await browser.close()
+      //throw new Error("Error while logging: Selector not found within the specified timeout");
+      console.log('Profile picture not found, continue execution regardless')
     }
 
     const loadMoreButtonSelector = '.opacity-0';

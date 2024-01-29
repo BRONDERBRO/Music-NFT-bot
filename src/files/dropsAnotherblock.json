@@ -1,6 +1,19 @@
 {
     "drops": [
         {
+            "name": "We Are Bulletproof: The Eternal (BTS)",
+            "value": "0xfa1e5e3eb01deffa53be3e5a76e8dcfd43169408",
+            "royalties": 0.051,
+            "initialPrice": 63,
+            "sources": [
+                {
+                    "source": "explorer.reservoir.tools",
+                    "marketplaceUrl": "0x580F0BEC9dfc7d6C41702077519695101028597E"
+                }
+            ],
+            "blockchain": "Base"        
+        },
+        {
             "name": "Hate Me (Lil Peep)",
             "value": "0xfa1e5e3eb01deffa53be3e5a76e8dcfd43169408",
             "royalties": 0.092,

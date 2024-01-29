@@ -47,7 +47,7 @@ module.exports = async (client, yieldThreshold) => {
     const allYieldResults = [];
 
     const minimumPrice = 10
-    const goldLimitPricePonderation = 0.5 //If the bidPrice is less than limitPrice * limitPricePonderation, and the max bidder is not me, a DM is sent
+    const goldLimitPricePonderation = 0.2 //If the bidPrice is less than limitPrice * limitPricePonderation, and the max bidder is not me, a DM is sent
 
     const fetchedReservoir = await reservoirFetchCollectionAttribute(collectionBlockchain, collectionAddress, attributeKey);
 
