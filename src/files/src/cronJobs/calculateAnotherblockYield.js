@@ -17,7 +17,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
     const embedTitle = 'Anotherblock Yield'
     const embedDescription = `Calculated yield of anotherblock collections: (yield % - $ floor - ETH floor)`
     const embedColor = 'White'
-    const embedUrl = 'https://market.anotherblock.io/'
+    const embedUrl = 'https://explorer.reservoir.tools/'
 
     //Build embed
     const embed = createEmbed(client, embedTitle, embedDescription, embedColor, embedUrl);
@@ -33,14 +33,14 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
     let yieldResults = []
     const attributeKey = 'Song'
 
-    const marketplaceUrl = 'https://market.anotherblock.io/'
-    const marketplaceCollectionFixedUrl = 'collections/'
+    const marketplaceUrl = 'https://explorer.reservoir.tools/'
+    const marketplaceCollectionFixedUrl = '/collection/'
     const marketplaceFilterUrl = '?attributes%5BSong%5D='
     let marketplaceCollectionUrl = null
     let marketplaceSongUrl = null
 
-    const initialPricePonderation = 0.75 //If the bidPrice is less than initialPrice * initialPricePonderation, and the max bidder is not me, a DM is sent
-    const minYield = 8 //If yield is below 8%, no DM is sent
+    const initialPricePonderation = 0.3 //If the bidPrice is less than initialPrice * initialPricePonderation, and the max bidder is not me, a DM is sent
+    const minYield = 12 //If yield is below 8%, no DM is sent
 
     source = 'explorer.reservoir.tools'
 
@@ -72,24 +72,8 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
 
         //Get the corresponding marketplaceUrl depending on the currentSource.url
         for (const sourceEntry of dropSources) {
-
-            console.log(
-                `${collectionName}\n` +
-                `Collection ID: ${collectionId}\n` +
-                `sourceEntry.source: ${sourceEntry.source}\n` +
-                `source: ${source}\n`
-            );
-
             if (sourceEntry.source === source) {
                 marketplaceCollectionUrl = encodeURIComponent(sourceEntry.marketplaceUrl);
-
-                console.log(
-                    `${collectionName}\n` +
-                    `Collection ID: ${collectionId}\n` +
-                    `sourceEntry.source: ${sourceEntry.source}\n` +
-                    `marketplaceCollectionUrl: ${marketplaceCollectionUrl}\n`
-                );
-
                 break;
             }
         }
@@ -136,16 +120,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                             const expectedYield = (collectionRoyalties * collectionInitialPrize) / (floorPriceInDollar) * 100
                             
                             marketplaceSongUrl = encodeURIComponent(dropTittle.song)
-                            const embedResultUrl = marketplaceUrl + marketplaceCollectionFixedUrl + marketplaceCollectionUrl + marketplaceFilterUrl + marketplaceSongUrl
-
-                            console.log(
-                                `embedResultUrl: ${embedResultUrl}\n` +
-                                `marketplaceUrl: ${marketplaceUrl}\n` +
-                                `marketplaceCollectionFixedUrl: ${marketplaceCollectionFixedUrl}\n` +
-                                `marketplaceCollectionUrl: ${marketplaceCollectionUrl}\n`
-                                `marketplaceFilterUrl: ${marketplaceFilterUrl}\n` +
-                                `marketplaceSongUrl: ${marketplaceSongUrl}\n`
-                            );
+                            const embedResultUrl = marketplaceUrl + collectionBlockchain + marketplaceCollectionFixedUrl + marketplaceCollectionUrl + marketplaceFilterUrl + marketplaceSongUrl
 
                             if (expectedYield >= adjustedyieldThreshold || (floorPriceInDollar <= collectionInitialPrize * initialPricePonderation && expectedYield >= minYield)) {
                                 yieldResults.push({
@@ -172,23 +147,16 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
             const floorPrice = fetchedReservoir.collections[0].floorAsk.price.amount.decimal;
             const floorPriceInDollar = floorPrice * ETHPrice
 
-            embedResultUrl = marketplaceUrl + marketplaceCollectionFixedUrl + marketplaceCollectionUrl
+            embedResultUrl = marketplaceUrl + collectionBlockchain + marketplaceCollectionFixedUrl + marketplaceCollectionUrl
 
-            
+            /*
             console.log(
                 `${collectionName}\n` +
                 `Floor Price: ${floorPrice}\n` +
                 `Royalties: ${collectionRoyalties}\n` +
                 `Initial Price: ${collectionInitialPrize}\n`
             );
-            
-
-            console.log(
-                `embedResultUrl: ${embedResultUrl}\n` +
-                `marketplaceUrl: ${marketplaceUrl}\n` +
-                `marketplaceCollectionFixedUrl: ${marketplaceCollectionFixedUrl}\n` +
-                `marketplaceCollectionUrl: ${marketplaceCollectionUrl}\n`
-            );
+            */
 
             //If collectionRoyalties is defined and not null, then calculate the expectedYield
             if (collectionRoyalties) {

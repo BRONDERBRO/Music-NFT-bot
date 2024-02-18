@@ -29,12 +29,12 @@ const yieldThresholds = {
     royal: 30
 };
 
-const anotherblockPfpFloorThreshold = 0.01;
+const anotherblockPfpFloorThreshold = 0.02;
 const royalMaxPriceThreshold = 4000;
 
 cron.schedule('*/5 * * * *', async function() {
     try {
-        await calculateAnotherblockYield(client, yieldThresholds.anotherblock * 1.5, anotherblockPfpFloorThreshold);
+        await calculateAnotherblockYield(client, yieldThresholds.anotherblock, anotherblockPfpFloorThreshold);
     } catch (error) {
         console.log(error);
     }
@@ -42,7 +42,7 @@ cron.schedule('*/5 * * * *', async function() {
 
 cron.schedule('0 */6 */1 * *', async function() { //At minute 0 past every 6th hour on every day-of-month.
     try {
-        await calculateAnotherblockTopBid(client, yieldThresholds.anotherblock, anotherblockPfpFloorThreshold, process.env.WALLET_ADDRESS);
+        await calculateAnotherblockTopBid(client, yieldThresholds.anotherblock * 1.5, anotherblockPfpFloorThreshold, process.env.WALLET_ADDRESS);
     } catch (error) {
         console.log(error);
     }

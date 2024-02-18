@@ -1,0 +1,194 @@
+{
+    "drops": [
+	{
+            "name": "We Are Bulletproof: The Eternal (BTS)",
+            "value": "0x580F0BEC9dfc7d6C41702077519695101028597E",
+            "royalties": 0.051,
+            "initialPrice": 63,
+            "sources": [
+                {
+                    "source": "explorer.reservoir.tools",
+                    "marketplaceUrl": "0x580F0BEC9dfc7d6C41702077519695101028597E"
+                }
+            ],
+            "blockchain": "Base"        
+        },
+        {
+            "name": "Hate Me (Lil Peep)",
+            "value": "0xfa1e5e3eb01deffa53be3e5a76e8dcfd43169408",
+            "royalties": 0.092,
+            "initialPrice": 60,
+            "sources": [
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "lil-peep-hate-me"
+                },
+                {
+                    "source": "explorer.reservoir.tools",
+                    "marketplaceUrl": "0xfa1e5e3eb01deffa53be3e5a76e8dcfd43169408"
+                }
+            ],
+            "blockchain": "Base"        
+        },
+        {
+            "name": "Solo Dance (Martin Jensen)",
+            "value": "0x0affeE09f95399Ec05d405d1633eF0dA072FbA0f",
+            "royalties": 0.063,
+            "initialPrice": 35.40,
+            "sources": [
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "martin-jensen-solo-dance"
+                },
+                {
+                    "source": "explorer.reservoir.tools",
+                    "marketplaceUrl": "0x0affeE09f95399Ec05d405d1633eF0dA072FbA0f"
+                }
+            ],
+            "blockchain": "Base"        
+        },
+        {
+            "name": "Company (Justin Bieber)",
+            "value": "0xD3d333E6FeD17f273D0415Df567ed5Eb65e8BB28",
+            "royalties": 0.0535,
+            "initialPrice": 27.73,
+            "sources": [
+                {
+                    "source": "explorer.reservoir.tools",
+                    "marketplaceUrl": "0xd3d333e6fed17f273d0415df567ed5eb65e8bb28"
+                }
+            ],
+            "blockchain": "Base"        
+        },
+        {
+            "name": "This Is Why I'm Hot (Mims)",
+            "value": "0xbeff0289168f9589337838c826162da9dc29993d",
+            "royalties": 0.066,
+            "initialPrice": 150,
+            "sources": [
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "this-is-why-im-hot"
+                },
+                {
+                    "source": "explorer.reservoir.tools",
+                    "marketplaceUrl": "0xbeff0289168f9589337838c826162da9dc29993d"
+                }
+            ],
+            "blockchain": "Ethereum"
+        },
+        {
+            "name": "So Far Away (David Guetta & Martin Garrix)",
+            "value": "0x65beEC116a625e2F68B6C04313105fE10F510135",
+            "royalties": 0.122,
+            "initialPrice": 144,
+            "sources": [
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "so-far-away-anotherblock"
+                },
+                {
+                    "source": "explorer.reservoir.tools",
+                    "marketplaceUrl": "0x65beEC116a625e2F68B6C04313105fE10F510135"
+                }
+            ],
+            "blockchain": "Ethereum"
+        },
+        {
+            "name": "Bitch Better Have My Money (Rihanna)",
+            "value": "0xCB8399D84e17fD5B4e955C716647c7BB2C35Ab63",
+            "royalties": 0.161,
+            "initialPrice": 210,
+            "sources": [
+                {
+                    "source": "blur.io",
+                    "marketplaceUrl": "rihanna-bitch-better-have-my-money"
+                },
+                {
+                    "source": "explorer.reservoir.tools",
+                    "marketplaceUrl": "0xCB8399D84e17fD5B4e955C716647c7BB2C35Ab63"
+                }
+            ],
+            "blockchain": "Ethereum"
+        },
+        {
+            "name": "Ric Flair Drip (Offset & Metro Boomin)",
+            "value": "0xFE5209ac341835670fA731383D5d28c8A093dda3",
+            "royalties": 0.115,
+            "initialPrice": 99,
+            "sources": [
+                {
+                    "source": "blur.io",
+                    "marketplaceUrl": "ric-flair-drip"
+                },
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "ric-flair-drip"
+                },
+                {
+                    "source": "explorer.reservoir.tools",
+                    "marketplaceUrl": "0xFE5209ac341835670fA731383D5d28c8A093dda3"
+                }
+            ],
+            "blockchain": "Ethereum"
+        },
+        {
+            "name": "Anotherblock Season 1",
+            "value": "0x9ef75b412D8466B9b35F3A1Bf7a809a5C6d0Aa7C",
+            "sources": [
+                {
+                    "source": "blur.io",
+                    "marketplaceUrl": "anotherblock"
+                },
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "anotherblock-season-1"
+                },
+                {
+                    "source": "explorer.reservoir.tools",
+                    "marketplaceUrl": "0x9ef75b412D8466B9b35F3A1Bf7a809a5C6d0Aa7C"
+                }
+            ],
+            "blockchain": "Ethereum",
+            "tittles": [
+                {
+                   "song": "Alone pt. II",
+                   "royalties": 0.075,
+                   "initialPrice": 88,
+                   "anotherblockUrlId": "3"
+                },
+                {
+                   "song": "Acquainted",
+                   "royalties": 0.114,
+                   "initialPrice": 107.76,
+                   "anotherblockUrlId": "2"
+                },
+                {
+                   "song": "Weekend On A Tuesday",
+                   "royalties": 0.069,
+                   "initialPrice": 87.31,
+                   "anotherblockUrlId": "1"
+                }
+            ]
+        },
+        {
+            "name": "pfp",
+            "value": "0x9ffb419404a5b1b8551d0127Ed3562D9E622292E",
+            "sources": [
+		{
+                    "source": "blur.io",
+                    "marketplaceUrl": "anotherpfp"
+                },
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "anotherpfp"
+                },
+                {
+                    "source": "explorer.reservoir.tools",
+                    "marketplaceUrl": "0x9ffb419404a5b1b8551d0127Ed3562D9E622292E"
+                }
+            ],
+            "blockchain": "Ethereum"
+        }
+    ]
+}
