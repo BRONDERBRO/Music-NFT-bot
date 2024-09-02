@@ -94,11 +94,11 @@ module.exports = {
                     const highestPricedItem = parseFloat(filteredItems[0].price);
                     const orderId = filteredItems[0].orderID;
 
-                    console.log(`Highest Priced Item for ${collectionName} - ${collectionTier}: ${highestPricedItem}, OrderID: ${orderId} \n`);
+                    //console.log(`Highest Priced Item for ${collectionName} - ${collectionTier}: ${highestPricedItem}, OrderID: ${orderId} \n`);
                     tier.bidPrice = highestPricedItem;
                     tier.orderId = orderId
                 } else {
-                    console.log(`No matching items found for ${collectionName} - ${collectionTier} \n`)
+                    //console.log(`No matching items found for ${collectionName} - ${collectionTier} \n`)
                     //if all bids are being looped, then if a bid is not found, update price to 0 and orderID to null
                     if (numBids === 9999) {
                         tier.bidPrice = 0;

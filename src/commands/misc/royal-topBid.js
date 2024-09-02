@@ -55,7 +55,7 @@ module.exports = {
             let baseRoyalty = fetchedRoyal.data.edition.tiers[0].royaltyClaimMillionths;
             let royaltyUnit = collectionRoyalties / baseRoyalty;
 
-            
+            /*
             console.log(
                 `${collectionName}\n` +
                 `Royalties: ${collectionRoyalties}\n` +
@@ -63,7 +63,7 @@ module.exports = {
                 `Base Royalty: ${baseRoyalty}\n` +
                 `Royalty Unit: ${royaltyUnit}\n`
             );
-            
+            */
 
             for (const tier of fetchedRoyal.data.edition.tiers) {
                 const {
@@ -79,7 +79,7 @@ module.exports = {
                     collectionMyBidPrice = matchingTier ? parseFloat(matchingTier.bidPrice) : 0;
                 }
 
-                
+                /*
                 console.log(
                     `${collectionName}\n` +
                     `Tier: ${collectionTier}\n` +
@@ -87,7 +87,7 @@ module.exports = {
                     `Bid Price: ${bidPrice}\n` +
                     `My Bid Price: ${collectionMyBidPrice}\n`
                 );
-                
+                */
                 
                 let topBidder = null
                 if (bidPrice === collectionMyBidPrice && bidPrice > 0) {
@@ -124,7 +124,7 @@ module.exports = {
             return b.yield - a.yield;
           });
 
-        console.log(topBidResults, '\n');
+        //console.log(topBidResults, '\n');
 
         const embedTitle = 'Royal Top Bid'
         const embedDescription = 'Top bid of Royal songs: (Top Bidder: $ Bid Price - Yield At Bid Price %)'
@@ -137,7 +137,7 @@ module.exports = {
         const topBidResultsLength = Math.min(topBidResults.length, songsPerEmbed * maxEmbeds);
         let currentEmbedIndex = 0;
 
-        console.log(`topBidResultsLength: ${topBidResultsLength}`)
+        //console.log(`topBidResultsLength: ${topBidResultsLength}`)
 
         for (let k = 0; k < topBidResultsLength; ++k) {
 
@@ -157,7 +157,7 @@ module.exports = {
             });
         }
 
-        console.log(`Current Embed Index: ${currentEmbedIndex}`)
+        //console.log(`Current Embed Index: ${currentEmbedIndex}`)
 
         // Send the embeds
         for (let i = 0; i <= currentEmbedIndex  & topBidResultsLength > 0; i++) {

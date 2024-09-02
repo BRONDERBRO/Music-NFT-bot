@@ -44,14 +44,14 @@ module.exports = {
                 numErrors++;
             }
            
-            
+            /*
             console.log(`
                 Collection Name: ${collectionName}
                 Old Royalties: ${collectionRoyalties}
                 Collection ID: ${collectionId}
                 Scrapped Royalties: ${scrappedPrice}
             `);
-            
+            */
             
         }
 
