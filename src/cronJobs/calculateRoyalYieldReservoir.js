@@ -10,7 +10,7 @@ const { createEmbed } = require('../utils/createEmbed');
 const reservoirFetchCollectionAttribute = require('../utils/apis/reservoirFetchCollectionAttribute');
 const coingeckoFetchPrice = require('../utils/apis/coingeckoFetchPrice');
 
-module.exports = async (client, yieldThreshold) => {
+module.exports = async (client, yieldThreshold, minimumYieldThreshold) => {
 
     //Get data from drops json file
     const dataDrops = readJsonFile('src/files/dropsRoyal.json')
@@ -129,7 +129,7 @@ module.exports = async (client, yieldThreshold) => {
             url: embedResultUrl
         });
 
-        if (expectedYield >= yieldThreshold || floorPrice <= initialPrize * goldLimitPricePonderation || floorPrice <= minimumPrice) {
+        if (expectedYield >= yieldThreshold || floorPrice <= initialPrize * goldLimitPricePonderation || (floorPrice <= minimumPrice && expectedYield >= minimumYieldThreshold)) {
 
             /*
             console.log(

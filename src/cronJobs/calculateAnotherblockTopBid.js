@@ -343,7 +343,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
 
                     }
                                        
-                    /*
+                    
                     console.log(
                         `Collection Name: ${collectionName}\n` +
                         `Bid Price: ${bidPriceETH}\n` +
@@ -354,7 +354,7 @@ module.exports = async (client, desiredYield, floorThreshold, targetAddress) => 
                         `Collection Royalties: ${collectionRoyalties}\n` +
                         `Collection Initial Price $: ${collectionInitialPrize}\n`
                     );
-                    */
+                    
 
                     topBidResults.push({
                         name: collectionName,

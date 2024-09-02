@@ -8,33 +8,33 @@
         {
           "tier": "GOLD",
           "initialPrice": 59,
-          "bidPrice": 0.18,
-          "orderId": "7RBKEXJF"
+          "bidPrice": 1,
+          "orderId": "MWWKMNEP"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 799,
-          "bidPrice": 2.97,
-          "orderId": "BHXMGVHQ"
+          "bidPrice": 5,
+          "orderId": "JL6Z37YF"
         }
       ]
     },
     {
       "id": "aaronchilds-myway",
       "name": "My Way",
-      "royalties": 54.68,
+      "royalties": 24.00,
       "tiers": [
         {
           "tier": "GOLD",
           "initialPrice": 199,
-          "bidPrice": 138.01,
-          "orderId": "Q8R8Q3R5"
+          "bidPrice": 15,
+          "orderId": "RAKM5BH8"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 999,
-          "bidPrice": 499,
-          "orderId": "DWM6DCR6"
+          "bidPrice": 166,
+          "orderId": "36XA7CYL"
         }
       ]
     },
@@ -46,14 +46,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 99,
-          "bidPrice": 50.01,
-          "orderId": "9CCPXCCP"
+          "bidPrice": 10,
+          "orderId": "D3ZW4A7V"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 4200,
-          "bidPrice": 1000,
-          "orderId": "MNGBXW75"
+          "bidPrice": 200,
+          "orderId": "6QD79KM7"
         }
       ]
     },
@@ -65,14 +65,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 49,
-          "bidPrice": 6,
-          "orderId": "GX5HB8KY"
+          "bidPrice": 4,
+          "orderId": "8QFKYGVR"
         },
         {
           "tier": "PLATINUM",
           "initialPrice": 159,
-          "bidPrice": 20,
-          "orderId": "F88CXHLK"
+          "bidPrice": 10,
+          "orderId": "MQWJB56L"
         }
       ]
     },
@@ -84,8 +84,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 0,
-          "bidPrice": 3.01,
-          "orderId": "PJ3T53NB"
+          "bidPrice": 0,
+          "orderId": null
         }
       ],
       "openseaUrl": "-so-far-so-good"
@@ -98,14 +98,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 45,
-          "bidPrice": 2.01,
-          "orderId": "GKQFYCWQ"
+          "bidPrice": 1,
+          "orderId": "TEZ4WN8N"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 415,
-          "bidPrice": 15.01,
-          "orderId": "L3Z3ER9J"
+          "bidPrice": 5,
+          "orderId": "YDBEPBX6"
         }
       ]
     },
@@ -117,8 +117,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 0,
-          "bidPrice": 1,
-          "orderId": "H4ZGWLF6"
+          "bidPrice": 0,
+          "orderId": null
         }
       ]
     },
@@ -130,14 +130,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 79,
-          "bidPrice": 22.03,
-          "orderId": "CC6PJEVX"
+          "bidPrice": 20,
+          "orderId": "YZEE8RHX"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 999,
-          "bidPrice": 190,
-          "orderId": "WJPDMK3R"
+          "bidPrice": 150,
+          "orderId": "6399VKQK"
         }
       ]
     },
@@ -149,8 +149,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 0,
-          "bidPrice": 5,
-          "orderId": "8XYKBWWH"
+          "bidPrice": 0,
+          "orderId": null
         }
       ]
     },
@@ -162,14 +162,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 75,
-          "bidPrice": 50.01,
-          "orderId": "XQ9FXK8A"
+          "bidPrice": 7,
+          "orderId": "CAGZWXC7"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 899,
-          "bidPrice": 270,
-          "orderId": "AWXZTJ9T"
+          "bidPrice": 60,
+          "orderId": "XTPGQLCC"
         }
       ]
     },
@@ -181,14 +181,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 49,
-          "bidPrice": 5,
-          "orderId": "VWKH3CH8"
+          "bidPrice": 3,
+          "orderId": "PAFDXFMJ"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 1199,
-          "bidPrice": 165.01,
-          "orderId": "XENAM5G8"
+          "bidPrice": 60,
+          "orderId": "7ZK95QN5"
         }
       ]
     },
@@ -200,20 +200,20 @@
         {
           "tier": "GOLD",
           "initialPrice": 99,
-          "bidPrice": 16.01,
-          "orderId": "5N6YJJAD"
+          "bidPrice": 5,
+          "orderId": "WB7XMM4K"
         },
         {
           "tier": "PLATINUM",
           "initialPrice": 199,
-          "bidPrice": 20.01,
-          "orderId": "CXM3PD8V"
+          "bidPrice": 20,
+          "orderId": "CN6DX96E"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 1999,
-          "bidPrice": 100,
-          "orderId": "FJQRVX4Y"
+          "bidPrice": 60,
+          "orderId": "FJZFXCJD"
         }
       ],
       "openseaUrl": "-life-like-this"
@@ -226,14 +226,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 99,
-          "bidPrice": 112.03,
-          "orderId": "T6QH846Y"
+          "bidPrice": 25,
+          "orderId": "C9Z5CAQA"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 799,
-          "bidPrice": 800.01,
-          "orderId": "5DLDE3YX"
+          "bidPrice": 200,
+          "orderId": "BDY85FPC"
         }
       ]
     },
@@ -245,14 +245,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 39,
-          "bidPrice": 6.01,
-          "orderId": "V4L77QGN"
+          "bidPrice": 10,
+          "orderId": "EWRQJRTV"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 499,
-          "bidPrice": 53,
-          "orderId": "H58DQEPW"
+          "bidPrice": 75,
+          "orderId": "L9PR9NMF"
         }
       ]
     },
@@ -264,8 +264,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 40,
-          "bidPrice": 10,
-          "orderId": "TAJY3FCV"
+          "bidPrice": 3,
+          "orderId": "ZBWNM856"
         }
       ]
     },
@@ -277,8 +277,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 45,
-          "bidPrice": 30.01,
-          "orderId": "EH83QEPF"
+          "bidPrice": 5,
+          "orderId": "PBB9AL84"
         }
       ]
     },
@@ -290,14 +290,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 99,
-          "bidPrice": 42.01,
-          "orderId": "YPX9ZVPZ"
+          "bidPrice": 12,
+          "orderId": "B86E88NC"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 799,
-          "bidPrice": 275.01,
-          "orderId": "68T38C54"
+          "bidPrice": 100,
+          "orderId": "NJ6CTJEX"
         }
       ]
     },
@@ -309,14 +309,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 59,
-          "bidPrice": 59.01,
-          "orderId": "NZ73J8N6"
+          "bidPrice": 10,
+          "orderId": "63LA37N4"
         },
         {
           "tier": "PLATINUM",
           "initialPrice": 299,
-          "bidPrice": 106,
-          "orderId": "AYGVJXME"
+          "bidPrice": 40,
+          "orderId": "5QKW5XAL"
         }
       ]
     },
@@ -328,14 +328,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 49,
-          "bidPrice": 11.03,
-          "orderId": "Q5XCGMQY"
+          "bidPrice": 8,
+          "orderId": "CY6VAZ95"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 499,
-          "bidPrice": 60.01,
-          "orderId": "VPZD9T9F"
+          "bidPrice": 25,
+          "orderId": "T4X4LB6Y"
         }
       ]
     },
@@ -347,14 +347,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 89,
-          "bidPrice": 83.01,
-          "orderId": "5NED4NRE"
+          "bidPrice": 15,
+          "orderId": "KXD8MFFZ"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 899,
-          "bidPrice": 688,
-          "orderId": "WYQBQBVP"
+          "bidPrice": 200,
+          "orderId": "PMXMPVF9"
         }
       ]
     },
@@ -366,14 +366,14 @@
         {
           "tier": "PLATINUM",
           "initialPrice": 299,
-          "bidPrice": 42.5,
-          "orderId": "56MPJ8LY"
+          "bidPrice": 25,
+          "orderId": "YXTFE39R"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 4999,
-          "bidPrice": 750.01,
-          "orderId": "XVVAYYKG"
+          "bidPrice": 200,
+          "orderId": "AACPEDPY"
         }
       ],
       "openseaUrl": "-kill-jill-feat-killer-mike-jeezy"
@@ -386,8 +386,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 40,
-          "bidPrice": 15.01,
-          "orderId": "NCXWW7R9"
+          "bidPrice": 2,
+          "orderId": "D9DAB95V"
         }
       ]
     },
@@ -399,14 +399,14 @@
         {
           "tier": "PLATINUM",
           "initialPrice": 199,
-          "bidPrice": 4,
-          "orderId": "TPG68WYZ"
+          "bidPrice": 0,
+          "orderId": null
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 1999,
-          "bidPrice": 35,
-          "orderId": "JWXNBNH6"
+          "bidPrice": 0,
+          "orderId": null
         }
       ],
       "openseaUrl": "-break-my-heart-again"
@@ -420,13 +420,13 @@
           "tier": "GOLD",
           "initialPrice": 65,
           "bidPrice": 1,
-          "orderId": "RF6KHJMC"
+          "orderId": "V8M8AKAQ"
         },
         {
           "tier": "PLATINUM",
           "initialPrice": 299,
-          "bidPrice": 4,
-          "orderId": "ETR3RHZM"
+          "bidPrice": 3,
+          "orderId": "97FBXXQW"
         }
       ]
     },
@@ -438,8 +438,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 49,
-          "bidPrice": 31.03,
-          "orderId": "JR3F7KHV"
+          "bidPrice": 10,
+          "orderId": "NCZA6JVZ"
         }
       ]
     },
@@ -451,47 +451,21 @@
         {
           "tier": "GOLD",
           "initialPrice": 5,
-          "bidPrice": 6.01,
-          "orderId": "A7NB39ND"
+          "bidPrice": 0,
+          "orderId": null
         }
       ]
     },
     {
-      "id": "royceda59-caterpillar",
-      "name": "Caterpillar ft. Eminem, King Green",
-      "royalties": 4.23,
-      "tiers": [
-        {
-          "tier": "GOLD",
-          "initialPrice": 79,
-          "bidPrice": 21,
-          "orderId": "BX3CJNVK"
-        },
-        {
-          "tier": "PLATINUM",
-          "initialPrice": 299,
-          "bidPrice": 20.02,
-          "orderId": "ETBRNL5H"
-        },
-        {
-          "tier": "DIAMOND",
-          "initialPrice": 1999,
-          "bidPrice": 100,
-          "orderId": "GHQ5C7BK"
-        }
-      ],
-      "openseaUrl": "-caterpillar-ft-eminem-king-green"
-    },
-    {
       "id": "insomnia",
       "name": "Insomnia",
-      "royalties": 8.13,
+      "royalties": 2.53,
       "tiers": [
         {
           "tier": "GOLD",
           "initialPrice": 99,
-          "bidPrice": 26.01,
-          "orderId": "R3XX8NJH"
+          "bidPrice": 3,
+          "orderId": "NVME6AWY"
         }
       ]
     },
@@ -503,8 +477,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 79,
-          "bidPrice": 25.01,
-          "orderId": "QJFJ35TM"
+          "bidPrice": 0,
+          "orderId": null
         }
       ]
     },
@@ -516,8 +490,8 @@
         {
           "tier": "PLATINUM",
           "initialPrice": 0,
-          "bidPrice": 75.01,
-          "orderId": "8R9HBAC3"
+          "bidPrice": 10,
+          "orderId": "W3XWNGAW"
         }
       ]
     },
@@ -529,8 +503,8 @@
         {
           "tier": "PLATINUM",
           "initialPrice": 0,
-          "bidPrice": 80.01,
-          "orderId": "R53HXJF7"
+          "bidPrice": 0,
+          "orderId": null
         }
       ],
       "openseaUrl": "-worst-case"
@@ -543,8 +517,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 39,
-          "bidPrice": 1,
-          "orderId": "59V638PF"
+          "bidPrice": 0,
+          "orderId": null
         }
       ]
     },
@@ -556,20 +530,20 @@
         {
           "tier": "GOLD",
           "initialPrice": 50,
-          "bidPrice": 30.01,
-          "orderId": "7JG6J5DZ"
+          "bidPrice": 5,
+          "orderId": "QYCQEJFT"
         },
         {
           "tier": "PLATINUM",
           "initialPrice": 250,
-          "bidPrice": 40.01,
-          "orderId": "WR5P6JEK"
+          "bidPrice": 45.01,
+          "orderId": "HAZM9LED"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 4999,
-          "bidPrice": 700,
-          "orderId": "DB3PYYCM"
+          "bidPrice": 200,
+          "orderId": "BRXGMBJY"
         }
       ],
       "openseaUrl": "-ultra-black"
@@ -582,14 +556,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 49,
-          "bidPrice": 12.01,
-          "orderId": "Y5C7LRR9"
+          "bidPrice": 8,
+          "orderId": "5T3PQZ6B"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 499,
-          "bidPrice": 134,
-          "orderId": "5H9PQNRR"
+          "bidPrice": 50,
+          "orderId": "LCNJF6Z6"
         }
       ]
     },
@@ -601,14 +575,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 85,
-          "bidPrice": 7,
-          "orderId": "RCL33T8Z"
+          "bidPrice": 5.51,
+          "orderId": "4XJHF5EF"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 599,
-          "bidPrice": 52,
-          "orderId": "R9TW8F8Q"
+          "bidPrice": 15,
+          "orderId": "CXYAFW35"
         }
       ]
     },
@@ -620,8 +594,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 45,
-          "bidPrice": 8,
-          "orderId": "ZQC93V8Y"
+          "bidPrice": 0,
+          "orderId": null
         }
       ]
     },
@@ -633,14 +607,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 29,
-          "bidPrice": 4,
-          "orderId": "DB9TYHGX"
+          "bidPrice": 3,
+          "orderId": "5Q8DT6KL"
         },
         {
           "tier": "PLATINUM",
           "initialPrice": 199,
-          "bidPrice": 30,
-          "orderId": "P7EYGLJM"
+          "bidPrice": 15,
+          "orderId": "JPV36NQX"
         }
       ]
     },
@@ -652,20 +626,20 @@
         {
           "tier": "GOLD",
           "initialPrice": 49,
-          "bidPrice": 28.01,
-          "orderId": "X7YYPJG3"
+          "bidPrice": 3,
+          "orderId": "6ZQMQKZY"
         },
         {
           "tier": "PLATINUM",
           "initialPrice": 299,
-          "bidPrice": 52,
-          "orderId": "PEEQRTKH"
+          "bidPrice": 20,
+          "orderId": "H74AP9PG"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 999,
-          "bidPrice": 200,
-          "orderId": "JVRV5CXC"
+          "bidPrice": 50,
+          "orderId": "JF4YP7JK"
         }
       ],
       "openseaUrl": "-no-halo-feat-asena"
@@ -678,14 +652,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 29,
-          "bidPrice": 25.01,
-          "orderId": "V3938RPR"
+          "bidPrice": 5,
+          "orderId": "6PTGJAJK"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 999,
-          "bidPrice": 400.01,
-          "orderId": "9YJYQM3E"
+          "bidPrice": 125,
+          "orderId": "Q6NB43MQ"
         }
       ]
     },
@@ -697,20 +671,20 @@
         {
           "tier": "GOLD",
           "initialPrice": 145,
-          "bidPrice": 15.51,
-          "orderId": "GB6Y7ZKX"
+          "bidPrice": 2,
+          "orderId": "TQFMA5EK"
         },
         {
           "tier": "PLATINUM",
           "initialPrice": 400,
-          "bidPrice": 8,
-          "orderId": "8ZTYRNZR"
+          "bidPrice": 7,
+          "orderId": "LHRQN5JM"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 950,
-          "bidPrice": 30,
-          "orderId": "V7QXWLLE"
+          "bidPrice": 25,
+          "orderId": "9NKGAF4A"
         }
       ],
       "openseaUrl": "-he-s-not-you"
@@ -723,14 +697,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 111,
-          "bidPrice": 25.02,
-          "orderId": "ZZMEHCP3"
+          "bidPrice": 11,
+          "orderId": "L5NDTFKN"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 3333,
-          "bidPrice": 600,
-          "orderId": "GHTZMB4X"
+          "bidPrice": 200,
+          "orderId": "HGG686F7"
         }
       ]
     },
@@ -742,8 +716,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 30,
-          "bidPrice": 38.01,
-          "orderId": "ZC3NA93E"
+          "bidPrice": 5,
+          "orderId": "P7D74YG3"
         }
       ]
     },
@@ -755,14 +729,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 125,
-          "bidPrice": 21.01,
-          "orderId": "9J9PGF3G"
+          "bidPrice": 20,
+          "orderId": "Q3E6H5JF"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 2450,
-          "bidPrice": 170,
-          "orderId": "8HWYKW7Z"
+          "bidPrice": 200,
+          "orderId": "VX4BEHEP"
         }
       ]
     },
@@ -774,8 +748,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 100,
-          "bidPrice": 70,
-          "orderId": "JQY99TAW"
+          "bidPrice": 20,
+          "orderId": "PLZPPXRM"
         }
       ]
     },
@@ -787,20 +761,20 @@
         {
           "tier": "GOLD",
           "initialPrice": 99,
-          "bidPrice": 15.01,
-          "orderId": "BMFZYV73"
+          "bidPrice": 8,
+          "orderId": "EYM88GKD"
         },
         {
           "tier": "PLATINUM",
           "initialPrice": 999,
-          "bidPrice": 145.02,
-          "orderId": "RF3V8NTD"
+          "bidPrice": 75,
+          "orderId": "MF35QFNZ"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 9999,
-          "bidPrice": 1000,
-          "orderId": "APQ9QHXG"
+          "bidPrice": 200,
+          "orderId": "Y4CMFVBV"
         }
       ],
       "openseaUrl": "-don-t-forget-my-love"
@@ -813,8 +787,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 24,
-          "bidPrice": 7.01,
-          "orderId": "XVLH6LN7"
+          "bidPrice": 0,
+          "orderId": null
         }
       ]
     },
@@ -826,14 +800,14 @@
         {
           "tier": "PLATINUM",
           "initialPrice": 99,
-          "bidPrice": 20.01,
-          "orderId": "WW36FHLR"
+          "bidPrice": 4,
+          "orderId": "MHA9HNZ4"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 999,
-          "bidPrice": 93.01,
-          "orderId": "L455TP5V"
+          "bidPrice": 45,
+          "orderId": "ZFQT99EY"
         }
       ],
       "openseaUrl": "-catching-on-feat-nevve"
@@ -846,20 +820,20 @@
         {
           "tier": "GOLD",
           "initialPrice": 0,
-          "bidPrice": 5.01,
-          "orderId": "WDKCRDDR"
+          "bidPrice": 0,
+          "orderId": null
         },
         {
           "tier": "PLATINUM",
           "initialPrice": 0,
-          "bidPrice": 3,
-          "orderId": "KW97FYVZ"
+          "bidPrice": 0,
+          "orderId": null
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 0,
-          "bidPrice": 15.03,
-          "orderId": "ZBNJJVDC"
+          "bidPrice": 0,
+          "orderId": null
         }
       ]
     },
@@ -871,20 +845,20 @@
         {
           "tier": "GOLD",
           "initialPrice": 75,
-          "bidPrice": 6,
-          "orderId": "DD6MQ6VV"
+          "bidPrice": 4,
+          "orderId": "GWRXPA47"
         },
         {
           "tier": "PLATINUM",
           "initialPrice": 249,
-          "bidPrice": 32,
-          "orderId": "X47J9C94"
+          "bidPrice": 18,
+          "orderId": "LLCQYYL9"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 749,
-          "bidPrice": 160,
-          "orderId": "WWXHNKCY"
+          "bidPrice": 60,
+          "orderId": "TTEXXF7H"
         }
       ],
       "openseaUrl": "-underrated"
@@ -897,14 +871,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 99,
-          "bidPrice": 35.01,
-          "orderId": "TBMY39HM"
+          "bidPrice": 6,
+          "orderId": "B3QW8NBP"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 519,
-          "bidPrice": 125.01,
-          "orderId": "LWWRD9P4"
+          "bidPrice": 30,
+          "orderId": "5TBYQA6L"
         }
       ]
     },
@@ -916,14 +890,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 149,
-          "bidPrice": 60.01,
-          "orderId": "XP6GQQ7E"
+          "bidPrice": 10,
+          "orderId": "84X4GT3C"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 999,
-          "bidPrice": 342,
-          "orderId": "C3WYF6DW"
+          "bidPrice": 111,
+          "orderId": "GKJWYMKZ"
         }
       ]
     },
@@ -935,8 +909,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 60,
-          "bidPrice": 1,
-          "orderId": "E9LX8VMV"
+          "bidPrice": 0,
+          "orderId": null
         }
       ]
     },
@@ -948,20 +922,20 @@
         {
           "tier": "GOLD",
           "initialPrice": 199,
-          "bidPrice": 8.02,
-          "orderId": "WDAE5935"
+          "bidPrice": 10.01,
+          "orderId": "4YV8C7VH"
         },
         {
           "tier": "PLATINUM",
           "initialPrice": 499,
-          "bidPrice": 30.02,
-          "orderId": "FJEVX8XA"
+          "bidPrice": 25,
+          "orderId": "QZPRFR4Z"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 999,
-          "bidPrice": 80.02,
-          "orderId": "RT5NRZGE"
+          "bidPrice": 51,
+          "orderId": "VR946R7V"
         }
       ],
       "openseaUrl": "-getaway"
@@ -974,8 +948,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 19,
-          "bidPrice": 7.01,
-          "orderId": "EX4QARNB"
+          "bidPrice": 0,
+          "orderId": null
         }
       ]
     },
@@ -987,8 +961,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 29,
-          "bidPrice": 3,
-          "orderId": "RBC4YR46"
+          "bidPrice": 0,
+          "orderId": null
         }
       ]
     },
@@ -1000,20 +974,20 @@
         {
           "tier": "GOLD",
           "initialPrice": 99,
-          "bidPrice": 41.01,
-          "orderId": "ZY9LYD3E"
+          "bidPrice": 10,
+          "orderId": "TCD4AKBF"
         },
         {
           "tier": "PLATINUM",
           "initialPrice": 499,
-          "bidPrice": 43,
-          "orderId": "V9JLRR6E"
+          "bidPrice": 30,
+          "orderId": "MTH3CEFQ"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 9999,
-          "bidPrice": 1000,
-          "orderId": "37H6HDY7"
+          "bidPrice": 200,
+          "orderId": "5JAPB6AF"
         }
       ],
       "openseaUrl": "-rare"
@@ -1026,14 +1000,14 @@
         {
           "tier": "GOLD",
           "initialPrice": 69,
-          "bidPrice": 17.01,
-          "orderId": "DCJRCCJK"
+          "bidPrice": 10.51,
+          "orderId": "8YTFWB8H"
         },
         {
           "tier": "DIAMOND",
           "initialPrice": 699,
-          "bidPrice": 110,
-          "orderId": "5946QFTE"
+          "bidPrice": 80,
+          "orderId": "ZTB9LR5A"
         }
       ]
     },
@@ -1045,8 +1019,8 @@
         {
           "tier": "GOLD",
           "initialPrice": 39,
-          "bidPrice": 21.01,
-          "orderId": "CJ866YL4"
+          "bidPrice": 0,
+          "orderId": null
         }
       ]
     },
@@ -1058,8 +1032,8 @@
         {
           "tier": "PLATINUM",
           "initialPrice": 0,
-          "bidPrice": 50,
-          "orderId": "KLRX4TME"
+          "bidPrice": 0,
+          "orderId": null
         }
       ]
     }

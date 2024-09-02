@@ -20,7 +20,7 @@ module.exports = {
           required: true,
         },
     ],
-    // deleted: Boolean,
+    deleted: true,
 
     callback: async (client, interaction) => {
 
@@ -30,6 +30,7 @@ module.exports = {
         });
 
         //Delete SingletonLock file
+        /*
         const commandToExecute = 'rm /home/ubuntu/.cache/puppeteer/SingletonLock';
 
         executeCommand(commandToExecute)
@@ -39,6 +40,7 @@ module.exports = {
         .catch((error) => {
             console.error(`Error executing command: ${error}`);
         });
+        */
 
         //Get the desiredYield introduced in the command by the user
         let numBids = interaction.options.get('num_bids').value

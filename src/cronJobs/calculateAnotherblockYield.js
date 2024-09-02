@@ -73,22 +73,26 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
         //Get the corresponding marketplaceUrl depending on the currentSource.url
         for (const sourceEntry of dropSources) {
 
+            /*
             console.log(
                 `${collectionName}\n` +
                 `Collection ID: ${collectionId}\n` +
                 `sourceEntry.source: ${sourceEntry.source}\n` +
                 `source: ${source}\n`
             );
+            */
 
             if (sourceEntry.source === source) {
                 marketplaceCollectionUrl = encodeURIComponent(sourceEntry.marketplaceUrl);
 
+                /*
                 console.log(
                     `${collectionName}\n` +
                     `Collection ID: ${collectionId}\n` +
                     `sourceEntry.source: ${sourceEntry.source}\n` +
                     `marketplaceCollectionUrl: ${marketplaceCollectionUrl}\n`
                 );
+                */
 
                 break;
             }
@@ -137,15 +141,17 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                             
                             marketplaceSongUrl = encodeURIComponent(dropTittle.song)
                             const embedResultUrl = marketplaceUrl + marketplaceCollectionFixedUrl + marketplaceCollectionUrl + marketplaceFilterUrl + marketplaceSongUrl
-
+                        
+                            /*
                             console.log(
                                 `embedResultUrl: ${embedResultUrl}\n` +
                                 `marketplaceUrl: ${marketplaceUrl}\n` +
                                 `marketplaceCollectionFixedUrl: ${marketplaceCollectionFixedUrl}\n` +
-                                `marketplaceCollectionUrl: ${marketplaceCollectionUrl}\n`
+                                `marketplaceCollectionUrl: ${marketplaceCollectionUrl}\n` +
                                 `marketplaceFilterUrl: ${marketplaceFilterUrl}\n` +
                                 `marketplaceSongUrl: ${marketplaceSongUrl}\n`
                             );
+                            */
 
                             if (expectedYield >= adjustedyieldThreshold || (floorPriceInDollar <= collectionInitialPrize * initialPricePonderation && expectedYield >= minYield)) {
                                 yieldResults.push({
@@ -174,14 +180,13 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
 
             embedResultUrl = marketplaceUrl + marketplaceCollectionFixedUrl + marketplaceCollectionUrl
 
-            
+            /*
             console.log(
                 `${collectionName}\n` +
                 `Floor Price: ${floorPrice}\n` +
                 `Royalties: ${collectionRoyalties}\n` +
                 `Initial Price: ${collectionInitialPrize}\n`
             );
-            
 
             console.log(
                 `embedResultUrl: ${embedResultUrl}\n` +
@@ -189,6 +194,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
                 `marketplaceCollectionFixedUrl: ${marketplaceCollectionFixedUrl}\n` +
                 `marketplaceCollectionUrl: ${marketplaceCollectionUrl}\n`
             );
+            */
 
             //If collectionRoyalties is defined and not null, then calculate the expectedYield
             if (collectionRoyalties) {

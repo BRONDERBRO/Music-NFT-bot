@@ -50,7 +50,7 @@
         {
             "name": "Company (Justin Bieber)",
             "value": "0xD3d333E6FeD17f273D0415Df567ed5Eb65e8BB28",
-            "royalties": 0.0535,
+            "royalties": 0.046,
             "initialPrice": 27.73,
             "sources": [
                 {
@@ -80,7 +80,7 @@
         {
             "name": "So Far Away (David Guetta & Martin Garrix)",
             "value": "0x65beEC116a625e2F68B6C04313105fE10F510135",
-            "royalties": 0.122,
+            "royalties": 0.29,
             "initialPrice": 144,
             "sources": [
                 {
@@ -97,7 +97,7 @@
         {
             "name": "Bitch Better Have My Money (Rihanna)",
             "value": "0xCB8399D84e17fD5B4e955C716647c7BB2C35Ab63",
-            "royalties": 0.161,
+            "royalties": 0.084,
             "initialPrice": 210,
             "sources": [
                 {
@@ -114,7 +114,7 @@
         {
             "name": "Ric Flair Drip (Offset & Metro Boomin)",
             "value": "0xFE5209ac341835670fA731383D5d28c8A093dda3",
-            "royalties": 0.115,
+            "royalties": 0.093,
             "initialPrice": 99,
             "sources": [
                 {
@@ -153,19 +153,19 @@
             "tittles": [
                 {
                    "song": "Alone pt. II",
-                   "royalties": 0.075,
+                   "royalties": 0.073,
                    "initialPrice": 88,
                    "anotherblockUrlId": "3"
                 },
                 {
                    "song": "Acquainted",
-                   "royalties": 0.114,
+                   "royalties": 0.128,
                    "initialPrice": 107.76,
                    "anotherblockUrlId": "2"
                 },
                 {
                    "song": "Weekend On A Tuesday",
-                   "royalties": 0.069,
+                   "royalties": 0.037,
                    "initialPrice": 87.31,
                    "anotherblockUrlId": "1"
                 }

@@ -1,0 +1,31 @@
+const fetch = require('cross-fetch');
+
+module.exports = async (url, options, retries = 5, backoff = 3000) => {
+    for (let i = 0; i < retries; i++) {
+        try {
+            const response = await fetch(url, options);
+            if (response.ok) {
+                return await response.json(); // Return the parsed JSON directly if the response is ok
+            } else if (response.status === 429 && i < retries - 1) {
+                // Handle rate limit case with retry
+                //console.warn(`Rate limit exceeded. Retrying in ${backoff}ms... (Attempt ${i + 1}/${retries})`);
+                await new Promise(resolve => setTimeout(resolve, backoff));
+                backoff *= 2; // Exponential backoff for next retry
+            } else {
+                // Log detailed error information if not rate limit
+                console.error(`Failed to fetch data from ${url}. Status: ${response.status} ${response.statusText}`);
+                throw new Error(`Failed to fetch data from ${url}. Status: ${response.status}`);
+            }
+        } catch (error) {
+            // Detailed error logging
+            console.warn(`Attempt ${i + 1}/${retries} failed with error: ${error.message}`);
+            if (i === retries - 1) {
+                console.error(`All retries failed for ${url}`);
+                throw error; // Re-throw the error on the final attempt
+            }
+            // Wait before retrying
+            await new Promise(resolve => setTimeout(resolve, backoff));
+            backoff *= 2; // Exponential backoff for subsequent retries
+        }
+    }
+};

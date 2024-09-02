@@ -13,7 +13,7 @@ module.exports = {
     devOnly: true,
     // testOnly: Boolean,
     // options: Object[],
-    // deleted: Boolean,
+    deleted: true,
 
     callback: async (client, interaction) => {
 

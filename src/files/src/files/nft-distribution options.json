@@ -1,5 +1,20 @@
 [
     {
+        "name": "We Are Bulletproof: The Eternal (BTS)",
+        "value": "0x580F0BEC9dfc7d6C41702077519695101028597E",
+        "blockchain": "Base"
+    },
+    {
+        "name": "Hate Me (Lil Peep)",
+        "value": "0xfa1e5e3eb01deffa53be3e5a76e8dcfd43169408",
+        "blockchain": "Base"
+    },
+    {
+        "name": "Solo Dance (Martin Jensen)",
+        "value": "0x0affeE09f95399Ec05d405d1633eF0dA072FbA0f",
+        "blockchain": "Base"
+    },
+    {
         "name": "Company (Justin Bieber)",
         "value": "0xD3d333E6FeD17f273D0415Df567ed5Eb65e8BB28",
         "blockchain": "Base"

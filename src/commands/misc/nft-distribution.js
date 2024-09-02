@@ -25,8 +25,7 @@ module.exports = {
         description: 'Collection to be searched',
         type: ApplicationCommandOptionType.String,
         //define the parameters that can be passed to the "nft-distribution" command
-        choices: options
-        ,
+        choices: options,
         required: true,
     }, ],
 

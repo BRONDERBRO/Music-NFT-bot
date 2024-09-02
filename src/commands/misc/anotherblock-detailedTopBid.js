@@ -311,9 +311,9 @@ module.exports = {
                                 }
 
                             } 
-                            /*else {
+                            else {
                                 console.log("No matching record found for the provided collectionId.");
-                            }*/
+                            }
                             
                         } else {
 

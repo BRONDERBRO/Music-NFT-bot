@@ -25,8 +25,8 @@ module.exports = async (client, desiredYield, maxPrice) => {
     const royalUrl = 'https://royal.io/editions/';
     const tierUrl = '?tier=';
 
-    const minimumPrice = 10 //Anything below $10 will send a DM
-    const minimumYield = 7 // Below 7% yield, no DM is sent
+    const minimumPrice = 10 //Anything below $1 will send a DM
+    const minimumYield = 30 // Below 30% yield, no DM is sent
     const diamondYieldPonderation = 0.6 //Desired yield for Diamond tier NFTs compared to desiredYield
     const platinumYieldPonderation = 0.6 //Desired yield for Platinum tier NFTs compared to desiredYield
     const goldYieldPonderation = 0.8 //Desired yield for Gold tier NFTs compared to desiredYield

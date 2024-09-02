@@ -11,6 +11,8 @@ module.exports = {
     description: 'Calculates the price of each Royal song to achieve a defined yield %',
     // devOnly: Boolean,
     // testOnly: Boolean,
+    // options: Object[],
+    deleted: true,
     options: [
         {
           name: 'yield_percentage',
