@@ -37,6 +37,7 @@ module.exports = {
         let marketplaceUrl = null
         let marketplaceCollectionFixedUrl = null
         let marketplaceFilterUrl = null
+        let marketplacePostFilterUrl = null
         let marketplaceSongUrl = null
         let marketplaceCollectionUrl = null
         let embedResultUrl = null
@@ -49,7 +50,8 @@ module.exports = {
             { name: 'BLUR', url: 'blur.io' },
             { name: 'OPENSEA', url: 'opensea.io' },
             //{ name: 'ANOTHERBLOCK', url: 'market.anotherblock.io' },
-            { name: 'RESERVOIR', url: 'explorer.reservoir.tools' }
+            { name: 'RESERVOIR', url: 'explorer.reservoir.tools' },
+            { name: 'MAGICEDEN', url: 'magiceden.io' }
         ];
 
         let source = [];
@@ -99,6 +101,13 @@ module.exports = {
                 marketplaceCollectionFixedUrl = '/collection/'
                 marketplaceFilterUrl = '?attributes%5BSong%5D='
 
+            } else if (currentSource.name === 'MAGICEDEN'){
+
+                marketplaceUrl = 'https://magiceden.io/'
+                marketplaceCollectionFixedUrl = 'collections/ethereum/'
+                marketplaceFilterUrl = '?attributes=%7B"Song"%3A%5B"%7B%5C"value%5C"%3A%5C"'
+                marketplacePostFilterUrl = '%5C"%7D"%5D%7D'
+
             }
 
             //Loop drops json file
@@ -133,7 +142,7 @@ module.exports = {
                 collectionSong = null
 
                 let fetchedReservoir = await reservoirFetchOrderBid(collectionBlockchain, collectionId, collectionSong, source, null);
-
+                
                 //For blur.io, I don't need to loop the different songs
                 //Check if drop has different songs (for blur.io don't loop the songs)
                 if (dropHasDifferentSongs(drop) && currentSource.name !== 'BLUR') {

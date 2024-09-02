@@ -107,6 +107,10 @@
                 {
                     "source": "explorer.reservoir.tools",
                     "marketplaceUrl": "0xCB8399D84e17fD5B4e955C716647c7BB2C35Ab63"
+                },
+                {
+                    "source": "magiceden.io",
+                    "marketplaceUrl": "0xcb8399d84e17fd5b4e955c716647c7bb2c35ab63"
                 }
             ],
             "blockchain": "Ethereum"

@@ -53,7 +53,6 @@ module.exports = {
             let collectionSong = null
 
             const fetchedReservoir = await reservoirFetchOrderBid(collectionBlockchain, collectionId, collectionSong, source, null);
-
             
             if (fetchedReservoir.orders.length > 0){
 
