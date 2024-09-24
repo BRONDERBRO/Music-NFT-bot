@@ -129,7 +129,7 @@ module.exports = async (client, yieldThreshold, minimumYieldThreshold) => {
             url: embedResultUrl
         });
 
-        if (expectedYield >= yieldThreshold || floorPrice <= initialPrize * goldLimitPricePonderation || (floorPrice <= minimumPrice && expectedYield >= minimumYieldThreshold)) {
+        if (expectedYield >= yieldThreshold || (floorPrice <= initialPrize * goldLimitPricePonderation && expectedYield >= minimumYieldThreshold)|| (floorPrice <= minimumPrice && expectedYield >= minimumYieldThreshold)) {
 
             /*
             console.log(

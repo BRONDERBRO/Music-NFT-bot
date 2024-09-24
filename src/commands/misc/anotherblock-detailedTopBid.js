@@ -47,11 +47,11 @@ module.exports = {
         let topBidder = null;
 
         const sources = [
-            { name: 'BLUR', url: 'blur.io' },
+            //{ name: 'BLUR', url: 'blur.io' },
             { name: 'OPENSEA', url: 'opensea.io' },
             //{ name: 'ANOTHERBLOCK', url: 'market.anotherblock.io' },
-            { name: 'RESERVOIR', url: 'explorer.reservoir.tools' },
-            { name: 'MAGICEDEN', url: 'magiceden.io' }
+            { name: 'RESERVOIR', url: 'explorer.reservoir.tools' }//,
+            //{ name: 'MAGICEDEN', url: 'magiceden.io' }
         ];
 
         let source = [];

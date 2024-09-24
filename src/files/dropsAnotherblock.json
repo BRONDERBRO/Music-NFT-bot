@@ -2,197 +2,190 @@
     "drops": [
         {
             "name": "We Are Bulletproof: The Eternal (BTS)",
-            "value": "0xfa1e5e3eb01deffa53be3e5a76e8dcfd43169408",
+            "value": "0x9f9982baca644d50e4d5daf80be09ce67dcb6f1a",
             "royalties": 0.051,
             "initialPrice": 63,
             "sources": [
                 {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "we-are-bulletproof-the-eternal"
+                },
+                {
                     "source": "explorer.reservoir.tools",
-                    "marketplaceUrl": "0x580F0BEC9dfc7d6C41702077519695101028597E"
+                    "marketplaceUrl": "0x9f9982baca644d50e4d5daf80be09ce67dcb6f1a"
                 }
             ],
             "blockchain": "Base"        
         },
         {
             "name": "Hate Me (Lil Peep)",
-            "value": "0xfa1e5e3eb01deffa53be3e5a76e8dcfd43169408",
+            "value": "0x067342de10afc725782988302dffe4628ca09591",
             "royalties": 0.092,
             "initialPrice": 60,
             "sources": [
                 {
                     "source": "opensea.io",
-                    "marketplaceUrl": "lil-peep-hate-me"
+                    "marketplaceUrl": "hate-me-3"
                 },
                 {
                     "source": "explorer.reservoir.tools",
-                    "marketplaceUrl": "0xfa1e5e3eb01deffa53be3e5a76e8dcfd43169408"
+                    "marketplaceUrl": "0x067342de10afc725782988302dffe4628ca09591"
                 }
             ],
             "blockchain": "Base"        
         },
         {
             "name": "Solo Dance (Martin Jensen)",
-            "value": "0x0affeE09f95399Ec05d405d1633eF0dA072FbA0f",
+            "value": "0x8b06b02f5d1889e1e5c034596badfb15d7d5b851",
             "royalties": 0.063,
             "initialPrice": 35.40,
             "sources": [
                 {
                     "source": "opensea.io",
-                    "marketplaceUrl": "martin-jensen-solo-dance"
+                    "marketplaceUrl": "solo-dance"
                 },
                 {
                     "source": "explorer.reservoir.tools",
-                    "marketplaceUrl": "0x0affeE09f95399Ec05d405d1633eF0dA072FbA0f"
+                    "marketplaceUrl": "0x8b06b02f5d1889e1e5c034596badfb15d7d5b851"
                 }
             ],
             "blockchain": "Base"        
         },
         {
             "name": "Company (Justin Bieber)",
-            "value": "0xD3d333E6FeD17f273D0415Df567ed5Eb65e8BB28",
+            "value": "0x78fd173cb5da7e9df8ed0f0f7543170026eda0d9",
             "royalties": 0.046,
             "initialPrice": 27.73,
             "sources": [
                 {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "company-25"
+                },
+                {
                     "source": "explorer.reservoir.tools",
-                    "marketplaceUrl": "0xd3d333e6fed17f273d0415df567ed5eb65e8bb28"
+                    "marketplaceUrl": "0x78fd173cb5da7e9df8ed0f0f7543170026eda0d9"
                 }
             ],
             "blockchain": "Base"        
         },
         {
             "name": "This Is Why I'm Hot (Mims)",
-            "value": "0xbeff0289168f9589337838c826162da9dc29993d",
-            "royalties": 0.066,
+            "value": "0xd69128860ac6da5d2c2ec592a8bbbce7fabc113b",
+            "royalties": 0.065,
             "initialPrice": 150,
             "sources": [
                 {
                     "source": "opensea.io",
-                    "marketplaceUrl": "this-is-why-im-hot"
+                    "marketplaceUrl": "this-is-why-i-m-hot"
                 },
                 {
                     "source": "explorer.reservoir.tools",
-                    "marketplaceUrl": "0xbeff0289168f9589337838c826162da9dc29993d"
+                    "marketplaceUrl": "0xd69128860ac6da5d2c2ec592a8bbbce7fabc113b"
                 }
             ],
-            "blockchain": "Ethereum"
+            "blockchain": "Base"
         },
         {
             "name": "So Far Away (David Guetta & Martin Garrix)",
-            "value": "0x65beEC116a625e2F68B6C04313105fE10F510135",
-            "royalties": 0.29,
+            "value": "0x7be8f94654fcee791cf58b506d66fe9d9912b29c",
+            "royalties": 0.295,
             "initialPrice": 144,
             "sources": [
                 {
                     "source": "opensea.io",
-                    "marketplaceUrl": "so-far-away-anotherblock"
+                    "marketplaceUrl": "so-far-away-3"
                 },
                 {
                     "source": "explorer.reservoir.tools",
-                    "marketplaceUrl": "0x65beEC116a625e2F68B6C04313105fE10F510135"
+                    "marketplaceUrl": "0x7be8f94654fcee791cf58b506d66fe9d9912b29c"
                 }
             ],
-            "blockchain": "Ethereum"
+            "blockchain": "Base"
         },
         {
             "name": "Bitch Better Have My Money (Rihanna)",
-            "value": "0xCB8399D84e17fD5B4e955C716647c7BB2C35Ab63",
-            "royalties": 0.084,
+            "value": "0x755e8abbed2442ac6b408a53d9beb08cc6e2faae",
+            "royalties": 0.139,
             "initialPrice": 210,
             "sources": [
                 {
-                    "source": "blur.io",
-                    "marketplaceUrl": "rihanna-bitch-better-have-my-money"
+                    "source": "opensea.io",
+                    "marketplaceUrl": "bitch-better-have-my-money-7"
                 },
                 {
                     "source": "explorer.reservoir.tools",
-                    "marketplaceUrl": "0xCB8399D84e17fD5B4e955C716647c7BB2C35Ab63"
-                },
-                {
-                    "source": "magiceden.io",
-                    "marketplaceUrl": "0xcb8399d84e17fd5b4e955c716647c7bb2c35ab63"
+                    "marketplaceUrl": "0x755e8abbed2442ac6b408a53d9beb08cc6e2faae"
                 }
             ],
-            "blockchain": "Ethereum"
+            "blockchain": "Base"
         },
         {
             "name": "Ric Flair Drip (Offset & Metro Boomin)",
-            "value": "0xFE5209ac341835670fA731383D5d28c8A093dda3",
-            "royalties": 0.093,
+            "value": "0x8ac1bb6b1c35174641b2f61a38ef9203663e961c",
+            "royalties": 0.103,
             "initialPrice": 99,
             "sources": [
                 {
-                    "source": "blur.io",
-                    "marketplaceUrl": "ric-flair-drip"
-                },
-                {
                     "source": "opensea.io",
-                    "marketplaceUrl": "ric-flair-drip"
+                    "marketplaceUrl": "ric-flair-drip-2"
                 },
                 {
                     "source": "explorer.reservoir.tools",
-                    "marketplaceUrl": "0xFE5209ac341835670fA731383D5d28c8A093dda3"
+                    "marketplaceUrl": "0x8ac1bb6b1c35174641b2f61a38ef9203663e961c"
                 }
             ],
-            "blockchain": "Ethereum"
+            "blockchain": "Base"
         },
         {
-            "name": "Anotherblock Season 1",
-            "value": "0x9ef75b412D8466B9b35F3A1Bf7a809a5C6d0Aa7C",
+            "name": "Alone pt. II (Alan Walker)",
+            "value": "0x4a5b90f6dee91a13f2be4ebd9822ebd97357b4c0",
+            "royalties": 0.065,
+            "initialPrice": 88,
             "sources": [
                 {
-                    "source": "blur.io",
-                    "marketplaceUrl": "anotherblock"
-                },
-                {
                     "source": "opensea.io",
-                    "marketplaceUrl": "anotherblock-season-1"
+                    "marketplaceUrl": "alone-pt-ii"
                 },
                 {
                     "source": "explorer.reservoir.tools",
-                    "marketplaceUrl": "0x9ef75b412D8466B9b35F3A1Bf7a809a5C6d0Aa7C"
+                    "marketplaceUrl": "0x4a5b90f6dee91a13f2be4ebd9822ebd97357b4c0"
                 }
             ],
-            "blockchain": "Ethereum",
-            "tittles": [
-                {
-                   "song": "Alone pt. II",
-                   "royalties": 0.073,
-                   "initialPrice": 88,
-                   "anotherblockUrlId": "3"
-                },
-                {
-                   "song": "Acquainted",
-                   "royalties": 0.128,
-                   "initialPrice": 107.76,
-                   "anotherblockUrlId": "2"
-                },
-                {
-                   "song": "Weekend On A Tuesday",
-                   "royalties": 0.037,
-                   "initialPrice": 87.31,
-                   "anotherblockUrlId": "1"
-                }
-            ]
+            "blockchain": "Base"
         },
         {
-            "name": "pfp",
-            "value": "0x9ffb419404a5b1b8551d0127Ed3562D9E622292E",
+            "name": "Acquainted (The Weeknd)",
+            "value": "0xc5ce7a88f97fbc3a7ec641611850102eeed5d9f7",
+            "royalties": 0.080,
+            "initialPrice": 107.76,
             "sources": [
                 {
-                    "source": "blur.io",
-                    "marketplaceUrl": "anotherpfp"
-                },
-                {
                     "source": "opensea.io",
-                    "marketplaceUrl": "anotherpfp"
+                    "marketplaceUrl": "acquainted"
                 },
                 {
                     "source": "explorer.reservoir.tools",
-                    "marketplaceUrl": "0x9ffb419404a5b1b8551d0127Ed3562D9E622292E"
+                    "marketplaceUrl": "0xc5ce7a88f97fbc3a7ec641611850102eeed5d9f7"
                 }
             ],
-            "blockchain": "Ethereum"
+            "blockchain": "Base"
+        },
+        {
+            "name": "Weekend On A Tuesday (Laidback Luke)",
+            "value": "0x24166ba9b91d16382948e888f213771c6c8d0851",
+            "royalties": 0.019,
+            "initialPrice": 87.31,
+            "sources": [
+                {
+                    "source": "opensea.io",
+                    "marketplaceUrl": "weekend-on-a-tuesday"
+                },
+                {
+                    "source": "explorer.reservoir.tools",
+                    "marketplaceUrl": "0x24166ba9b91d16382948e888f213771c6c8d0851"
+                }
+            ],
+            "blockchain": "Base"
         }
     ]
 }

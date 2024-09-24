@@ -158,8 +158,15 @@ module.exports = {
 
                 const fetchedReservoir = await reservoirFetchCollection(collectionBlockchain, collectionId);
 
-                floorPrice = fetchedReservoir.collections[0].floorAsk.price.amount.decimal;
+                floorPrice = fetchedReservoir.collections[0].floorAsk?.price?.amount?.decimal ?? 0;
                 floorPriceInDollar = floorPrice * ETHPrice
+
+                /*
+                console.log(
+                    `collectionName: ${collectionName}\n` +
+                    `floorPriceInDollar: ${floorPriceInDollar}\n`
+                );
+                */
 
                 const maker = fetchedReservoir.collections[0].floorAsk.maker;
                 const sellOwner = maker === process.env.WALLET_ADDRESS ? 'BRONDER' : 'Other';

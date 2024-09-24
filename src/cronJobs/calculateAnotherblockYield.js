@@ -40,7 +40,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
     let marketplaceSongUrl = null
 
     const initialPricePonderation = 0.5 //If the bidPrice is less than initialPrice * initialPricePonderation, and the max bidder is not me, a DM is sent
-    const minYield = 10 //If yield is below 10%, no DM is sent
+    const minYield = 20 //If yield is below 10%, no DM is sent
 
     source = 'explorer.reservoir.tools'
 
@@ -175,7 +175,7 @@ module.exports = async (client, yieldThreshold, pfpFloor) => {
 
             const fetchedReservoir = await reservoirFetchCollection(collectionBlockchain, collectionId);
 
-            const floorPrice = fetchedReservoir.collections[0].floorAsk.price.amount.decimal;
+            const floorPrice = fetchedReservoir.collections[0].floorAsk?.price?.amount?.decimal ?? 0;
             const floorPriceInDollar = floorPrice * ETHPrice
 
             embedResultUrl = marketplaceUrl + marketplaceCollectionFixedUrl + marketplaceCollectionUrl
